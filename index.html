@@ -27,13 +27,17 @@
       cursor: none;
     }
     a, button { cursor: none; }
+    @media (hover: none) and (pointer: coarse) {
+      body, a, button { cursor: auto; }
+      .cursor { display: none !important; }
+    }
 
     .cursor {
       position: fixed;
       width: 34px; height: 34px;
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 10001;
       transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.4s ease, transform 0.3s var(--ease);
       transform: translate(-50%, -50%);
       border: 3px solid rgba(255,255,255,0.25);
@@ -268,6 +272,13 @@
       transform: scale(1.15);
       transition: transform 1.8s var(--ease), filter 1.8s var(--ease), opacity 0.5s ease;
       z-index: 0;
+    }
+    @media (max-width: 640px) {
+      .car-section .bg {
+        background-size: contain;
+        background-position: center 40%;
+        background-repeat: no-repeat;
+      }
     }
     .car-section.revealed .bg {
       filter: brightness(0.6) saturate(1.05);
@@ -741,8 +752,19 @@
     }
 
     @media (max-width: 480px) {
-      .spec-grid { grid-template-columns: 1fr; }
-      .spec-panel { padding: 28px 24px; }
+      .nav { padding: 10px 12px; }
+      .nav .logo { font-size: 0.9rem; }
+      .overlay h2 { font-size: 1.1rem; }
+      .overlay .specs { gap: 6px; font-size: 0.55rem; }
+      .overlay .specs span { padding: 3px 8px; }
+      .overlay .price { font-size: 1.1rem; }
+      .main-img-wrap { max-height: 32vh; }
+      .angle-btn { width: 30px; height: 30px; }
+      .car-arrow { width: 30px; height: 30px; font-size: 0.65rem; left: 6px; right: 6px; }
+      .spec-panel { padding: 20px 14px; margin: 8px; }
+      .spec-grid { gap: 4px; }
+      .spec-item { padding: 6px 10px; }
+      .spec-header h3 { font-size: 0.85rem; }
     }
 
     .scroll-hint {
@@ -790,10 +812,27 @@
       .overlay { padding: 20px 16px 30px; }
       .overlay h2 { font-size: 1.4rem; }
       .main-img-wrap { max-height: 38vh; max-width: 92%; }
-      .nav { padding: 14px 16px; }
-      .side-nav { right: 10px; }
+      .nav { padding: 14px 16px; flex-wrap: wrap; gap: 6px; }
+      .nav .counter-current { order: 3; width: 100%; text-align: right; font-size: 0.65rem; }
+      .nav .side-text { font-size: 0.55rem; }
+      .specs-btn { font-size: 0.55rem; padding: 6px 16px; }
+      .side-nav { right: 8px; gap: 6px; }
+      .side-nav .dot .dot-num { width: 24px; height: 24px; font-size: 0.55rem; }
       .angle-btn { width: 36px; height: 36px; }
       .angle-selector { gap: 6px; }
+      .car-arrow { width: 36px; height: 36px; font-size: 0.8rem; left: 10px; right: 10px; }
+      .car-arrow.prev { left: 10px; }
+      .car-arrow.next { right: 10px; }
+      .spec-panel { padding: 24px 16px; margin: 12px; max-height: 85vh; }
+      .spec-grid { grid-template-columns: 1fr; gap: 6px; }
+      .spec-item { padding: 8px 12px; }
+      .spec-header h3 { font-size: 1rem; }
+      .preloader .counter { font-size: 3rem; }
+      .scroll-hint { bottom: 16px; }
+      .scroll-hint .text { font-size: 0.5rem; }
+      .scroll-container { scroll-snap-type: y mandatory; }
+      .car-section { height: 100dvh; }
+      .nav-side { display: none; }
     }
   </style>
 </head>
@@ -946,6 +985,12 @@
     const preloaderBar = document.getElementById('preloaderBar');
 
     let mx = 0, my = 0, cx = 0, cy = 0;
+    // Center cursor on load
+    cx = window.innerWidth / 2;
+    cy = window.innerHeight / 2;
+    mx = cx; my = cy;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
     (function loop() {
       cx += (mx - cx) * 0.12;
@@ -1219,6 +1264,18 @@
         cursor.classList.remove('hovering');
       }
     });
+
+    // Disable cursor animation on touch devices
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      document.querySelectorAll('a, button, .dot, .angle-btn, .car-arrow').forEach(el => {
+        el.addEventListener('touchstart', function() {
+          this.style.transform = 'scale(0.95)';
+        }, { passive: true });
+        el.addEventListener('touchend', function() {
+          this.style.transform = '';
+        }, { passive: true });
+      });
+    }
   </script>
 </body>
 </html>
