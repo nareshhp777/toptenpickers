@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top 10 Cars</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --accent: #ff4d4d;
+      --accent2: #ff9a3c;
+      --bg: #06080f;
+      --card-bg: rgba(255,255,255,0.04);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: #e8edf5;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    a, button { cursor: none; }
+
+    .cursor {
+      position: fixed;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.4s ease, transform 0.3s var(--ease);
+      transform: translate(-50%, -50%);
+      border: 3px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
+      background: transparent;
+    }
+    .cursor .cl {
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
+      border-radius: 50%;
+      background: white;
+      padding: 5px;
+      overflow: hidden;
+    }
+    .cursor .cl img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .cursor.has-brand .cl {
+      opacity: 1;
+    }
+    .cursor.hovering {
+      width: 52px; height: 52px;
+    }
+
+    .preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .preloader.done { opacity: 0; visibility: hidden; }
+    .preloader .counter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .preloader .bar {
+      width: 200px; height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .preloader .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0%;
+      border-radius: 2px;
+      transition: width 0.1s linear;
+    }
+    .preloader .tag {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .scroll-container {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      mix-blend-mode: difference;
+    }
+    .nav .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+    .nav .counter-current {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 1px;
+    }
+    .nav .counter-current span { color: var(--accent2); font-weight: 700; }
+    .nav .side-text {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .nav .nav-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .side-nav {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .side-nav .dot {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+    .side-nav .dot .dot-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 0;
+      overflow: hidden;
+      transition: max-width 0.45s var(--ease);
+    }
+    .side-nav .dot .dot-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.5rem;
+      color: var(--car-accent, var(--accent));
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1.4;
+      opacity: 0;
+      transition: opacity 0.3s var(--ease) 0.1s;
+      text-shadow: 0 0 12px rgba(0,0,0,0.8);
+    }
+    .side-nav .dot .dot-line {
+      height: 1.5px;
+      width: 100%;
+      background: var(--car-accent, var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s var(--ease) 0.1s;
+      box-shadow: 0 0 6px var(--car-glow, rgba(255,77,77,0.3));
+      margin-top: 2px;
+    }
+    .side-nav .dot .dot-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+      flex-shrink: 0;
+      margin-left: 0;
+      transition: margin-left 0.45s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease), color 0.4s var(--ease);
+    }
+    .side-nav .dot:hover .dot-num {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.7);
+      transform: scale(1.15);
+    }
+    .side-nav .dot.active .dot-num {
+      background: var(--car-accent, var(--accent));
+      border-color: var(--car-accent, var(--accent));
+      box-shadow: 0 0 14px var(--car-glow, rgba(255,77,77,0.5));
+      color: #fff;
+      transform: scale(1.15);
+      margin-left: 10px;
+    }
+    .side-nav .dot.active .dot-left {
+      max-width: 160px;
+    }
+    .side-nav .dot.active .dot-label,
+    .side-nav .dot.active .dot-line {
+      opacity: 1;
+    }
+    .side-nav .dot.active.compact .dot-left {
+      max-width: 0;
+    }
+    .side-nav .dot.active.compact .dot-label,
+    .side-nav .dot.active.compact .dot-line {
+      opacity: 0;
+    }
+    .side-nav .dot.active.compact .dot-num {
+      margin-left: 0;
+    }
+
+    .car-section {
+      position: relative;
+      height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .car-section .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.45) saturate(1.1);
+      transform: scale(1.15);
+      transition: transform 1.8s var(--ease), filter 1.8s var(--ease), opacity 0.5s ease;
+      z-index: 0;
+    }
+    .car-section.revealed .bg {
+      filter: brightness(0.6) saturate(1.05);
+      transform: scale(1.02);
+    }
+    .car-section .bg.fading {
+      opacity: 0;
+    }
+
+    .car-section .noise {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px;
+      pointer-events: none;
+    }
+
+    .car-section .vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, var(--bg) 100%);
+      pointer-events: none;
+    }
+
+    .car-section .grid-lines {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+    .car-section.revealed .grid-lines { opacity: 1; }
+
+    .car-section .glow-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 600px; height: 600px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255,77,77,0);
+      z-index: 0;
+      transition: border-color 1.5s ease;
+      pointer-events: none;
+    }
+    .car-section.revealed .glow-ring {
+      border-color: var(--car-glow-border, rgba(255,77,77,0.08));
+      animation: ring-pulse 4s ease-in-out infinite;
+    }
+    @keyframes ring-pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+
+    .car-arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      transform: translateY(-50%) translateX(0) scale(0.7);
+      border: none;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: rgba(255,255,255,0.8);
+      font-size: 2rem;
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.5s var(--ease);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .car-arrow.prev { left: 240px; }
+    .car-arrow.next { right: 240px; }
+    .car-section.revealed .car-arrow {
+      pointer-events: auto;
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+      transition-delay: 0.6s;
+    }
+    .car-arrow:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+      transform: translateY(-50%) scale(1.12);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 30px var(--car-glow, rgba(255,77,77,0.15));
+    }
+    .car-arrow:active {
+      transform: translateY(-50%) scale(0.92);
+    }
+    .car-arrow.prev:hover {
+      transform: translateY(-50%) scale(1.12) translateX(-4px);
+    }
+    .car-arrow.next:hover {
+      transform: translateY(-50%) scale(1.12) translateX(4px);
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 40px 40px 55px;
+      background: linear-gradient(transparent 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.95) 55%);
+    }
+
+    .overlay .top-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .rank-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--car-accent, var(--accent)), var(--car-accent2, var(--accent2)));
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.7rem;
+      padding: 4px 16px;
+      border-radius: 30px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(-20px) scale(0.8);
+      transition: opacity 0.6s ease, transform 0.6s var(--ease);
+    }
+    .car-section.revealed .rank-badge {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition-delay: 0.15s;
+    }
+    .rank-badge::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+      transform: rotate(30deg) translateY(-100%);
+      transition: transform 0.8s ease;
+    }
+    .car-section.revealed .rank-badge::after {
+      transform: rotate(30deg) translateY(100%);
+    }
+
+    .maker-tag {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      opacity: 0;
+      transition: opacity 0.6s ease 0.25s;
+    }
+    .car-section.revealed .maker-tag { opacity: 1; }
+
+    .overlay .name-row {
+      overflow: hidden;
+      margin-bottom: 2px;
+    }
+    .overlay h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 20%, var(--car-accent2, var(--accent2)) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transform: translateY(110%);
+      transition: transform 0.8s var(--ease-out);
+    }
+    .car-section.revealed h2 {
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    .overlay .maker {
+      font-size: 0.85rem;
+      color: #7a849c;
+      margin-bottom: 14px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s var(--ease);
+    }
+    .car-section.revealed .maker {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.35s;
+    }
+
+    .overlay .specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-bottom: 12px;
+    }
+    .overlay .specs span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #8892a8;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s var(--ease);
+    }
+    .car-section.revealed .specs span:nth-child(1) { transition-delay: 0.4s; }
+    .car-section.revealed .specs span:nth-child(2) { transition-delay: 0.45s; }
+    .car-section.revealed .specs span:nth-child(3) { transition-delay: 0.5s; }
+    .car-section.revealed .specs span {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .overlay .specs i {
+      width: 16px; height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: var(--car-accent, var(--accent));
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--car-accent, var(--accent)) 20%, transparent);
+      flex-shrink: 0;
+    }
+
+    .overlay .desc {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #8892a8;
+      max-width: 550px;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.6s ease, transform 0.6s var(--ease);
+    }
+    .car-section.revealed .desc {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.55s;
+    }
+
+    .overlay .price-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s var(--ease);
+    }
+    .car-section.revealed .price-row {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.65s;
+    }
+    .overlay .price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--car-accent, var(--accent));
+    }
+    .overlay .price-divider {
+      width: 1px; height: 20px;
+      background: rgba(255,255,255,0.1);
+    }
+    .overlay .price-label {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .angle-selector {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s var(--ease);
+    }
+    .car-section.revealed .angle-selector {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.8s;
+    }
+    .angle-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      overflow: hidden;
+      cursor: pointer;
+      padding: 0;
+      background: rgba(255,255,255,0.06);
+      transition: all 0.3s var(--ease);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .angle-btn:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.12);
+    }
+    .angle-btn.active {
+      border-color: var(--car-accent, var(--accent));
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px var(--car-glow, rgba(255,77,77,0.3));
+    }
+    .angle-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .angle-btn:hover img {
+      transform: scale(1.1);
+    }
+    .angle-btn .angle-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 0.45rem;
+      text-align: center;
+      background: rgba(0,0,0,0.7);
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.5px;
+      padding: 1px 0;
+      pointer-events: none;
+    }
+
+    .specs-btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7);
+      padding: 8px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      margin-top: 12px;
+    }
+    .specs-btn:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .spec-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .spec-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .spec-panel {
+      background: rgba(15,20,30,0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 40px 44px;
+      max-width: 640px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      transform: translateY(40px) scale(0.95);
+      transition: transform 0.5s var(--ease);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+    .spec-overlay.open .spec-panel {
+      transform: translateY(0) scale(1);
+    }
+    .spec-panel::-webkit-scrollbar { width: 4px; }
+    .spec-panel::-webkit-scrollbar-track { background: transparent; }
+    .spec-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+    .spec-panel .spec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .spec-panel .spec-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .spec-panel .spec-header h3 span {
+      color: var(--car-accent, var(--accent));
+    }
+    .spec-close {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.4);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .spec-close:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .spec-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 14px 18px;
+      transition: all 0.3s ease;
+    }
+    .spec-item:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.08);
+    }
+    .spec-item .spec-label {
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 4px;
+    }
+    .spec-item .spec-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #e8edf5;
+    }
+    .spec-item .spec-val {
+      color: var(--car-accent, var(--accent));
+    }
+
+    @media (max-width: 480px) {
+      .spec-grid { grid-template-columns: 1fr; }
+      .spec-panel { padding: 28px 24px; }
+    }
+
+    .scroll-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .scroll-hint.hidden { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    .scroll-hint .text {
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+    .scroll-hint .arrow {
+      width: 20px; height: 20px;
+      border-right: 1.5px solid rgba(255,255,255,0.25);
+      border-bottom: 1.5px solid rgba(255,255,255,0.25);
+      transform: rotate(45deg);
+      animation: arrow-bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint .line {
+      width: 1px;
+      background: linear-gradient(rgba(255,255,255,0.3), transparent);
+      animation: line-pulse 2s ease-in-out infinite;
+    }
+    @keyframes arrow-bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+      50% { transform: rotate(45deg) translateY(4px); opacity: 1; }
+    }
+    @keyframes line-pulse {
+      0%, 100% { height: 20px; opacity: 0.3; }
+      50% { height: 35px; opacity: 0.7; }
+    }
+
+    @media (max-width: 640px) {
+      .overlay { padding: 20px 16px 30px; }
+      .overlay h2 { font-size: 1.4rem; }
+      .main-img-wrap { max-height: 38vh; max-width: 92%; }
+      .nav { padding: 14px 16px; }
+      .side-nav { right: 10px; }
+      .angle-btn { width: 36px; height: 36px; }
+      .angle-selector { gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="preloader" id="preloader">
+    <div class="counter" id="preloaderCounter">0</div>
+    <div class="bar"><div class="bar-fill" id="preloaderBar"></div></div>
+    <div class="tag">Loading Top 10</div>
+  </div>
+
+  <div class="cursor" id="cursor"><span class="cl" id="cursorLogo"></span></div>
+
+  <nav class="nav">
+    <div class="logo">TOP<span style="color:var(--accent)">10</span></div>
+    <div class="counter-current" id="navCounter"><span>01</span> / 10</div>
+    <div class="nav-side">
+      <div class="side-text">Best Cars 2026</div>
+      <button class="specs-btn" id="specsNavBtn"><i class="fas fa-list"></i> &nbsp;Full Specs</button>
+    </div>
+  </nav>
+
+  <div class="side-nav" id="sideNav"></div>
+
+  <div class="scroll-hint" id="scrollHint">
+    <div class="text">Scroll</div>
+    <div class="arrow"></div>
+    <div class="line"></div>
+  </div>
+
+  <div class="scroll-container" id="scrollContainer">
+    <div id="container"></div>
+  </div>
+
+  <div class="spec-overlay" id="specOverlay">
+    <div class="spec-panel" id="specPanel"></div>
+  </div>
+
+  <script>
+    const carThemes = {
+      1:  { accent:'#1565C0', accent2:'#FF6F00', glow:'rgba(21,101,192,0.15)', glowBorder:'rgba(21,101,192,0.08)' },
+      2:  { accent:'#9E9E9E', accent2:'#FFD700', glow:'rgba(255,215,0,0.12)', glowBorder:'rgba(255,215,0,0.06)' },
+      3:  { accent:'#D32F2F', accent2:'#FDD835', glow:'rgba(211,47,47,0.15)', glowBorder:'rgba(211,47,47,0.08)' },
+      4:  { accent:'#2E7D32', accent2:'#FFEB3B', glow:'rgba(46,125,50,0.15)', glowBorder:'rgba(46,125,50,0.08)' },
+      5:  { accent:'#78909C', accent2:'#E53935', glow:'rgba(120,144,156,0.12)', glowBorder:'rgba(120,144,156,0.06)' },
+      6:  { accent:'#1869ad', accent2:'#1869ad', glow:'rgba(24,105,173,0.15)', glowBorder:'rgba(24,105,173,0.08)' },
+      7:  { accent:'#1B5E20', accent2:'#8D6E63', glow:'rgba(27,94,32,0.15)', glowBorder:'rgba(27,94,32,0.08)' },
+      8:  { accent:'#f77225', accent2:'#f77225', glow:'rgba(247,114,37,0.15)', glowBorder:'rgba(247,114,37,0.08)' },
+      9:  { accent:'#0D47A1', accent2:'#B0BEC5', glow:'rgba(13,71,161,0.15)', glowBorder:'rgba(13,71,161,0.08)' },
+      10: { accent:'#1286d4', accent2:'#1286d4', glow:'rgba(18,134,212,0.15)', glowBorder:'rgba(18,134,212,0.08)' }
+    };
+
+    const cursorBrands = {
+      1: { color:'#1565C0', border:'#1565C0', img:'cars/BugattiChironSuperSport/logo.png' },
+      2: { color:'#9E9E9E', border:'#9E9E9E', img:'cars/KoenigseggJeskoAbsolut/logo.png' },
+      3: { color:'#FFD700', border:'#D32F2F', img:'cars/FerrariSF90Stradale/logo.png' },
+      4: { color:'#FFEB3B', border:'#2E7D32', img:'cars/LamborghiniRevuelto/logo.png' },
+      5: { color:'#78909C', border:'#78909C', img:'cars/Porsche911TurboS/logo.png' },
+      6: { color:'#1869ad', border:'#1869ad', img:'cars/McLarenArtura/logo.png' },
+      7: { color:'#1B5E20', border:'#1B5E20', img:'cars/AstonMartinDBS770/logo.png' },
+      8: { color:'#f77225', border:'#f77225', img:'cars/Mercedes-AMG-GT-BlackSeries/logo.png' },
+      9: { color:'#0D47A1', border:'#0D47A1', img:'cars/Rolls-RoyceSpectre/logo.png' },
+      10: { color:'#1286d4', border:'#1286d4', img:'cars/Audi-R8-Performance/logo.png' }
+    };
+
+    const cars = [
+      { rank:1, name:'Bugatti Chiron Super Sport', maker:'Bugatti', folder:'BugattiChironSuperSport', engine:'8.0L Quad-Turbo W16', hp:'1,578 hp', speed:'304 mph', price:'$3.9M', desc:'The ultimate hypercar with a quad-turbo W16 engine pushing boundaries of speed and luxury.',
+        details:[
+          { label:'0-60 mph', val:'2.3s' }, { label:'Top Speed', val:'304 mph' }, { label:'Engine', val:'8.0L Quad-Turbo W16' },
+          { label:'Horsepower', val:'1,578 hp' }, { label:'Torque', val:'1,180 lb-ft' }, { label:'Transmission', val:'7-Speed DCT' },
+          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'4,400 lbs' }, { label:'Production', val:'2021-Present' },
+          { label:'0-124 mph', val:'5.5s' }, { label:'Quarter Mile', val:'9.4s' }, { label:'Fuel Economy', val:'9/14 MPG' }
+        ] },
+      { rank:2, name:'Koenigsegg Jesko Absolut', maker:'Koenigsegg', folder:'KoenigseggJeskoAbsolut', engine:'5.0L Twin-Turbo V8', hp:'1,600 hp', speed:'330+ mph', price:'$3.0M', desc:'Aerodynamic masterpiece engineered for record-breaking top-speed runs.',
+        details:[
+          { label:'0-60 mph', val:'2.5s' }, { label:'Top Speed', val:'330+ mph' }, { label:'Engine', val:'5.0L Twin-Turbo V8' },
+          { label:'Horsepower', val:'1,600 hp' }, { label:'Torque', val:'1,106 lb-ft' }, { label:'Transmission', val:'9-Speed Multi-Clutch' },
+          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'2,955 lbs' }, { label:'Production', val:'2023-Present' },
+          { label:'0-124 mph', val:'4.5s' }, { label:'Quarter Mile', val:'8.5s' }, { label:'Fuel Economy', val:'12/18 MPG' }
+        ] },
+      { rank:3, name:'Ferrari SF90 Stradale', maker:'Ferrari', folder:'FerrariSF90Stradale', engine:'4.0L Twin-Turbo V8 + Hybrid', hp:'986 hp', speed:'211 mph', price:'$524K', desc:'Ferrari\'s first plug-in hybrid hypercar blending electrification with racing soul.',
+        details:[
+          { label:'0-60 mph', val:'2.5s' }, { label:'Top Speed', val:'211 mph' }, { label:'Engine', val:'4.0L Twin-Turbo V8 + Hybrid' },
+          { label:'Horsepower', val:'986 hp' }, { label:'Torque', val:'590 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
+          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'3,900 lbs' }, { label:'Production', val:'2020-Present' },
+          { label:'0-124 mph', val:'6.3s' }, { label:'EV Range', val:'16 miles' }, { label:'Battery', val:'7.9 kWh' }
+        ] },
+      { rank:4, name:'Lamborghini Revuelto', maker:'Lamborghini', folder:'LamborghiniRevuelto', engine:'6.5L V12 + Hybrid', hp:'1,001 hp', speed:'217 mph', price:'$608K', desc:'The first V12 hybrid from Sant\'Agata with three electric motors for unprecedented power.',
+        details:[
+          { label:'0-60 mph', val:'2.3s' }, { label:'Top Speed', val:'217 mph' }, { label:'Engine', val:'6.5L V12 + Hybrid' },
+          { label:'Horsepower', val:'1,001 hp' }, { label:'Torque', val:'535 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
+          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'4,200 lbs' }, { label:'Production', val:'2023-Present' },
+          { label:'0-124 mph', val:'7.0s' }, { label:'Combined Power', val:'1,001 hp' }, { label:'Battery', val:'3.8 kWh' }
+        ] },
+      { rank:5, name:'Porsche 911 Turbo S', maker:'Porsche', folder:'Porsche911TurboS', engine:'3.7L Twin-Turbo Flat-6', hp:'640 hp', speed:'205 mph', price:'$230K', desc:'The benchmark sports car combining everyday usability with supercar performance.',
+        details:[
+          { label:'0-60 mph', val:'2.6s' }, { label:'Top Speed', val:'205 mph' }, { label:'Engine', val:'3.7L Twin-Turbo Flat-6' },
+          { label:'Horsepower', val:'640 hp' }, { label:'Torque', val:'590 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
+          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'3,640 lbs' }, { label:'Production', val:'2020-Present' },
+          { label:'0-124 mph', val:'8.9s' }, { label:'Quarter Mile', val:'10.5s' }, { label:'Fuel Economy', val:'15/20 MPG' }
+        ] },
+      { rank:6, name:'McLaren Artura', maker:'McLaren', folder:'McLarenArtura', engine:'3.0L Twin-Turbo V6 + Hybrid', hp:'671 hp', speed:'205 mph', price:'$237K', desc:'McLaren\'s high-performance hybrid with cutting-edge lightweight architecture.',
+        details:[
+          { label:'0-60 mph', val:'3.0s' }, { label:'Top Speed', val:'205 mph' }, { label:'Engine', val:'3.0L Twin-Turbo V6 + Hybrid' },
+          { label:'Horsepower', val:'671 hp' }, { label:'Torque', val:'531 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
+          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'3,300 lbs' }, { label:'Production', val:'2022-Present' },
+          { label:'0-124 mph', val:'8.3s' }, { label:'EV Range', val:'19 miles' }, { label:'Battery', val:'7.4 kWh' }
+        ] },
+      { rank:7, name:'Aston Martin DBS 770', maker:'Aston Martin', folder:'AstonMartinDBS770', engine:'5.2L Twin-Turbo V12', hp:'759 hp', speed:'211 mph', price:'$388K', desc:'A grand tourer with a hand-built V12 and breathtaking British design.',
+        details:[
+          { label:'0-60 mph', val:'3.2s' }, { label:'Top Speed', val:'211 mph' }, { label:'Engine', val:'5.2L Twin-Turbo V12' },
+          { label:'Horsepower', val:'759 hp' }, { label:'Torque', val:'664 lb-ft' }, { label:'Transmission', val:'8-Speed Auto' },
+          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'4,050 lbs' }, { label:'Production', val:'2023-Present' },
+          { label:'0-124 mph', val:'9.4s' }, { label:'Quarter Mile', val:'11.2s' }, { label:'Fuel Economy', val:'12/18 MPG' }
+        ] },
+      { rank:8, name:'Mercedes-AMG GT Black Series', maker:'Mercedes-AMG', folder:'Mercedes-AMG-GT-BlackSeries', engine:'4.0L Twin-Turbo V8', hp:'720 hp', speed:'202 mph', price:'$325K', desc:'Track-focused monster with active aerodynamics and a flat-plane crank V8.',
+        details:[
+          { label:'0-60 mph', val:'3.1s' }, { label:'Top Speed', val:'202 mph' }, { label:'Engine', val:'4.0L Twin-Turbo V8' },
+          { label:'Horsepower', val:'720 hp' }, { label:'Torque', val:'590 lb-ft' }, { label:'Transmission', val:'7-Speed DCT' },
+          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'3,650 lbs' }, { label:'Production', val:'2021-2023' },
+          { label:'0-124 mph', val:'9.0s' }, { label:'Quarter Mile', val:'10.9s' }, { label:'Nürburgring', val:'6:48.0' }
+        ] },
+      { rank:9, name:'Rolls-Royce Spectre', maker:'Rolls-Royce', folder:'Rolls-RoyceSpectre', engine:'Electric (Dual Motor)', hp:'577 hp', speed:'155 mph', price:'$420K', desc:'The first all-electric Rolls-Royce, silently redefining ultra-luxury motoring.',
+        details:[
+          { label:'0-60 mph', val:'4.4s' }, { label:'Top Speed', val:'155 mph' }, { label:'Engine', val:'Dual Electric Motors' },
+          { label:'Horsepower', val:'577 hp' }, { label:'Torque', val:'664 lb-ft' }, { label:'Transmission', val:'1-Speed Direct' },
+          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'6,559 lbs' }, { label:'Production', val:'2023-Present' },
+          { label:'Range', val:'260 miles' }, { label:'Battery', val:'102 kWh' }, { label:'Charging', val:'DC 195 kW' }
+        ] },
+      { rank:10, name:'Audi R8 Performance', maker:'Audi', folder:'Audi-R8-Performance', engine:'5.2L V10', hp:'602 hp', speed:'205 mph', price:'$210K', desc:'A naturally aspirated V10 masterpiece and the swan song of Audi\'s supercar.',
+        details:[
+          { label:'0-60 mph', val:'3.2s' }, { label:'Top Speed', val:'205 mph' }, { label:'Engine', val:'5.2L V10' },
+          { label:'Horsepower', val:'602 hp' }, { label:'Torque', val:'413 lb-ft' }, { label:'Transmission', val:'7-Speed DCT' },
+          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'3,570 lbs' }, { label:'Production', val:'2015-2024' },
+          { label:'0-124 mph', val:'9.5s' }, { label:'Quarter Mile', val:'11.0s' }, { label:'Fuel Economy', val:'13/22 MPG' }
+        ] }
+    ];
+
+    const angleNames = ['front', 'side', 'rear', 'front-three-quarter', 'rear-three-quarter'];
+    const angleLabels = ['Front', 'Side', 'Rear', '3/4 Front', '3/4 Rear'];
+
+    const loadOrder = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+    const container = document.getElementById('container');
+    const sideNav = document.getElementById('sideNav');
+    const navCounter = document.getElementById('navCounter');
+    const scrollHint = document.getElementById('scrollHint');
+    const cursor = document.getElementById('cursor');
+    const cursorLogo = document.getElementById('cursorLogo');
+    const preloader = document.getElementById('preloader');
+    const preloaderCounter = document.getElementById('preloaderCounter');
+    const preloaderBar = document.getElementById('preloaderBar');
+
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      cx += (mx - cx) * 0.12;
+      cy += (my - cy) * 0.12;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+      requestAnimationFrame(loop);
+    })();
+
+    let loaded = 0;
+    const allImages = [];
+    cars.forEach(c => {
+      angleNames.forEach(a => {
+        allImages.push(`cars/${c.folder}/${a}.png`);
+      });
+    });
+    const totalImgs = allImages.length;
+
+    function onImgLoad() {
+      loaded++;
+      const pct = Math.round((loaded / totalImgs) * 100);
+      preloaderBar.style.width = pct + '%';
+      preloaderCounter.textContent = pct;
+      if (loaded >= totalImgs) {
+        setTimeout(() => preloader.classList.add('done'), 400);
+        buildPage();
+      }
+    }
+
+    allImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      img.onload = onImgLoad;
+      img.onerror = onImgLoad;
+    });
+
+    let currentCarRank = 1;
+
+    function buildPage() {
+      loadOrder.forEach((rank, i) => {
+        const c = cars.find(x => x.rank === rank);
+        const theme = carThemes[rank];
+
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.dataset.index = i;
+        dot.innerHTML = '<div class="dot-left"><span class="dot-label">' + c.name + '</span><span class="dot-line"></span></div><span class="dot-num">' + c.rank + '</span>';
+        dot.addEventListener('click', () => {
+          const section = document.getElementById('car-' + c.rank);
+          if (section) section.scrollIntoView({ behavior: 'smooth' });
+        });
+        sideNav.appendChild(dot);
+
+        const s = document.createElement('section');
+        s.className = 'car-section';
+        s.id = 'car-' + c.rank;
+        s.dataset.index = i;
+        s.style.setProperty('--car-accent', theme.accent);
+        s.style.setProperty('--car-accent2', theme.accent2);
+        s.style.setProperty('--car-glow', theme.glow);
+        s.style.setProperty('--car-glow-border', theme.glowBorder);
+
+        let angleBtnsHtml = '';
+        angleNames.forEach((an, ai) => {
+          const activeClass = ai === 0 ? ' active' : '';
+          angleBtnsHtml += `<button class="angle-btn${activeClass}" data-angle="${ai}">
+            <img src="cars/${c.folder}/${an}.png" alt="${angleLabels[ai]}">
+            <span class="angle-label">${angleLabels[ai]}</span>
+          </button>`;
+        });
+
+        s.innerHTML = `
+          <div class="bg" style="background-image:url('cars/${c.folder}/front.png')"></div>
+          <div class="noise"></div>
+          <div class="vignette"></div>
+          <div class="grid-lines"></div>
+          <div class="glow-ring"></div>
+          <button class="car-arrow prev" data-dir="-1"><i class="fas fa-chevron-left"></i></button>
+          <button class="car-arrow next" data-dir="1"><i class="fas fa-chevron-right"></i></button>
+          <div class="overlay">
+            <div class="top-row">
+              <span class="rank-badge">#${c.rank}</span>
+              <span class="maker-tag">${c.maker}</span>
+            </div>
+            <div class="name-row"><h2>${c.name}</h2></div>
+            <div class="maker">${c.engine}</div>
+            <div class="specs">
+              <span><i class="fas fa-engine"></i> ${c.engine}</span>
+              <span><i class="fas fa-horse-head"></i> ${c.hp}</span>
+              <span><i class="fas fa-tachometer-alt"></i> ${c.speed}</span>
+            </div>
+            <p class="desc">${c.desc}</p>
+            <div class="price-row">
+              <div class="price">${c.price}</div>
+              <div class="price-divider"></div>
+              <div class="price-label">Est. Price</div>
+            </div>
+            <div class="angle-selector">${angleBtnsHtml}</div>
+          </div>`;
+
+        container.appendChild(s);
+
+        s.querySelectorAll('.angle-btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const section = this.closest('.car-section');
+            const idx = parseInt(this.dataset.angle);
+            setAngle(section, idx, true);
+          });
+        });
+
+        s.querySelectorAll('.car-arrow').forEach(arrow => {
+          arrow.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const section = this.closest('.car-section');
+            const dir = parseInt(this.dataset.dir);
+            const cur = section._currentAngle;
+            const next = (cur + dir + angleNames.length) % angleNames.length;
+            setAngle(section, next, true);
+          });
+        });
+      });
+
+      const sections = document.querySelectorAll('.car-section');
+      const dots = document.querySelectorAll('.side-nav .dot');
+
+      let compactTimer;
+
+      sideNav.addEventListener('mouseenter', () => {
+        clearTimeout(compactTimer);
+        document.querySelectorAll('.dot.active').forEach(d => d.classList.remove('compact'));
+      });
+
+      sideNav.addEventListener('mouseleave', () => {
+        const ad = document.querySelector('.dot.active');
+        if (ad) {
+          clearTimeout(compactTimer);
+          compactTimer = setTimeout(() => ad.classList.add('compact'), 3000);
+        }
+      });
+
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('revealed');
+            const idx = parseInt(e.target.dataset.index);
+            const c = cars.find(x => x.rank === loadOrder[idx]);
+            currentCarRank = c.rank;
+            const theme = carThemes[c.rank];
+            const brand = cursorBrands[c.rank];
+            navCounter.innerHTML = '<span>' + String(idx + 1).padStart(2, '0') + '</span> / 10';
+            dots.forEach((d, di) => {
+              d.classList.toggle('active', di === idx);
+              if (di === idx) {
+                d.classList.remove('compact');
+                d.style.setProperty('--car-accent', theme.accent);
+                d.style.setProperty('--car-glow', theme.glow);
+              }
+            });
+            if (idx > 0) scrollHint.classList.add('hidden');
+
+            // Update cursor brand
+            cursor.style.borderColor = brand.border || brand.color;
+            cursorLogo.innerHTML = '<img src="' + brand.img + '" alt="logo">';
+            cursor.classList.add('has-brand');
+
+            // Auto-hide side nav label after 3s
+            clearTimeout(compactTimer);
+            compactTimer = setTimeout(() => {
+              const ad = document.querySelector('.dot.active');
+              if (ad) ad.classList.add('compact');
+            }, 3000);
+
+            // Start auto-rotation for visible section
+            startAutoRotate(e.target);
+          } else {
+            stopAutoRotate(e.target);
+          }
+        });
+      }, { threshold: 0.45 });
+
+      sections.forEach(s => {
+        s._autoTimer = null;
+        s._currentAngle = 0;
+        obs.observe(s);
+      });
+    }
+
+    // Specs overlay
+    const specOverlay = document.getElementById('specOverlay');
+    const specPanel = document.getElementById('specPanel');
+
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('#specsNavBtn');
+      if (!btn) return;
+      const rank = currentCarRank;
+      const c = cars.find(x => x.rank === rank);
+      if (!c) return;
+      const theme = carThemes[rank];
+      specPanel.innerHTML = `
+        <div class="spec-header">
+          <h3>${c.name} <span>Specifications</span></h3>
+          <button class="spec-close" id="specClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="spec-grid">
+          ${c.details.map(d => `<div class="spec-item"><div class="spec-label">${d.label}</div><div class="spec-val">${d.val}</div></div>`).join('')}
+        </div>`;
+      specPanel.style.setProperty('--car-accent', theme.accent);
+      specOverlay.classList.add('open');
+    });
+
+    specOverlay.addEventListener('click', function(e) {
+      if (e.target === specOverlay || e.target.closest('#specClose')) {
+        specOverlay.classList.remove('open');
+      }
+    });
+
+    function setAngle(section, idx, userInitiated) {
+      const cRank = parseInt(section.id.replace('car-', ''));
+      const c = cars.find(x => x.rank === cRank);
+      const bg = section.querySelector('.bg');
+      const btns = section.querySelectorAll('.angle-btn');
+
+      if (userInitiated) {
+        section._userInteracted = true;
+        clearTimeout(section._autoTimer);
+        setTimeout(() => { section._userInteracted = false; startAutoRotate(section); }, 6000);
+      }
+
+      bg.classList.add('fading');
+      setTimeout(() => {
+        bg.style.backgroundImage = `url('cars/${c.folder}/${angleNames[idx]}.png')`;
+        bg.classList.remove('fading');
+      }, 200);
+
+      btns.forEach(b => b.classList.remove('active'));
+      btns[idx].classList.add('active');
+      section._currentAngle = idx;
+    }
+
+    function startAutoRotate(section) {
+      stopAutoRotate(section);
+      if (section._userInteracted) return;
+      section._autoTimer = setInterval(() => {
+        if (section._userInteracted) return;
+        const next = (section._currentAngle + 1) % angleNames.length;
+        setAngle(section, next, false);
+      }, 4000);
+    }
+
+    function stopAutoRotate(section) {
+      if (section._autoTimer) {
+        clearInterval(section._autoTimer);
+        section._autoTimer = null;
+      }
+    }
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+
+    // Fix cursor for angle buttons
+    document.addEventListener('mouseover', function(e) {
+      if (e.target.closest('.angle-btn')) {
+        cursor.classList.add('hovering');
+      }
+    });
+    document.addEventListener('mouseout', function(e) {
+      if (e.target.closest('.angle-btn')) {
+        cursor.classList.remove('hovering');
+      }
+    });
+  </script>
+</body>
+</html>
