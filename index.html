@@ -1119,16 +1119,16 @@
     };
 
     const cursorBrands = {
-      1: { color:'#1565C0', border:'#1565C0', img:'cars/BugattiChironSuperSport/logo.png' },
-      2: { color:'#9E9E9E', border:'#9E9E9E', img:'cars/KoenigseggJeskoAbsolut/logo.png' },
-      3: { color:'#FFD700', border:'#D32F2F', img:'cars/FerrariSF90Stradale/logo.png' },
-      4: { color:'#FFEB3B', border:'#2E7D32', img:'cars/LamborghiniRevuelto/logo.png' },
-      5: { color:'#78909C', border:'#78909C', img:'cars/Porsche911TurboS/logo.png' },
-      6: { color:'#1869ad', border:'#1869ad', img:'cars/McLarenArtura/logo.png' },
-      7: { color:'#1B5E20', border:'#1B5E20', img:'cars/AstonMartinDBS770/logo.png' },
-      8: { color:'#f77225', border:'#f77225', img:'cars/Mercedes-AMG-GT-BlackSeries/logo.png' },
-      9: { color:'#0D47A1', border:'#0D47A1', img:'cars/Rolls-RoyceSpectre/logo.png' },
-      10: { color:'#1286d4', border:'#1286d4', img:'cars/Audi-R8-Performance/logo.png' }
+      1: { color:'#1565C0', border:'#1565C0', img:'cars/BugattiChironSuperSport/logo.webp' },
+      2: { color:'#9E9E9E', border:'#9E9E9E', img:'cars/KoenigseggJeskoAbsolut/logo.webp' },
+      3: { color:'#FFD700', border:'#D32F2F', img:'cars/FerrariSF90Stradale/logo.webp' },
+      4: { color:'#FFEB3B', border:'#2E7D32', img:'cars/LamborghiniRevuelto/logo.webp' },
+      5: { color:'#78909C', border:'#78909C', img:'cars/Porsche911TurboS/logo.webp' },
+      6: { color:'#1869ad', border:'#1869ad', img:'cars/McLarenArtura/logo.webp' },
+      7: { color:'#1B5E20', border:'#1B5E20', img:'cars/AstonMartinDBS770/logo.webp' },
+      8: { color:'#f77225', border:'#f77225', img:'cars/Mercedes-AMG-GT-BlackSeries/logo.webp' },
+      9: { color:'#0D47A1', border:'#0D47A1', img:'cars/Rolls-RoyceSpectre/logo.webp' },
+      10: { color:'#1286d4', border:'#1286d4', img:'cars/Audi-R8-Performance/logo.webp' }
     };
 
     const cars = [
@@ -1238,7 +1238,7 @@
     const allImages = [];
     cars.forEach(c => {
       angleNames.forEach(a => {
-        allImages.push(`cars/${c.folder}/${a}.png`);
+        allImages.push(`cars/${c.folder}/${a}.webp`);
       });
     });
     const totalImgs = allImages.length;
@@ -1249,10 +1249,15 @@
       preloaderBar.style.width = pct + '%';
       preloaderCounter.textContent = pct;
       if (loaded >= totalImgs) {
-        setTimeout(() => preloader.classList.add('done'), 400);
-        buildPage();
+        preloader.classList.add('done');
       }
     }
+
+    // Build page immediately, preload images in background
+    setTimeout(() => {
+      preloader.classList.add('done');
+      buildPage();
+    }, 800);
 
     allImages.forEach(src => {
       const img = new Image();
@@ -1291,13 +1296,13 @@
         angleNames.forEach((an, ai) => {
           const activeClass = ai === 0 ? ' active' : '';
           angleBtnsHtml += `<button class="angle-btn${activeClass}" data-angle="${ai}">
-            <img src="cars/${c.folder}/${an}.png" alt="${c.name} - ${angleLabels[ai]} view">
+            <img src="cars/${c.folder}/${an}.webp" alt="${c.name} - ${angleLabels[ai]} view">
             <span class="angle-label">${angleLabels[ai]}</span>
           </button>`;
         });
 
         s.innerHTML = `
-          <div class="bg" style="background-image:url('cars/${c.folder}/front.png')"></div>
+          <div class="bg" style="background-image:url('cars/${c.folder}/front.webp')"></div>
           <div class="noise"></div>
           <div class="vignette"></div>
           <div class="grid-lines"></div>
@@ -1461,7 +1466,7 @@
 
       bg.classList.add('fading');
       setTimeout(() => {
-        bg.style.backgroundImage = `url('cars/${c.folder}/${angleNames[idx]}.png')`;
+        bg.style.backgroundImage = `url('cars/${c.folder}/${angleNames[idx]}.webp')`;
         bg.classList.remove('fading');
       }, 200);
 
