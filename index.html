@@ -1411,6 +1411,9 @@
         s._currentAngle = 0;
         obs.observe(s);
       });
+      // Reset scroll to first car after build
+      const firstCar = document.getElementById('car-10');
+      if (firstCar) firstCar.scrollIntoView(true);
     }
 
     // Specs overlay
