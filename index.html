@@ -180,6 +180,8 @@
       font-weight: 700;
       font-size: 1.1rem;
       letter-spacing: 2px;
+      color: #fff;
+      text-decoration: none;
     }
     .nav .counter-current {
       font-family: 'Space Grotesk', sans-serif;
@@ -198,6 +200,47 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex: 1;
+    }
+    .nav-pages {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-pages a {
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .nav-pages a:hover { color: var(--accent2); }
+    .nav .counter-current {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 1px;
+      flex: 1;
+      text-align: center;
+    }
+    .nav .counter-current span { color: var(--accent2); font-weight: 700; }
+    .nav .side-text {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .nav .nav-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex: 1;
     }
     .nav-pages {
       display: flex;
@@ -989,12 +1032,14 @@
   <div class="cursor" id="cursor"><span class="cl" id="cursorLogo"></span></div>
 
   <nav class="nav" aria-label="Site navigation">    
-    <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
-    <div class="nav-pages">
-      <a href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/privacy-policy.html">Privacy</a>
-      <a href="/disclaimer.html">Disclaimer</a>
+    <div class="nav-left">
+      <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
+      <div class="nav-pages">
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy</a>
+        <a href="/disclaimer.html">Disclaimer</a>
+      </div>
     </div>
     <div class="counter-current" id="navCounter"><span>01</span> / 10</div>
     <div class="nav-side">
