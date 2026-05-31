@@ -413,12 +413,11 @@
       .side-nav .dot .dot-num { width: 24px; height: 24px; font-size: 0.55rem; }
       .angle-btn { width: 36px; height: 36px; }
       .angle-selector { gap: 6px; }
-      .car-arrow { width: 36px; height: 36px; font-size: 0.8rem; left: 10px; right: 10px; }
+      .car-arrow { width: 36px; height: 36px; font-size: 0.8rem; }
       .car-arrow.next { display: none; }
       .car-arrow.prev i { display: none; }
       .car-arrow.prev::after { content: '<>'; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; }
-      .car-arrow.prev { left: 50%; transform: translateX(-50%); }
-      .car-section.revealed .car-arrow.prev { transform: translateY(-50%) translateX(-50%); }
+      .car-arrow.prev, .car-section.revealed .car-arrow.prev { top: auto; bottom: 44%; left: 50%; transform: translateX(-50%); }
       .scroll-hint { bottom: 16px; }
       .scroll-hint .text { font-size: 0.5rem; }
       .scroll-container { scroll-snap-type: y mandatory; }
