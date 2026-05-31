@@ -207,6 +207,18 @@
       gap: 24px;
       flex: 1;
     }
+    .nav-left .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .nav .region-badge {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.3px;
+      line-height: 1;
+      margin-top: 1px;
+    }
     .nav-pages {
       display: flex;
       gap: 20px;
@@ -1062,7 +1074,10 @@
 
   <nav class="nav" aria-label="Site navigation">    
     <div class="nav-left">
-      <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
+      <div class="logo-wrap">
+        <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
+        <span class="region-badge" id="regionBadge"></span>
+      </div>
       <div class="nav-pages">
         <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
@@ -1152,6 +1167,123 @@
       9: { color:'#0D47A1', border:'#0D47A1', img:'cars/Rolls-RoyceSpectre/logo.webp' },
       10: { color:'#1286d4', border:'#1286d4', img:'cars/Audi-R8-Performance/logo.webp' }
     };
+
+    // Region detection & unit conversion — multi-signal approach
+    const tzMap = {
+      'Asia/Kolkata':'IN','Asia/Calcutta':'IN','Asia/Karachi':'PK','Asia/Dhaka':'BD','Asia/Kathmandu':'NP',
+      'Asia/Colombo':'LK','Asia/Shanghai':'CN','Asia/Tokyo':'JP','Asia/Seoul':'KR',
+      'Asia/Dubai':'AE','Asia/Singapore':'SG','Asia/Hong_Kong':'HK','Asia/Bangkok':'TH',
+      'Asia/Kuala_Lumpur':'MY','Asia/Jakarta':'ID','Asia/Manila':'PH','Asia/Taipei':'TW',
+      'Asia/Riyadh':'SA','Asia/Tehran':'IR','Asia/Ho_Chi_Minh':'VN',
+      'America/New_York':'US','America/Chicago':'US','America/Denver':'US','America/Los_Angeles':'US',
+      'America/Anchorage':'US','America/Phoenix':'US','America/Detroit':'US','America/Indianapolis':'US',
+      'America/Toronto':'CA','America/Vancouver':'CA','America/Montreal':'CA','America/Mexico_City':'MX',
+      'America/Sao_Paulo':'BR','America/Argentina/Buenos_Aires':'AR',
+      'Europe/London':'GB','Europe/Paris':'FR','Europe/Berlin':'DE','Europe/Madrid':'ES',
+      'Europe/Rome':'IT','Europe/Amsterdam':'NL','Europe/Brussels':'BE','Europe/Stockholm':'SE',
+      'Europe/Oslo':'NO','Europe/Copenhagen':'DK','Europe/Helsinki':'FI','Europe/Dublin':'IE',
+      'Europe/Zurich':'CH','Europe/Vienna':'AT','Europe/Moscow':'RU','Europe/Istanbul':'TR',
+      'Europe/Athens':'GR','Europe/Lisbon':'PT','Europe/Warsaw':'PL','Europe/Prague':'CZ','Europe/Budapest':'HU',
+      'Australia/Sydney':'AU','Australia/Melbourne':'AU','Australia/Perth':'AU',
+      'Pacific/Auckland':'NZ','Africa/Cairo':'EG','Africa/Johannesburg':'ZA','Africa/Lagos':'NG','Africa/Nairobi':'KE'
+    };
+    const lang = (navigator.language || '').toLowerCase();
+    const inLocales = ['en-in','hi-in','bn-in','ta-in','te-in','mr-in','gu-in','kn-in','ml-in','pa-in','or-in'];
+    let detectedCode = null;
+    // Signal 1: timezone
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      if (tzMap[tz]) detectedCode = tzMap[tz];
+    } catch(e) { console.warn('TZ detection failed:', e); }
+    // Signal 2: navigator.languages array
+    if (!detectedCode) {
+      try {
+        const langs = navigator.languages || [navigator.language];
+        for (const l of langs) {
+          const lc = l.toLowerCase();
+          if (inLocales.includes(lc)) { detectedCode = 'IN'; break; }
+          if (lc.startsWith('en-gb')) { detectedCode = 'GB'; break; }
+        }
+      } catch(e) {}
+    }
+    // Signal 3: navigator.language
+    if (!detectedCode && lang.includes('-')) {
+      const parts = lang.split('-');
+      if (parts.length > 1) detectedCode = parts[1].toUpperCase();
+    }
+    const region = detectedCode === 'US' ? 'US' : 'INTL';
+    try {
+      const countryName = detectedCode ? new Intl.DisplayNames(['en'], { type:'region' }).of(detectedCode) : null;
+      document.getElementById('regionBadge').textContent = countryName || '🌐';
+    } catch(e) { document.getElementById('regionBadge').textContent = '🌐'; }
+    console.log('Detected region:', detectedCode, 'from tz/timezone/language');
+    function convertUnit(str) {
+      if (region === 'US' || !str) return str;
+      const m = str.match(/^([\d,.+]+)\s*([\w/°]+)$/);
+      if (m) {
+        const num = parseFloat(m[1].replace(/,/g,''));
+        const unit = m[2];
+        if (unit === 'mph') return Math.round(num * 1.609) + ' km/h';
+        if (unit === 'hp') return Math.round(num * 1.014) + ' PS';
+        if (unit === 'lb-ft') return Math.round(num * 1.356) + ' Nm';
+        if (unit === 'lbs') return Math.round(num / 2.205) + ' kg';
+        if (unit === 'miles') return Math.round(num * 1.609) + ' km';
+        if (unit.endsWith('MPG')) return (235.21 / num).toFixed(1) + ' L/100km';
+      }
+      // Handle ranges like "9/14 MPG"
+      const m2 = str.match(/^([\d,.+]+)\/([\d,.+]+)\s+(.+)$/);
+      if (m2) {
+        const unit = m2[3];
+        if (unit === 'MPG') {
+          return (235.21/parseFloat(m2[1])).toFixed(1) + '/' + (235.21/parseFloat(m2[2])).toFixed(1) + ' L/100km';
+        }
+      }
+      // Handle "$3.9M" → local currency based on detected country
+      if (str.startsWith('$')) {
+        const m3 = str.match(/^\$([\d.]+)([MK]?)$/);
+        if (m3) {
+          const val = parseFloat(m3[1]) * (m3[2] === 'M' ? 1e6 : m3[2] === 'K' ? 1e3 : 1);
+          const currencyMap = {
+            'IN': { code:'INR', rate:83 }, 'GB': { code:'GBP', rate:0.79 },
+            'EU': { code:'EUR', rate:0.92 }, 'CA': { code:'CAD', rate:1.36 },
+            'AU': { code:'AUD', rate:1.52 }, 'JP': { code:'JPY', rate:150 },
+            'CH': { code:'CHF', rate:0.88 }, 'SE': { code:'SEK', rate:10.5 },
+            'NO': { code:'NOK', rate:10.7 }, 'DK': { code:'DKK', rate:6.9 },
+            'PL': { code:'PLN', rate:4.0 }, 'CZ': { code:'CZK', rate:23 },
+            'BR': { code:'BRL', rate:4.95 }, 'ZA': { code:'ZAR', rate:18.5 },
+            'RU': { code:'RUB', rate:91 }, 'TR': { code:'TRY', rate:30 },
+            'MX': { code:'MXN', rate:17 }, 'SG': { code:'SGD', rate:1.34 },
+            'HK': { code:'HKD', rate:7.82 }, 'AE': { code:'AED', rate:3.67 },
+            'SA': { code:'SAR', rate:3.75 }, 'MY': { code:'MYR', rate:4.7 },
+            'TH': { code:'THB', rate:35 }, 'ID': { code:'IDR', rate:15600 }
+          };
+          const cc = detectedCode && currencyMap[detectedCode] ? detectedCode : 'EU';
+          const cur = currencyMap[cc];
+          const converted = val * cur.rate;
+          try {
+            return new Intl.NumberFormat(navigator.language, {
+              style:'currency', currency:cur.code,
+              maximumFractionDigits:0, notation:'compact', compactDisplay:'short'
+            }).format(converted);
+          } catch(e) {
+            // Fallback if locale doesn't support the currency
+            if (converted >= 1e7) return '₹' + (converted/1e7).toFixed(1) + 'Cr';
+            if (converted >= 1e5) return '₹' + Math.round(converted/1e5) + 'L';
+            if (converted >= 1e3) return '₹' + Math.round(converted/1e3) + 'K';
+            return '₹' + Math.round(converted);
+          }
+        }
+      }
+      return str;
+    }
+    function convertLabel(label) {
+      if (region === 'US' || !label) return label;
+      return label
+        .replace('0-60 mph', '0-100 km/h')
+        .replace('0-124 mph', '0-200 km/h')
+        .replace('miles', 'km')
+        .replace('MPG', 'L/100km');
+    }
 
     const cars = [
       { rank:1, name:'Bugatti Chiron Super Sport', maker:'Bugatti', folder:'BugattiChironSuperSport', engine:'8.0L Quad-Turbo W16', hp:'1,578 hp', speed:'304 mph', price:'$3.9M', desc:'The ultimate hypercar with a quad-turbo W16 engine pushing boundaries of speed and luxury.',
@@ -1340,12 +1472,12 @@
             <div class="maker">${c.engine}</div>
             <div class="specs">
               <span><i class="fas fa-engine"></i> ${c.engine}</span>
-              <span><i class="fas fa-horse-head"></i> ${c.hp}</span>
-              <span><i class="fas fa-tachometer-alt"></i> ${c.speed}</span>
+              <span><i class="fas fa-horse-head"></i> ${convertUnit(c.hp)}</span>
+              <span><i class="fas fa-tachometer-alt"></i> ${convertUnit(c.speed)}</span>
             </div>
             <p class="desc">${c.desc}</p>
             <div class="price-row">
-              <div class="price">${c.price}</div>
+              <div class="price">${convertUnit(c.price)}</div>
               <div class="price-divider"></div>
               <div class="price-label">Est. Price</div>
             </div>
@@ -1460,7 +1592,7 @@
           <button class="spec-close" id="specClose"><i class="fas fa-times"></i></button>
         </div>
         <div class="spec-grid">
-          ${c.details.map(d => `<div class="spec-item"><div class="spec-label">${d.label}</div><div class="spec-val">${d.val}</div></div>`).join('')}
+          ${c.details.map(d => `<div class="spec-item"><div class="spec-label">${convertLabel(d.label)}</div><div class="spec-val">${convertUnit(d.val)}</div></div>`).join('')}
         </div>`;
       specPanel.style.setProperty('--car-accent', theme.accent);
       specOverlay.classList.add('open');
