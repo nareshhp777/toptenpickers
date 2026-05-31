@@ -400,9 +400,12 @@
       .overlay { padding: 20px 16px 30px; }
       .overlay h2 { font-size: 1.4rem; }
       .main-img-wrap { max-height: 38vh; max-width: 92%; }
-      .nav { padding: 14px 16px; flex-wrap: wrap; gap: 6px; }
-      .nav .counter-current { order: 3; width: 100%; text-align: right; font-size: 0.65rem; }
+      .nav { padding: 14px 16px; flex-wrap: nowrap; }
+      .nav-left { flex: none; gap: 0; }
+      .nav-pages { display: none; }
+      .nav .counter-current { flex: none; font-size: 0.65rem; text-align: center; }
       .nav .side-text { font-size: 0.55rem; }
+      .nav-side { display: none; }
       .specs-btn { font-size: 0.55rem; padding: 6px 16px; }
       .side-nav { right: 8px; gap: 6px; }
       .side-nav .dot .dot-num { width: 24px; height: 24px; font-size: 0.55rem; }
