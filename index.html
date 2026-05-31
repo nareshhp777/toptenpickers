@@ -323,6 +323,43 @@
         background-position: center 40%;
         background-repeat: no-repeat;
       }
+      .spec-panel {
+        width: calc(100% - 24px);
+        max-height: 75vh;
+        padding: 28px 20px;
+        margin: 0 12px 12px;
+        border-radius: 18px;
+      }
+      .spec-overlay {
+        align-items: flex-end;
+        padding-bottom: 10px;
+      }
+      .spec-overlay.open .spec-panel {
+        transform: translateY(0) scale(1);
+      }
+      .spec-grid { gap: 8px; }
+      .spec-item { padding: 10px 14px; }
+      .spec-header h3 { font-size: 1rem; }
+      .overlay { padding: 20px 16px 30px; }
+      .overlay h2 { font-size: 1.4rem; }
+      .main-img-wrap { max-height: 38vh; max-width: 92%; }
+      .nav { padding: 14px 16px; flex-wrap: wrap; gap: 6px; }
+      .nav .counter-current { order: 3; width: 100%; text-align: right; font-size: 0.65rem; }
+      .nav .side-text { font-size: 0.55rem; }
+      .specs-btn { font-size: 0.55rem; padding: 6px 16px; }
+      .side-nav { right: 8px; gap: 6px; }
+      .side-nav .dot .dot-num { width: 24px; height: 24px; font-size: 0.55rem; }
+      .angle-btn { width: 36px; height: 36px; }
+      .angle-selector { gap: 6px; }
+      .car-arrow { width: 36px; height: 36px; font-size: 0.8rem; left: 10px; right: 10px; }
+      .car-arrow.prev { left: 10px; }
+      .car-arrow.next { right: 10px; }
+      .scroll-hint { bottom: 16px; }
+      .scroll-hint .text { font-size: 0.5rem; }
+      .scroll-container { scroll-snap-type: y mandatory; }
+      .car-section { height: 100dvh; }
+      .nav-side { display: none; }
+      body.spec-open .side-nav { display: none; }
     }
     .car-section.revealed .bg {
       filter: brightness(0.6) saturate(1.05);
@@ -753,12 +790,13 @@
     }
     .spec-close {
       width: 36px; height: 36px;
+      min-width: 36px; min-height: 36px;
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.05);
       color: rgba(255,255,255,0.4);
       font-size: 1rem;
-      display: flex;
+      display: flex; flex-shrink: 0;
       align-items: center;
       justify-content: center;
       cursor: pointer;
@@ -813,10 +851,11 @@
       .main-img-wrap { max-height: 32vh; }
       .angle-btn { width: 30px; height: 30px; }
       .car-arrow { width: 30px; height: 30px; font-size: 0.65rem; left: 6px; right: 6px; }
-      .spec-panel { padding: 20px 14px; margin: 8px; }
+      .spec-panel { padding: 18px 12px; margin: 0 6px 6px; max-height: 70vh; border-radius: 14px; width: calc(100% - 12px); }
       .spec-grid { gap: 4px; }
       .spec-item { padding: 6px 10px; }
       .spec-header h3 { font-size: 0.85rem; }
+      .spec-header { margin-bottom: 14px; }
     }
 
     .scroll-hint {
@@ -858,33 +897,6 @@
     @keyframes line-pulse {
       0%, 100% { height: 20px; opacity: 0.3; }
       50% { height: 35px; opacity: 0.7; }
-    }
-
-    @media (max-width: 640px) {
-      .overlay { padding: 20px 16px 30px; }
-      .overlay h2 { font-size: 1.4rem; }
-      .main-img-wrap { max-height: 38vh; max-width: 92%; }
-      .nav { padding: 14px 16px; flex-wrap: wrap; gap: 6px; }
-      .nav .counter-current { order: 3; width: 100%; text-align: right; font-size: 0.65rem; }
-      .nav .side-text { font-size: 0.55rem; }
-      .specs-btn { font-size: 0.55rem; padding: 6px 16px; }
-      .side-nav { right: 8px; gap: 6px; }
-      .side-nav .dot .dot-num { width: 24px; height: 24px; font-size: 0.55rem; }
-      .angle-btn { width: 36px; height: 36px; }
-      .angle-selector { gap: 6px; }
-      .car-arrow { width: 36px; height: 36px; font-size: 0.8rem; left: 10px; right: 10px; }
-      .car-arrow.prev { left: 10px; }
-      .car-arrow.next { right: 10px; }
-      .spec-panel { padding: 24px 16px; margin: 12px; max-height: 85vh; }
-      .spec-grid { grid-template-columns: 1fr; gap: 6px; }
-      .spec-item { padding: 8px 12px; }
-      .spec-header h3 { font-size: 1rem; }
-      .preloader .counter { font-size: 3rem; }
-      .scroll-hint { bottom: 16px; }
-      .scroll-hint .text { font-size: 0.5rem; }
-      .scroll-container { scroll-snap-type: y mandatory; }
-      .car-section { height: 100dvh; }
-      .nav-side { display: none; }
     }
   </style>
 </head>
@@ -1252,11 +1264,13 @@
         </div>`;
       specPanel.style.setProperty('--car-accent', theme.accent);
       specOverlay.classList.add('open');
+      document.body.classList.add('spec-open');
     });
 
     specOverlay.addEventListener('click', function(e) {
       if (e.target === specOverlay || e.target.closest('#specClose')) {
         specOverlay.classList.remove('open');
+        document.body.classList.remove('spec-open');
       }
     });
 
