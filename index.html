@@ -199,6 +199,20 @@
       flex-direction: column;
       align-items: center;
     }
+    .nav-pages {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-pages a {
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .nav-pages a:hover { color: var(--accent2); }
 
     .side-nav {
       position: fixed;
@@ -898,6 +912,71 @@
       0%, 100% { height: 20px; opacity: 0.3; }
       50% { height: 35px; opacity: 0.7; }
     }
+
+    .recent-posts {
+      background: var(--bg);
+      padding: 60px 24px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .recent-posts .recent-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .recent-posts h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff 30%, var(--accent2) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .recent-posts .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .recent-posts .card {
+      display: block;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 24px;
+      text-decoration: none;
+      transition: all 0.4s var(--ease);
+    }
+    .recent-posts .card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .recent-posts .card .meta {
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+    .recent-posts .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 8px;
+    }
+    .recent-posts .card p {
+      font-size: 0.78rem;
+      color: #7a849c;
+      margin: 0;
+      line-height: 1.6;
+    }
+    @media (max-width: 640px) {
+      .recent-posts { padding: 40px 16px 60px; }
+      .recent-posts h2 { font-size: 1.3rem; }
+      .recent-posts .card-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -910,7 +989,13 @@
   <div class="cursor" id="cursor"><span class="cl" id="cursorLogo"></span></div>
 
   <nav class="nav" aria-label="Site navigation">    
-    <div class="logo">TOP<span style="color:var(--accent)">10</span></div>
+    <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
+    <div class="nav-pages">
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+    </div>
     <div class="counter-current" id="navCounter"><span>01</span> / 10</div>
     <div class="nav-side">
       <div class="side-text">Best Cars 2026</div>
@@ -929,6 +1014,40 @@
   <main class="scroll-container" id="scrollContainer" aria-label="Car listings">
     <div id="container"></div>
   </main>
+
+  <section class="recent-posts" id="recentPosts">
+    <div class="recent-header">
+      <span class="label">Latest Rankings</span>
+      <h2>Recent Posts</h2>
+    </div>
+    <div class="card-grid">
+      <a href="/articles/top-10-sports-bikes-2026.html" class="card">
+        <div class="meta">Sports Bikes</div>
+        <h3>Top 10 Sports Bikes of 2026</h3>
+        <p>Ranked by speed, aerodynamics, and track performance. From the Ducati Panigale V4 R to the Kawasaki Ninja H2R.</p>
+      </a>
+      <a href="/articles/top-10-luxury-yachts.html" class="card">
+        <div class="meta">Luxury Yachts</div>
+        <h3>Top 10 Luxury Yachts of 2026</h3>
+        <p>Design, amenities, and global cruising capability. From the REV Ocean to the Sunreef 80 Eco.</p>
+      </a>
+      <a href="/articles/top-10-airplanes.html" class="card">
+        <div class="meta">Aviation</div>
+        <h3>Top 10 Airplanes & Private Jets</h3>
+        <p>Private jets and aerospace engineering marvels. From the Global 8000 to the Boom Overture.</p>
+      </a>
+      <a href="/articles/top-10-f1-cars-all-time.html" class="card">
+        <div class="meta">Formula 1</div>
+        <h3>Top 10 F1 Cars of All Time</h3>
+        <p>Championship-winning machines and legendary engine specs. From the MP4/4 to the RB19.</p>
+      </a>
+      <a href="/articles/top-10-must-have-tech-gadgets.html" class="card">
+        <div class="meta">Tech Gadgets</div>
+        <h3>Top 10 Must-Have Tech Gadgets of 2026</h3>
+        <p>Cutting-edge innovation and daily utility. From the Vision Pro 2 to the Rabbit R2.</p>
+      </a>
+    </div>
+  </section>
 
   <div class="spec-overlay" id="specOverlay">
     <div class="spec-panel" id="specPanel"></div>
