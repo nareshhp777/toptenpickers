@@ -3,8 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Top10</title>
+  <title>Top10 — World's Best Top 10 Rankings Across Every Category</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23111111'/%3E%3Ctext x='40' y='36' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='white' text-anchor='middle' dominant-baseline='middle'%3ETOP%3C/text%3E%3Ctext x='40' y='58' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='%23FF6F00' text-anchor='middle' dominant-baseline='middle'%3E10%3C/text%3E%3C/svg%3E">
+  <meta name="description" content="Discover the Top 10 Cars in the world — ranked by speed, power, and prestige. Detailed specs, photos, and comparison of the ultimate hypercars, supercars, and luxury vehicles.">
+  <meta name="keywords" content="top 10 cars, best cars, hypercars, supercars, Bugatti, Koenigsegg, Ferrari, Lamborghini, Porsche, McLaren, car rankings">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Top10">
+  <meta property="og:title" content="Top10 — World's Best Top 10 Rankings">
+  <meta property="og:description" content="Curated rankings of the world's best cars with detailed specs, photos, and comparisons.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toptenpickers.com">
+  <meta property="og:image" content="https://toptenpickers.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Top10 — World's Best Top 10 Rankings">
+  <meta name="twitter:description" content="Curated rankings of the world's best cars with detailed specs, photos, and comparisons.">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="robots" href="/robots.txt">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Top 10 Cars",
+    "description": "Curated rankings of the world's top 10 cars with detailed specifications, photos, and performance data.",
+    "url": "https://toptenpickers.com",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Bugatti Chiron Super Sport", "url": "https://toptenpickers.com#car-1" },
+      { "@type": "ListItem", "position": 2, "name": "Koenigsegg Jesko Absolut", "url": "https://toptenpickers.com#car-2" },
+      { "@type": "ListItem", "position": 3, "name": "Ferrari SF90 Stradale", "url": "https://toptenpickers.com#car-3" },
+      { "@type": "ListItem", "position": 4, "name": "Lamborghini Revuelto", "url": "https://toptenpickers.com#car-4" },
+      { "@type": "ListItem", "position": 5, "name": "Porsche 911 Turbo S", "url": "https://toptenpickers.com#car-5" },
+      { "@type": "ListItem", "position": 6, "name": "McLaren Artura", "url": "https://toptenpickers.com#car-6" },
+      { "@type": "ListItem", "position": 7, "name": "Aston Martin DBS 770", "url": "https://toptenpickers.com#car-7" },
+      { "@type": "ListItem", "position": 8, "name": "Mercedes-AMG GT Black Series", "url": "https://toptenpickers.com#car-8" },
+      { "@type": "ListItem", "position": 9, "name": "Rolls-Royce Spectre", "url": "https://toptenpickers.com#car-9" },
+      { "@type": "ListItem", "position": 10, "name": "Audi R8 Performance", "url": "https://toptenpickers.com#car-10" }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -845,7 +880,7 @@
 
   <div class="cursor" id="cursor"><span class="cl" id="cursorLogo"></span></div>
 
-  <nav class="nav">
+  <nav class="nav" aria-label="Site navigation">    
     <div class="logo">TOP<span style="color:var(--accent)">10</span></div>
     <div class="counter-current" id="navCounter"><span>01</span> / 10</div>
     <div class="nav-side">
@@ -854,7 +889,7 @@
     </div>
   </nav>
 
-  <div class="side-nav" id="sideNav"></div>
+  <nav class="side-nav" id="sideNav" aria-label="Car navigation"></div>
 
   <div class="scroll-hint" id="scrollHint">
     <div class="text">Scroll</div>
@@ -862,7 +897,7 @@
     <div class="line"></div>
   </div>
 
-  <div class="scroll-container" id="scrollContainer">
+  <main class="scroll-container" id="scrollContainer" aria-label="Car listings">
     <div id="container"></div>
   </div>
 
@@ -1057,7 +1092,7 @@
         angleNames.forEach((an, ai) => {
           const activeClass = ai === 0 ? ' active' : '';
           angleBtnsHtml += `<button class="angle-btn${activeClass}" data-angle="${ai}">
-            <img src="cars/${c.folder}/${an}.png" alt="${angleLabels[ai]}">
+            <img src="cars/${c.folder}/${an}.png" alt="${c.name} - ${angleLabels[ai]} view">
             <span class="angle-label">${angleLabels[ai]}</span>
           </button>`;
         });
@@ -1154,7 +1189,7 @@
 
             // Update cursor brand
             cursor.style.borderColor = brand.border || brand.color;
-            cursorLogo.innerHTML = '<img src="' + brand.img + '" alt="logo">';
+            cursorLogo.innerHTML = '<img src="' + brand.img + '" alt="' + c.name + ' logo">';
             cursor.classList.add('has-brand');
 
             // Auto-hide side nav label after 3s
