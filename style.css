@@ -15,7 +15,7 @@ body {
 }
 a { color: var(--accent2); text-decoration: none; transition: color 0.3s ease; }
 a:hover { color: var(--accent); }
-img { max-width: 100%; height: auto; }
+img { max-width: 100%; height: auto; aspect-ratio: auto; }
 
 /* Nav */
 .nav {

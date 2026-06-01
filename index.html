@@ -808,6 +808,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      aspect-ratio: 16 / 9;
       transition: transform 0.3s ease;
     }
     .angle-btn:hover img {
@@ -907,7 +908,7 @@
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.65);
       font-size: 1rem;
       display: flex; flex-shrink: 0;
       align-items: center;
@@ -941,7 +942,7 @@
       font-size: 0.6rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.6);
       margin-bottom: 4px;
     }
     .spec-item .spec-val {
@@ -1475,6 +1476,9 @@
         const dot = document.createElement('div');
         dot.className = 'dot';
         dot.dataset.index = i;
+        dot.setAttribute('role', 'button');
+        dot.setAttribute('tabindex', '0');
+        dot.setAttribute('aria-label', 'Go to ' + c.name);
         dot.innerHTML = '<div class="dot-left"><span class="dot-label">' + c.name + '</span><span class="dot-line"></span></div><span class="dot-num">' + c.rank + '</span>';
         dot.addEventListener('click', () => {
           const section = document.getElementById('car-' + c.rank);
@@ -1506,8 +1510,8 @@
           <div class="vignette"></div>
           <div class="grid-lines"></div>
           <div class="glow-ring"></div>
-          <button class="car-arrow prev" data-dir="-1"><i class="fas fa-chevron-left"></i></button>
-          <button class="car-arrow next" data-dir="1"><i class="fas fa-chevron-right"></i></button>
+          <button class="car-arrow prev" data-dir="-1" aria-label="Previous angle"><i class="fas fa-chevron-left"></i></button>
+          <button class="car-arrow next" data-dir="1" aria-label="Next angle"><i class="fas fa-chevron-right"></i></button>
           <div class="overlay">
             <div class="top-row">
               <span class="rank-badge">#${c.rank}</span>
@@ -1635,7 +1639,7 @@
       specPanel.innerHTML = `
         <div class="spec-header">
           <h3>${c.name} <span>Specifications</span></h3>
-          <button class="spec-close" id="specClose"><i class="fas fa-times"></i></button>
+          <button class="spec-close" id="specClose" aria-label="Close specifications"><i class="fas fa-times"></i></button>
         </div>
         <div class="spec-grid">
           ${c.details.map(d => `<div class="spec-item"><div class="spec-label">${convertLabel(d.label)}</div><div class="spec-val">${convertUnit(d.val)}</div></div>`).join('')}
