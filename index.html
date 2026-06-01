@@ -73,6 +73,22 @@
     @media (hover: none) and (pointer: coarse) {
       body, a, button { cursor: auto; }
       .cursor { display: none !important; }
+      .trail-dot { display: none !important; }
+    }
+
+    .trail-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      background: var(--trail-color, #fff);
+      box-shadow: 0 0 10px var(--trail-color, #fff), 0 0 20px var(--trail-color, #fff);
+      mix-blend-mode: screen;
+      transform: translate3d(0, 0, 0) translate(-50%, -50%);
+      will-change: transform, opacity;
+      opacity: 0;
     }
 
     .cursor {
@@ -1379,12 +1395,41 @@
     mx = cx; my = cy;
     cursor.style.left = cx + 'px';
     cursor.style.top = cy + 'px';
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    // Light trail initialization
+    const trailCount = 8;
+    const trailDots = [];
+    const trailCoords = [];
+    for (let i = 0; i < trailCount; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'trail-dot';
+      document.body.appendChild(dot);
+      trailDots.push(dot);
+      trailCoords.push({ x: cx, y: cy });
+    }
+
+    let mouseOnScreen = true;
+    document.addEventListener('mouseleave', () => { mouseOnScreen = false; });
+    document.addEventListener('mouseenter', () => { mouseOnScreen = true; });
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; mouseOnScreen = true; });
     (function loop() {
       cx += (mx - cx) * 0.12;
       cy += (my - cy) * 0.12;
       cursor.style.left = cx + 'px';
       cursor.style.top = cy + 'px';
+
+      let tx = cx, ty = cy;
+      trailDots.forEach((dot, i) => {
+        const coords = trailCoords[i];
+        coords.x += (tx - coords.x) * 0.35;
+        coords.y += (ty - coords.y) * 0.35;
+        const ratio = 1 - (i / trailCount);
+        dot.style.transform = `translate3d(${coords.x}px, ${coords.y}px, 0) translate(-50%, -50%) scale(${ratio})`;
+        dot.style.opacity = mouseOnScreen ? ratio * 0.55 : 0;
+        tx = coords.x;
+        ty = coords.y;
+      });
+
       requestAnimationFrame(loop);
     })();
 
@@ -1547,6 +1592,7 @@
 
             // Update cursor brand
             cursor.style.borderColor = brand.border || brand.color;
+            document.documentElement.style.setProperty('--trail-color', brand.color);
             cursorLogo.innerHTML = '<img src="' + brand.img + '" alt="' + c.name + ' logo">';
             cursor.classList.add('has-brand');
 
