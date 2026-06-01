@@ -449,9 +449,11 @@
       .scroll-hint .text { font-size: 0.5rem; }
       .scroll-container { scroll-snap-type: y mandatory; }
       .car-section { height: 100dvh; }
-      body.spec-open .side-nav,
-      body.recent-visible .side-nav { display: none; }
     }
+    body.spec-open .side-nav,
+    body.recent-visible .side-nav { display: none; }
+    body.spec-open .nav,
+    body.recent-visible .nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
     .car-section.revealed .bg {
       filter: brightness(0.6) saturate(1.05);
       transform: scale(1.02);
