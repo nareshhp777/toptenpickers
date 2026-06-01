@@ -449,7 +449,8 @@
       .scroll-hint .text { font-size: 0.5rem; }
       .scroll-container { scroll-snap-type: y mandatory; }
       .car-section { height: 100dvh; }
-      body.spec-open .side-nav { display: none; }
+      body.spec-open .side-nav,
+      body.recent-visible .side-nav { display: none; }
     }
     .car-section.revealed .bg {
       filter: brightness(0.6) saturate(1.05);
@@ -1619,6 +1620,16 @@
         s._currentAngle = 0;
         obs.observe(s);
       });
+      // Observe recent posts section to hide side-nav
+      const recentPosts = document.getElementById('recentPosts');
+      if (recentPosts) {
+        const recentObs = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            document.body.classList.toggle('recent-visible', e.isIntersecting);
+          });
+        }, { threshold: 0.1 });
+        recentObs.observe(recentPosts);
+      }
       // Reset scroll to first car after build
       const firstCar = document.getElementById('car-10');
       if (firstCar) firstCar.scrollIntoView(true);
