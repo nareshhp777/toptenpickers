@@ -8,8 +8,10 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-HPLGYD20BG');
+    (self.requestIdleCallback || function(fn){setTimeout(fn, 1)})(function(){
+      gtag('js', new Date());
+      gtag('config', 'G-HPLGYD20BG');
+    });
   </script>
   <title>Top10 — World's Best Top 10 Rankings Across Every Category</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23111111'/%3E%3Ctext x='40' y='36' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='white' text-anchor='middle' dominant-baseline='middle'%3ETOP%3C/text%3E%3Ctext x='40' y='58' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='%23FF6F00' text-anchor='middle' dominant-baseline='middle'%3E10%3C/text%3E%3C/svg%3E">
@@ -49,8 +51,10 @@
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=optional" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
   <style>
     :root {
       --accent: #ff4d4d;
@@ -210,7 +214,7 @@
       font-size: 0.7rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.75);
     }
     .nav .nav-side {
       display: flex;
@@ -230,7 +234,7 @@
     }
     .nav .region-badge {
       font-size: 0.6rem;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.75);
       letter-spacing: 0.3px;
       line-height: 1;
       margin-top: 1px;
@@ -257,7 +261,7 @@
       font-size: 0.7rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.75);
     }
     .nav .nav-side {
       display: flex;
@@ -1152,7 +1156,7 @@
     <div class="spec-panel" id="specPanel"></div>
   </div>
 
-  <script>
+  <script async defer>
     const carThemes = {
       1:  { accent:'#1565C0', accent2:'#FF6F00', glow:'rgba(21,101,192,0.15)', glowBorder:'rgba(21,101,192,0.08)' },
       2:  { accent:'#9E9E9E', accent2:'#FFD700', glow:'rgba(255,215,0,0.12)', glowBorder:'rgba(255,215,0,0.06)' },
@@ -1384,9 +1388,10 @@
     const preloaderBar = document.getElementById('preloaderBar');
 
     let mx = 0, my = 0, cx = 0, cy = 0;
-    // Center cursor on load
-    cx = window.innerWidth / 2;
-    cy = window.innerHeight / 2;
+    // Center cursor on load (cache geometry to avoid layout thrash)
+    const vw = window.innerWidth, vh = window.innerHeight;
+    cx = vw / 2;
+    cy = vh / 2;
     mx = cx; my = cy;
     cursor.style.left = cx + 'px';
     cursor.style.top = cy + 'px';
