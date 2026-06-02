@@ -211,13 +211,27 @@ strong { color: #e8edf5; }
   margin: 0 auto;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .nav { padding: 14px 16px; }
   .nav-links { gap: 12px; }
   .nav-links a { font-size: 0.55rem; letter-spacing: 1px; }
-  h1 { font-size: 1.5rem; }
-  h2 { font-size: 1.1rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.15rem; }
   .content { padding: 24px 16px; }
   .recent-posts { padding: 40px 16px; }
   .card-grid { grid-template-columns: 1fr; }
+  .form-group input,
+  .form-group textarea { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .nav { padding: 10px 12px; }
+  h1 { font-size: 1.35rem; letter-spacing: -0.5px; }
+  h2 { font-size: 1.05rem; }
+  h3 { font-size: 0.95rem; }
+  p { font-size: 0.9rem; }
+  .content { padding: 20px 14px; }
+  .card { padding: 18px; }
+  .card h3 { font-size: 0.9rem; }
+  .btn { font-size: 0.6rem; padding: 9px 22px; }
 }

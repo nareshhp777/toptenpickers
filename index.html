@@ -97,18 +97,18 @@
 
     .cursor {
       position: fixed;
-      width: 34px; height: 34px;
+      width: 10px; height: 10px;
       border-radius: 50%;
       pointer-events: none;
       z-index: 10001;
-      transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.4s ease, transform 0.3s var(--ease);
+      transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.4s ease, transform 0.3s var(--ease), background 0.3s ease, box-shadow 0.3s ease;
       transform: translate(-50%, -50%);
-      border: 3px solid rgba(255,255,255,0.25);
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
-      background: transparent;
+      background: rgba(100, 180, 255, 0.95);
+      box-shadow: 0 0 8px rgba(80, 160, 255, 0.9), 0 0 18px rgba(80, 160, 255, 0.5);
     }
     .cursor .cl {
       transition: opacity 0.3s ease;
@@ -129,11 +129,35 @@
       object-fit: contain;
       display: block;
     }
+    .cursor.has-brand {
+      width: 34px; height: 34px;
+      border: 3px solid rgba(255,255,255,0.25);
+      background: transparent;
+      box-shadow: none;
+      filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
+    }
     .cursor.has-brand .cl {
       opacity: 1;
     }
     .cursor.hovering {
-      width: 52px; height: 52px;
+      width: 16px; height: 16px;
+      border: none;
+      background: rgba(100, 180, 255, 0.95);
+      box-shadow: 0 0 10px rgba(80, 160, 255, 1), 0 0 22px rgba(80, 160, 255, 0.6);
+      filter: none;
+    }
+    .cursor.hovering .cl {
+      opacity: 0;
+    }
+    body.recent-visible .cursor.has-brand {
+      width: 10px; height: 10px;
+      border: none;
+      background: rgba(100, 180, 255, 0.95);
+      box-shadow: 0 0 8px rgba(80, 160, 255, 0.9), 0 0 18px rgba(80, 160, 255, 0.5);
+      filter: none;
+    }
+    body.recent-visible .cursor.has-brand .cl {
+      opacity: 0;
     }
 
     .preloader {
@@ -181,7 +205,7 @@
     .scroll-container {
       height: 100vh;
       overflow-y: scroll;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: y proximity;
       scroll-behavior: smooth;
     }
 
@@ -189,11 +213,14 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      padding: 20px 30px;
+      padding: 18px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      mix-blend-mode: difference;
+      background: rgba(6, 8, 15, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .nav .logo {
       font-family: 'Space Grotesk', sans-serif;
@@ -203,28 +230,10 @@
       color: #fff;
       text-decoration: none;
     }
-    .nav .counter-current {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 1px;
-    }
-    .nav .counter-current span { color: var(--accent2); font-weight: 700; }
-    .nav .side-text {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
-    }
-    .nav .nav-side {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 40px;
       flex: 1;
     }
     .nav-left .logo-wrap {
@@ -239,50 +248,118 @@
       line-height: 1;
       margin-top: 1px;
     }
-    .nav-pages a {
-      font-size: 0.65rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-      text-decoration: none;
-      transition: color 0.3s ease;
+    .nav-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
     }
-    .nav-pages a:hover { color: var(--accent2); }
     .nav .counter-current {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 1px;
-      flex: 1;
-      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 1.5px;
     }
     .nav .counter-current span { color: var(--accent2); font-weight: 700; }
-    .nav .side-text {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
-    }
-    .nav .nav-side {
+    .nav-right {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
+      gap: 20px;
       flex: 1;
+      justify-content: flex-end;
     }
     .nav-pages {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       align-items: center;
     }
     .nav-pages a {
-      font-size: 0.65rem;
-      letter-spacing: 1.5px;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: rgba(255,255,255,0.85);
       text-decoration: none;
       transition: color 0.3s ease;
     }
     .nav-pages a:hover { color: var(--accent2); }
+
+    .hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      width: 38px;
+      height: 38px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s var(--ease);
+    }
+    .hamburger:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    body.mobile-menu-open .hamburger {
+      border-color: var(--accent2);
+      color: #fff;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(6, 8, 15, 0.75);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease);
+    }
+    body.mobile-menu-open .mobile-menu {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-menu-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--ease);
+    }
+    .mobile-menu-close:hover {
+      border-color: var(--accent2);
+      background: rgba(255,255,255,0.1);
+    }
+    .mobile-menu-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .mobile-menu-link:hover { color: var(--accent2); }
 
     .side-nav {
       position: fixed;
@@ -401,57 +478,72 @@
       transition: transform 1.8s var(--ease), filter 1.8s var(--ease), opacity 0.5s ease;
       z-index: 0;
     }
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .car-section .bg {
         background-size: contain;
         background-position: center 40%;
         background-repeat: no-repeat;
       }
       .spec-panel {
-        width: calc(100% - 24px);
-        max-height: 75vh;
-        padding: 28px 20px;
-        margin: 0 12px 12px;
+        width: 95%;
+        height: 85%;
+        max-height: 85vh;
+        padding: 24px 18px;
+        margin: 0 auto;
         border-radius: 18px;
       }
       .spec-overlay {
-        align-items: flex-end;
-        padding-bottom: 10px;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
       }
       .spec-overlay.open .spec-panel {
-        transform: translateY(0) scale(1);
+        transform: scale(1);
       }
-      .spec-grid { gap: 8px; }
-      .spec-item { padding: 10px 14px; }
+      .spec-grid { gap: 10px; grid-template-columns: 1fr; }
+      .spec-item { padding: 12px 16px; }
       .spec-header h3 { font-size: 1rem; }
       .overlay { padding: 20px 16px 30px; }
       .overlay h2 { font-size: 1.4rem; }
+      .overlay h1 { font-size: 1.5rem; }
       .main-img-wrap { max-height: 38vh; max-width: 92%; }
-      .nav { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 10px 14px; gap: 12px; }
+      .nav { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 12px 20px; gap: 12px; }
       .nav-left { display: contents; }
       .nav .logo { flex: 0 0 auto; font-size: 0.85rem; }
-      .nav .counter-current { flex: 0 0 auto; font-size: 0.7rem; text-align: center; }
-      .nav .nav-side { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; margin-top: 0; flex-direction: row; }
-      .nav .side-text { display: none; }
-      .nav .specs-btn { font-size: 0.6rem; padding: 0; letter-spacing: 0.5px; margin-top: 0; line-height: 1; border: none; background: none; }
-      .nav-pages { flex: 0 0 100%; display: flex; gap: 16px; justify-content: center; padding-top: 4px; }
-      .nav-pages a { font-size: 0.55rem; letter-spacing: 0.8px; }
-      .side-nav { right: 8px; gap: 6px; }
-      .side-nav .dot .dot-num { width: 24px; height: 24px; font-size: 0.55rem; }
-      .angle-btn { width: 36px; height: 36px; }
+      .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
+      .nav .counter-current { font-size: 0.75rem; }
+      .nav-right { display: flex; align-items: center; gap: 16px; justify-content: flex-end; }
+      .nav .specs-btn { display: none; }
+      .specs-fab { display: inline-flex; }
+      .hamburger { display: inline-flex; width: 32px; height: 32px; font-size: 0.85rem; }
+      .nav-pages { display: none; }
+      .nav .search-form { height: 32px; width: 32px; padding: 0; overflow: hidden; justify-content: center; border-radius: 50px; }
+      .nav .search-form .search-btn { padding: 0; width: 100%; height: 100%; font-size: 1.1rem; color: rgba(255,255,255,0.8); }
+      .nav .search-form .search-btn:hover { color: #fff; }
+      .search-input { display: none; }
+      .search-form.expanded { flex: 1; width: auto; padding: 0 12px 0 16px; justify-content: flex-start; border-radius: 50px; }
+      .search-form.expanded .search-input { display: block; font-size: 0.7rem; flex: 1; min-width: 0; padding: 0 8px; }
+      .nav .search-form.expanded .search-btn { width: auto; height: auto; padding: 4px; }
+      body.search-expanded .hamburger { display: none; }
+      body.search-expanded .nav-center { display: none; }
+      .side-nav { right: 6px; gap: 6px; }
+      .side-nav .dot .dot-num { width: 26px; height: 26px; font-size: 0.55rem; }
+      .angle-btn { width: 44px; height: 44px; }
       .angle-selector { gap: 6px; }
-      .car-arrow { width: 36px; height: 36px; font-size: 0.8rem; }
+      .car-arrow { width: 48px; height: 48px; font-size: 0.9rem; }
       .car-arrow.next { display: none; }
       .car-arrow.prev i { display: none; }
-      .car-arrow.prev::after { content: '<>'; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; }
-      .car-arrow.prev, .car-section.revealed .car-arrow.prev { top: auto; bottom: calc(35% + 30px); left: 50%; transform: translateX(-50%); }
+      .car-arrow.prev::after { content: '<>'; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; }
+      .car-arrow.prev, .car-section.revealed .car-arrow.prev { top: auto; bottom: calc(32% + 24px); left: 50%; transform: translateX(-50%); }
       .scroll-hint { bottom: 16px; }
       .scroll-hint .text { font-size: 0.5rem; }
-      .scroll-container { scroll-snap-type: y mandatory; }
+      .scroll-container { scroll-snap-type: y proximity; }
       .car-section { height: 100dvh; }
     }
     body.spec-open .side-nav,
     body.recent-visible .side-nav { display: none; }
+    body.spec-open .specs-btn,
+    body.recent-visible .specs-btn { display: none; }
     body.spec-open .nav,
     body.recent-visible .nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
     .car-section.revealed .bg {
@@ -829,6 +921,57 @@
       pointer-events: none;
     }
 
+    .search-form {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 0 12px 0 16px;
+      transition: all 0.3s var(--ease);
+      height: 38px;
+    }
+    .search-form:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.09);
+    }
+    .search-form:focus-within {
+      border-color: var(--accent2);
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 0 20px rgba(255,154,60,0.15);
+    }
+    .search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e8edf5;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      width: 140px;
+      padding: 0 8px;
+    }
+    .search-input::placeholder {
+      color: rgba(255,255,255,0.45);
+    }
+    .search-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: color 0.3s var(--ease);
+    }
+    .search-btn:hover {
+      color: var(--accent2);
+    }
+
     .specs-btn {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
@@ -838,15 +981,46 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.15);
       color: rgba(255,255,255,0.7);
-      padding: 8px 22px;
-      border-radius: 30px;
+      padding: 0 22px;
+      border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s var(--ease);
-      margin-top: 12px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
     }
     .specs-btn:hover {
       color: #fff;
       border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .specs-fab {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 999;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(6, 8, 15, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 0 22px;
+      height: 48px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      align-items: center;
+    }
+    .specs-fab:hover {
+      border-color: var(--accent2);
       background: rgba(255,255,255,0.12);
     }
 
@@ -957,21 +1131,28 @@
     }
 
     @media (max-width: 480px) {
-      .nav { padding: 10px 12px; }
+      .nav { padding: 10px 14px; gap: 8px; }
       .nav .logo { font-size: 0.9rem; }
-      .overlay h2 { font-size: 1.1rem; }
+      .nav .counter-current { font-size: 0.7rem; }
+      .specs-fab { bottom: 70px; right: 14px; font-size: 0.65rem; padding: 0 18px; height: 44px; }
+      .overlay h2 { font-size: 1.15rem; }
+      .overlay h1 { font-size: 1.3rem; }
       .overlay .specs { gap: 6px; font-size: 0.55rem; }
       .overlay .specs span { padding: 3px 8px; }
       .overlay .price { font-size: 1.1rem; }
       .main-img-wrap { max-height: 32vh; }
-      .angle-btn { width: 30px; height: 30px; }
-      .car-arrow { width: 30px; height: 30px; font-size: 0.65rem; }
-      .car-arrow.prev, .car-section.revealed .car-arrow.prev { bottom: calc(35% + 30px); }
-      .spec-panel { padding: 18px 12px; margin: 0 6px 6px; max-height: 70vh; border-radius: 14px; width: calc(100% - 12px); }
-      .spec-grid { gap: 4px; }
-      .spec-item { padding: 6px 10px; }
+      .angle-btn { width: 44px; height: 44px; }
+      .angle-selector { gap: 4px; padding: 0 6px; }
+      .car-arrow { width: 48px; height: 48px; font-size: 0.85rem; }
+      .car-arrow.prev, .car-section.revealed .car-arrow.prev { bottom: calc(30% + 18px); }
+      .spec-panel { padding: 18px 14px; border-radius: 14px; }
+      .spec-grid { gap: 6px; }
+      .spec-item { padding: 8px 12px; }
       .spec-header h3 { font-size: 0.85rem; }
       .spec-header { margin-bottom: 14px; }
+      .mobile-menu-link { font-size: 1.25rem; }
+      .side-nav { right: 4px; gap: 4px; }
+      .side-nav .dot .dot-num { width: 22px; height: 22px; font-size: 0.5rem; }
     }
 
     .scroll-hint {
@@ -1074,10 +1255,89 @@
       margin: 0;
       line-height: 1.6;
     }
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .recent-posts { padding: 40px 16px 60px; }
       .recent-posts h2 { font-size: 1.3rem; }
       .recent-posts .card-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Site Footer */
+    .site-footer {
+      background: rgba(6, 8, 15, 0.9);
+      padding: 60px 24px 30px;
+      font-family: 'Inter', sans-serif;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-brand .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .footer-brand .logo span { color: var(--accent); }
+    .footer-brand .credit {
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.4);
+      margin: 0;
+    }
+    .footer-brand .credit strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: right;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-links a:hover { color: var(--accent2); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+    @media (max-width: 640px) {
+      .site-footer { padding: 40px 20px 24px; }
+      .footer-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 28px;
+      }
+      .footer-links {
+        flex-direction: row;
+        gap: 20px;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -1090,7 +1350,7 @@
 
   <div class="cursor" id="cursor"><span class="cl" id="cursorLogo"></span></div>
 
-  <nav class="nav" aria-label="Site navigation">    
+  <nav class="nav" aria-label="Site navigation">
     <div class="nav-left">
       <div class="logo-wrap">
         <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
@@ -1103,12 +1363,36 @@
         <a href="/disclaimer.html">Disclaimer</a>
       </div>
     </div>
-    <div class="counter-current" id="navCounter"><span>01</span> / 10</div>
-    <div class="nav-side">
-      <div class="side-text">Best Cars 2026</div>
+    <div class="nav-center">
+      <div class="counter-current" id="navCounter"><span>01</span> / 10</div>
+    </div>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="search-form" role="search" aria-label="Search Top10" id="siteSearchForm">
+        <input type="text" name="q" class="search-input" placeholder="Search..." aria-label="Search Top10" id="searchInput" autocomplete="off">
+        <button type="button" class="search-btn" aria-label="Submit search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
       <button class="specs-btn" id="specsNavBtn"><i class="fas fa-list"></i> &nbsp;Specs</button>
     </div>
   </nav>
+
+  <button class="specs-fab" id="specsFabBtn" aria-label="Open specifications">
+    <i class="fas fa-list"></i> &nbsp;Specs
+  </button>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <a href="/about.html" class="mobile-menu-link">About</a>
+    <a href="/contact.html" class="mobile-menu-link">Contact</a>
+    <a href="/privacy-policy.html" class="mobile-menu-link">Privacy</a>
+    <a href="/disclaimer.html" class="mobile-menu-link">Disclaimer</a>
+  </div>
 
   <nav class="side-nav" id="sideNav" aria-label="Car navigation"></nav>
 
@@ -1120,7 +1404,7 @@
 
   <main class="scroll-container" id="scrollContainer" aria-label="Car listings">
     <div id="container"></div>
-    <section class="recent-posts" id="recentPosts" style="scroll-snap-align:start; min-height:100vh; padding-top:80px;">
+    <section class="recent-posts" id="recentPosts" style="min-height:100vh; padding-top:80px;">
       <div class="recent-header">
         <span class="label">Latest Rankings</span>
         <h2>Recent Posts</h2>
@@ -1151,8 +1435,49 @@
           <h3>Top 10 Must-Have Tech Gadgets of 2026</h3>
           <p>Cutting-edge innovation and daily utility. From the Vision Pro 2 to the Rabbit R2.</p>
         </a>
+        <a href="/articles/top-10-electric-sports-bikes.html" class="card">
+          <div class="meta">Electric Motorcycles</div>
+          <h3>Top 10 Electric Sports Bikes of 2026</h3>
+          <p>0-60 times, battery range, and the EV engineering shift. From the Lightning LS-218 to the Damon HyperSport.</p>
+        </a>
+        <a href="/articles/top-10-high-speed-trains.html" class="card">
+          <div class="meta">High-Speed Rail</div>
+          <h3>Top 10 Fastest Trains in the World</h3>
+          <p>Maglev technology and aerodynamic rail engineering. From Japan's L0 Series to China's CR450.</p>
+        </a>
+        <a href="/articles/top-10-professional-cameras.html" class="card">
+          <div class="meta">Photography & Cinema</div>
+          <h3>Top 10 Professional Cameras of 2026</h3>
+          <p>High-end creator gear ranked by sensor size and frame rates. From the Sony A1 II to the ARRI Alexa 35.</p>
+        </a>
+        <a href="/articles/top-10-powerboats.html" class="card">
+          <div class="meta">Offshore Powerboats</div>
+          <h3>Top 10 High-Speed Powerboats & Speedboats</h3>
+          <p>Offshore racing, horsepower, and hull design. From Cigarette Racing to the Candela C-8.</p>
+        </a>
+        <a href="/articles/top-10-gaming-consoles.html" class="card">
+          <div class="meta">Gaming Hardware</div>
+          <h3>Top 10 Ultimate Gaming Consoles & Handhelds</h3>
+          <p>Teraflops, ray-tracing, and next-gen hardware. From the PS5 Pro to the Steam Deck OLED.</p>
+        </a>
       </div>
     </section>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo">TOP<span>10</span></a>
+          <p class="credit">Designed &amp; Developed by <strong>Naresh Pawar</strong></p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Top10. All rights reserved.
+      </div>
+    </footer>
   </main>
 
   <div class="spec-overlay" id="specOverlay">
@@ -1622,28 +1947,53 @@
         s._currentAngle = 0;
         obs.observe(s);
       });
-      // Observe recent posts section to hide side-nav
+      // Observe recent posts + footer to hide side-nav and cursor logo
       const recentPosts = document.getElementById('recentPosts');
-      if (recentPosts) {
-        const recentObs = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            document.body.classList.toggle('recent-visible', e.isIntersecting);
-          });
-        }, { threshold: 0.1 });
-        recentObs.observe(recentPosts);
-      }
+      const siteFooter = document.querySelector('.site-footer');
+      const recentObs = new IntersectionObserver(entries => {
+        const anyVisible = entries.some(e => e.isIntersecting);
+        document.body.classList.toggle('recent-visible', anyVisible);
+      }, { threshold: 0.05 });
+      if (recentPosts) recentObs.observe(recentPosts);
+      if (siteFooter) recentObs.observe(siteFooter);
       // Reset scroll to first car after build
       const firstCar = document.getElementById('car-10');
       if (firstCar) firstCar.scrollIntoView(true);
+    }
+
+    // Site search — instant client-side filter
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const q = searchInput.value.trim().toLowerCase();
+        // Query DOM fresh on each keystroke (sections/dots are built later by buildPage)
+        const carSections = document.querySelectorAll('.car-section');
+        const articleCards = document.querySelectorAll('.recent-posts .card');
+        // Filter cars + dots
+        carSections.forEach(section => {
+          const idx = parseInt(section.dataset.index, 10);
+          const rank = loadOrder[idx];
+          const car = cars.find(x => x.rank === rank);
+          const text = car ? (car.name + ' ' + car.maker).toLowerCase() : '';
+          const match = !q || text.includes(q);
+          section.style.display = match ? '' : 'none';
+          const dot = document.querySelector('.side-nav .dot[data-index="' + idx + '"]');
+          if (dot) dot.style.display = match ? '' : 'none';
+        });
+        // Filter article cards
+        articleCards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          const match = !q || text.includes(q);
+          card.style.display = match ? '' : 'none';
+        });
+      });
     }
 
     // Specs overlay
     const specOverlay = document.getElementById('specOverlay');
     const specPanel = document.getElementById('specPanel');
 
-    document.addEventListener('click', function(e) {
-      const btn = e.target.closest('#specsNavBtn');
-      if (!btn) return;
+    function openSpecOverlay() {
       const rank = currentCarRank;
       const c = cars.find(x => x.rank === rank);
       if (!c) return;
@@ -1659,6 +2009,12 @@
       specPanel.style.setProperty('--car-accent', theme.accent);
       specOverlay.classList.add('open');
       document.body.classList.add('spec-open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('#specsNavBtn') || e.target.closest('#specsFabBtn')) {
+        openSpecOverlay();
+      }
     });
 
     specOverlay.addEventListener('click', function(e) {
@@ -1734,6 +2090,57 @@
         el.addEventListener('touchend', function() {
           this.style.transform = '';
         }, { passive: true });
+      });
+    }
+
+    // Hamburger menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    function openMobileMenu() {
+      document.body.classList.add('mobile-menu-open');
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+    }
+    function closeMobileMenu() {
+      document.body.classList.remove('mobile-menu-open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener('click', openMobileMenu);
+    }
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+    document.querySelectorAll('.mobile-menu-link').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Mobile search expand on tap
+    const searchFormEl = document.getElementById('siteSearchForm');
+    const searchInputEl = document.getElementById('searchInput');
+    function openMobileSearch() {
+      if (!searchFormEl) return;
+      searchFormEl.classList.add('expanded');
+      document.body.classList.add('search-expanded');
+      setTimeout(function() { if (searchInputEl) searchInputEl.focus(); }, 150);
+    }
+    function closeMobileSearch() {
+      if (!searchFormEl) return;
+      searchFormEl.classList.remove('expanded');
+      document.body.classList.remove('search-expanded');
+    }
+    if (searchFormEl && searchInputEl) {
+      searchFormEl.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && !searchFormEl.classList.contains('expanded')) {
+          openMobileSearch();
+        }
+      });
+      searchInputEl.addEventListener('blur', function() {
+        if (window.innerWidth <= 768 && !searchInputEl.value.trim()) {
+          closeMobileSearch();
+        }
       });
     }
   </script>
