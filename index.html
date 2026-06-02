@@ -465,6 +465,8 @@
       display: flex;
       align-items: flex-end;
       overflow: hidden;
+      content-visibility: auto;
+      contain-intrinsic-size: 100vh;
       background: radial-gradient(ellipse at center 40%, color-mix(in srgb, var(--car-accent, var(--accent)) 10%, transparent), transparent 70%);
     }
 
@@ -902,6 +904,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      aspect-ratio: 1 / 1;
       transition: transform 0.3s ease;
     }
     .angle-btn:hover img {
@@ -1780,10 +1783,10 @@
       }
     }
 
-    // Build page immediately, preload images in background
+    // Build page immediately so DOM is fully constructed before preloader fades
+    buildPage();
     setTimeout(() => {
       preloader.classList.add('done');
-      buildPage();
     }, 800);
 
     allImages.forEach(src => {
@@ -1908,6 +1911,12 @@
             const idx = parseInt(e.target.dataset.index);
             const c = cars.find(x => x.rank === loadOrder[idx]);
             currentCarRank = c.rank;
+            if (c && !e.target._viewTracked && typeof gtag === 'function') {
+              e.target._viewTracked = true;
+              setTimeout(() => {
+                gtag('event', 'car_section_view', { 'car_name': c.name, 'rank_position': c.rank });
+              }, 800);
+            }
             const theme = carThemes[c.rank];
             const brand = cursorBrands[c.rank];
             navCounter.innerHTML = '<span>' + String(idx + 1).padStart(2, '0') + '</span> / 10';
@@ -1963,9 +1972,18 @@
 
     // Site search — instant client-side filter
     const searchInput = document.getElementById('searchInput');
+    let _searchTrackTimer = null;
     if (searchInput) {
       searchInput.addEventListener('input', function() {
         const q = searchInput.value.trim().toLowerCase();
+        // Debounced search tracking (fires 800ms after user stops typing, only for 2+ char queries)
+        clearTimeout(_searchTrackTimer);
+        if (q.length >= 2 && typeof gtag === 'function') {
+          const query = q;
+          _searchTrackTimer = setTimeout(() => {
+            gtag('event', 'instant_search_query', { 'search_term': query });
+          }, 800);
+        }
         // Query DOM fresh on each keystroke (sections/dots are built later by buildPage)
         const carSections = document.querySelectorAll('.car-section');
         const articleCards = document.querySelectorAll('.recent-posts .card');
@@ -2013,6 +2031,10 @@
 
     document.addEventListener('click', function(e) {
       if (e.target.closest('#specsNavBtn') || e.target.closest('#specsFabBtn')) {
+        const c = cars.find(x => x.rank === currentCarRank);
+        if (c && typeof gtag === 'function') {
+          gtag('event', 'specs_overlay_open', { 'car_name': c.name, 'car_rank': currentCarRank });
+        }
         openSpecOverlay();
       }
     });
@@ -2034,6 +2056,9 @@
         section._userInteracted = true;
         clearTimeout(section._autoTimer);
         setTimeout(() => { section._userInteracted = false; startAutoRotate(section); }, 6000);
+        if (c && typeof gtag === 'function') {
+          gtag('event', 'angle_tab_click', { 'car_name': c.name, 'angle_view': angleLabels[idx] });
+        }
       }
 
       bg.classList.add('fading');
