@@ -206,7 +206,7 @@
     .scroll-container {
       height: 100vh;
       overflow-y: scroll;
-      scroll-snap-type: y proximity;
+      scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
 
@@ -462,7 +462,6 @@
       position: relative;
       height: 100vh;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
       display: flex;
       align-items: flex-end;
       overflow: hidden;
@@ -540,7 +539,7 @@
       .car-arrow.prev, .car-section.revealed .car-arrow.prev { top: auto; bottom: calc(32% + 24px); left: 50%; transform: translateX(-50%); }
       .scroll-hint { bottom: 16px; }
       .scroll-hint .text { font-size: 0.5rem; }
-      .scroll-container { scroll-snap-type: y proximity; }
+      .scroll-container { scroll-snap-type: y mandatory; }
       .car-section { height: 100dvh; }
     }
     body.spec-open .side-nav,
@@ -1206,6 +1205,7 @@
       max-width: 1100px;
       margin: 0 auto;
       width: 100%;
+      scroll-snap-align: start;
     }
     .recent-posts .recent-header {
       text-align: center;
@@ -1271,6 +1271,7 @@
       padding: 60px 24px 30px;
       font-family: 'Inter', sans-serif;
       color: rgba(255, 255, 255, 0.4);
+      scroll-snap-align: start;
     }
     .footer-top {
       display: flex;
@@ -1463,6 +1464,31 @@
           <div class="meta">Gaming Hardware</div>
           <h3>Top 10 Ultimate Gaming Consoles & Handhelds</h3>
           <p>Teraflops, ray-tracing, and next-gen hardware. From the PS5 Pro to the Steam Deck OLED.</p>
+        </a>
+        <a href="/articles/top-10-electric-sports-cars.html" class="card">
+          <div class="meta">EV Performance</div>
+          <h3>Top 10 Electric Sports Cars of 2026</h3>
+          <p>0-60 times, battery architecture, and extreme torque. From the Rimac Nevera to the Lucid Air Sapphire.</p>
+        </a>
+        <a href="/articles/top-10-smartphones.html" class="card">
+          <div class="meta">Mobile Tech</div>
+          <h3>Top 10 Flagship Smartphones of 2026</h3>
+          <p>AI integration, 1-inch camera sensors, titanium builds, and processing power. From Apple to Samsung and Google.</p>
+        </a>
+        <a href="/articles/top-10-gaming-laptops.html" class="card">
+          <div class="meta">PC Gaming</div>
+          <h3>Top 10 Gaming Laptops of 2026</h3>
+          <p>RTX 50-series GPUs, OLED refresh rates, and vapor chamber cooling. From Razer Blade 16 to ROG Zephyrus G16.</p>
+        </a>
+        <a href="/articles/top-10-pc-games.html" class="card">
+          <div class="meta">PC Gaming</div>
+          <h3>Top 10 Most Graphically Demanding PC Games</h3>
+          <p>Path-tracing, Unreal Engine 5 showcases, and open-world fidelity that push extreme hardware to its limits.</p>
+        </a>
+        <a href="/articles/top-10-mobile-games.html" class="card">
+          <div class="meta">Mobile Gaming</div>
+          <h3>Top 10 High-Fidelity Mobile Games</h3>
+          <p>Cross-platform engines, esports responsiveness, and massive open worlds. Console quality on the go.</p>
         </a>
       </div>
     </section>
