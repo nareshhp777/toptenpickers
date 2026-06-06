@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,14 +13,25 @@
       gtag('config', 'G-HPLGYD20BG');
     });
   </script>
-  <title>Top10 â€” World's Best Top 10 Rankings Across Every Category</title>
+  <title>Top10 — أفضل تصنيفات توب 10 في العالم في كل فئة</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23111111'/%3E%3Ctext x='40' y='36' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='white' text-anchor='middle' dominant-baseline='middle'%3ETOP%3C/text%3E%3Ctext x='40' y='58' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='%23FF6F00' text-anchor='middle' dominant-baseline='middle'%3E10%3C/text%3E%3C/svg%3E">
-  <meta name="description" content="Discover the Top 10 Cars in the world â€” ranked by speed, power, and prestige. Detailed specs, photos, and comparison of the ultimate hypercars, supercars, and luxury vehicles.">
-  <meta name="keywords" content="top 10 cars, best cars, hypercars, supercars, Bugatti, Koenigsegg, Ferrari, Lamborghini, Porsche, McLaren, car rankings">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="اكتشف أفضل 10 سيارات في العالم — مصنفة حسب السرعة والقوة والمكانة. مواصفات تفصيلية وصور ومقارنة لأفضل السيارات الفائقة والسيارات الفاخرة.">
+  <meta name="keywords" content="أفضل 10 سيارات, أفضل السيارات, سيارات فائقة, سيارات خارقة, Bugatti, Koenigsegg, Ferrari, Lamborghini, Porsche, McLaren, تصنيف السيارات">
+      <link rel="alternate" hreflang="en" href="https://toptenpickers.com/" />
+    <link rel="alternate" hreflang="es" href="https://toptenpickers.com/es/" />
+    <link rel="alternate" hreflang="de" href="https://toptenpickers.com/de/" />
+    <link rel="alternate" hreflang="fr" href="https://toptenpickers.com/fr/" />
+    <link rel="alternate" hreflang="ja" href="https://toptenpickers.com/ja/" />
+    <link rel="alternate" hreflang="pt" href="https://toptenpickers.com/pt/" />
+    <link rel="alternate" hreflang="hi" href="https://toptenpickers.com/hi/" />
+    <link rel="alternate" hreflang="ar" href="https://toptenpickers.com/ar/" />
+    <link rel="alternate" hreflang="ko" href="https://toptenpickers.com/ko/" />
+    <link rel="alternate" hreflang="it" href="https://toptenpickers.com/it/" />
+    <link rel="alternate" hreflang="id" href="https://toptenpickers.com/id/" />
+    <link rel="alternate" hreflang="x-default" href="https://toptenpickers.com/" />  <meta name="robots" content="index, follow">
   <meta name="author" content="Top10">
-  <meta property="og:title" content="Top10 â€” World's Best Top 10 Rankings">
-  <meta property="og:description" content="Curated rankings of the world's best cars with detailed specs, photos, and comparisons.">
+  <meta property="og:title" content="Top10 — أفضل تصنيفات توب 10 في العالم">
+  <meta property="og:description" content="تصنيفات منتقاة لأفضل السيارات في العالم مع مواصفات وصور ومقارنات تفصيلية.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://toptenpickers.com">
   <meta property="og:image" content="https://toptenpickers.com/og-image.png">
@@ -1458,6 +1469,30 @@
         text-align: center;
       }
     }
+
+    /* RTL: move side-nav to the left edge */
+    html[dir="rtl"] .side-nav {
+      right: auto;
+      left: 20px;
+      align-items: flex-end;
+    }
+    @media (max-width: 768px) {
+      html[dir="rtl"] .side-nav { left: 6px; align-items: flex-end; }
+    }
+    @media (max-width: 480px) {
+      html[dir="rtl"] .side-nav { left: 4px; align-items: flex-end; }
+    }
+    /* RTL: gap between circle and label should be on the RIGHT of the circle */
+    html[dir="rtl"] .side-nav .dot .dot-num {
+      transition-property: margin-right, background, border-color, box-shadow, transform, color !important;
+    }
+    html[dir="rtl"] .side-nav .dot.active .dot-num {
+      margin-left: 0 !important;
+      margin-right: 10px !important;
+    }
+    html[dir="rtl"] .side-nav .dot.active.compact .dot-num {
+      margin-right: 0 !important;
+    }
   </style>
 </head>
 <body>
@@ -1476,10 +1511,8 @@
         <span class="region-badge" id="regionBadge"></span>
       </div>
       <div class="nav-pages">
-        <a href="/about.html">About</a>
-        <a href="/contact.html">Contact</a>
-        <a href="/privacy-policy.html">Privacy</a>
-        <a href="/disclaimer.html">Disclaimer</a>
+        <a href="/about.html">حول</a>
+        <a href="/contact.html">اتصل بنا</a>
       </div>
     </div>
     <div class="nav-center">
@@ -1490,25 +1523,25 @@
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="lang-selector" id="langSelector">
-        <button class="lang-btn" id="langBtn" aria-label="Change language" aria-expanded="false">
-          <i class="fa-solid fa-globe"></i> <span>EN</span> <i class="fa-solid fa-chevron-down lang-chevron"></i>
+        <button class="lang-btn" id="langBtn" aria-label="تغيير اللغة" aria-expanded="false">
+          <i class="fa-solid fa-globe"></i> <span>AR</span> <i class="fa-solid fa-chevron-down lang-chevron"></i>
         </button>
         <div class="lang-dropdown" id="langDropdown" role="menu">
-          <a href="/" class="active" role="menuitem">English (EN)</a>
+          <a href="/" role="menuitem">English (EN)</a>
           <a href="/es/" role="menuitem">Español (ES)</a>
           <a href="/de/" role="menuitem">Deutsch (DE)</a>
           <a href="/fr/" role="menuitem">Français (FR)</a>
           <a href="/ja/" role="menuitem">日本語 (JA)</a>
           <a href="/pt/" role="menuitem">Português (PT)</a>
           <a href="/hi/" role="menuitem">हिन्दी (HI)</a>
-          <a href="/ar/" role="menuitem">العربية (AR)</a>
+          <a href="/ar/" class="active" role="menuitem">العربية (AR)</a>
           <a href="/ko/" role="menuitem">한국어 (KO)</a>
           <a href="/it/" role="menuitem">Italiano (IT)</a>
           <a href="/id/" role="menuitem">Bahasa Indonesia (ID)</a>
         </div>
       </div>
-      <div class="search-form" role="search" aria-label="Search Top10" id="siteSearchForm">
-        <input type="text" name="q" class="search-input" placeholder="Search..." aria-label="Search Top10" id="searchInput" autocomplete="off">
+      <div class="search-form" role="search" aria-label="البحث في Top10" id="siteSearchForm">
+        <input type="text" name="q" class="search-input" placeholder="بحث..." aria-label="البحث في Top10" id="searchInput" autocomplete="off">
         <button type="button" class="search-btn" aria-label="Submit search">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -1525,10 +1558,10 @@
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
       <i class="fa-solid fa-xmark"></i>
     </button>
-    <a href="/about.html" class="mobile-menu-link">About</a>
-    <a href="/contact.html" class="mobile-menu-link">Contact</a>
-    <a href="/privacy-policy.html" class="mobile-menu-link">Privacy</a>
-    <a href="/disclaimer.html" class="mobile-menu-link">Disclaimer</a>
+    <a href="/about.html" class="mobile-menu-link">حول</a>
+    <a href="/contact.html" class="mobile-menu-link">اتصل بنا</a>
+    <a href="/privacy-policy.html" class="mobile-menu-link">الخصوصية</a>
+    <a href="/disclaimer.html" class="mobile-menu-link">إخلاء مسؤولية</a>
   </div>
 
   <nav class="side-nav" id="sideNav" aria-label="Car navigation"></nav>
@@ -1543,109 +1576,109 @@
     <div id="container"></div>
     <section class="recent-posts" id="recentPosts" style="min-height:100vh; padding-top:80px;">
       <div class="recent-header">
-        <span class="label">Latest Rankings</span>
-        <h2>Recent Posts</h2>
+        <span class="label">أحدث التصنيفات</span>
+        <h2>أحدث المقالات</h2>
       </div>
       <div class="card-grid">
         <a href="/articles/top-10-sports-bikes-2026.html" class="card">
-          <div class="meta">Sports Bikes</div>
-          <h3>Top 10 Sports Bikes of 2026</h3>
-          <p>Ranked by speed, aerodynamics, and track performance. From the Ducati Panigale V4 R to the Kawasaki Ninja H2R.</p>
+          <div class="meta">دراجات رياضية</div>
+          <h3>أفضل 10 دراجات رياضية 2026</h3>
+          <p>مصنفة حسب السرعة والديناميكيات الهوائية وأداء الحلبة. من Ducati Panigale V4 R إلى Kawasaki Ninja H2R.</p>
         </a>
         <a href="/articles/top-10-luxury-yachts.html" class="card">
-          <div class="meta">Luxury Yachts</div>
-          <h3>Top 10 Luxury Yachts of 2026</h3>
-          <p>Design, amenities, and global cruising capability. From the REV Ocean to the Sunreef 80 Eco.</p>
+          <div class="meta">يخوت فاخرة</div>
+          <h3>أفضل 10 يخوت فاخرة 2026</h3>
+          <p>التصميم ووسائل الراحة والقدرة على الإبحار العالمي. من REV Ocean إلى Sunreef 80 Eco.</p>
         </a>
         <a href="/articles/top-10-airplanes.html" class="card">
-          <div class="meta">Aviation</div>
-          <h3>Top 10 Airplanes & Private Jets</h3>
-          <p>Private jets and aerospace engineering marvels. From the Global 8000 to the Boom Overture.</p>
+          <div class="meta">طيران</div>
+          <h3>أفضل 10 طائرات وطائرات خاصة</h3>
+          <p>طائرات خاصة وعجائب الهندسة الفضائية. من Global 8000 إلى Boom Overture.</p>
         </a>
         <a href="/articles/top-10-f1-cars-all-time.html" class="card">
-          <div class="meta">Formula 1</div>
-          <h3>Top 10 F1 Cars of All Time</h3>
-          <p>Championship-winning machines and legendary engine specs. From the MP4/4 to the RB19.</p>
+          <div class="meta">فورمولا 1</div>
+          <h3>أفضل 10 سيارات F1 في التاريخ</h3>
+          <p>آلات فائزة بالبطولات ومواصفات محرك أسطورية. من MP4/4 إلى RB19.</p>
         </a>
         <a href="/articles/top-10-must-have-tech-gadgets.html" class="card">
-          <div class="meta">Tech Gadgets</div>
-          <h3>Top 10 Must-Have Tech Gadgets of 2026</h3>
-          <p>Cutting-edge innovation and daily utility. From the Vision Pro 2 to the Rabbit R2.</p>
+          <div class="meta">أدوات تقنية</div>
+          <h3>أفضل 10 أدوات تقنية لا غنى عنها 2026</h3>
+          <p>ابتكار متطور وفائدة يومية. من Vision Pro 2 إلى Rabbit R2.</p>
         </a>
         <a href="/articles/top-10-electric-sports-bikes.html" class="card">
-          <div class="meta">Electric Motorcycles</div>
-          <h3>Top 10 Electric Sports Bikes of 2026</h3>
-          <p>0-60 times, battery range, and the EV engineering shift. From the Lightning LS-218 to the Damon HyperSport.</p>
+          <div class="meta">دراجات كهربائية</div>
+          <h3>أفضل 10 دراجات رياضية كهربائية 2026</h3>
+          <p>أوقات 0-60 ومدى البطارية والتحول الهندسي للسيارات الكهربائية. من Lightning LS-218 إلى Damon HyperSport.</p>
         </a>
         <a href="/articles/top-10-high-speed-trains.html" class="card">
-          <div class="meta">High-Speed Rail</div>
-          <h3>Top 10 Fastest Trains in the World</h3>
-          <p>Maglev technology and aerodynamic rail engineering. From Japan's L0 Series to China's CR450.</p>
+          <div class="meta">سكك حديدية عالية السرعة</div>
+          <h3>أسرع 10 قطارات في العالم</h3>
+          <p>تكنولوجيا ماغليف والهندسة الديناميكية الهوائية للسكك. من سلسلة L0 اليابانية إلى CR450 الصينية.</p>
         </a>
         <a href="/articles/top-10-professional-cameras.html" class="card">
-          <div class="meta">Photography & Cinema</div>
-          <h3>Top 10 Professional Cameras of 2026</h3>
-          <p>High-end creator gear ranked by sensor size and frame rates. From the Sony A1 II to the ARRI Alexa 35.</p>
+          <div class="meta">تصوير وسينما</div>
+          <h3>أفضل 10 كاميرات احترافية 2026</h3>
+          <p>معدات صانعي المحتوى الراقية مصنفة حسب حجم المستشعر ومعدلات الإطارات. من Sony A1 II إلى ARRI Alexa 35.</p>
         </a>
         <a href="/articles/top-10-powerboats.html" class="card">
-          <div class="meta">Offshore Powerboats</div>
-          <h3>Top 10 High-Speed Powerboats & Speedboats</h3>
-          <p>Offshore racing, horsepower, and hull design. From Cigarette Racing to the Candela C-8.</p>
+          <div class="meta">قوارب سريعة</div>
+          <h3>أفضل 10 قوارب سريعة وعالية السرعة</h3>
+          <p>سباقات البحر والقدرة بالحصان وتصميم الهيكل. من Cigarette Racing إلى Candela C-8.</p>
         </a>
         <a href="/articles/top-10-gaming-consoles.html" class="card">
-          <div class="meta">Gaming Hardware</div>
-          <h3>Top 10 Ultimate Gaming Consoles & Handhelds</h3>
-          <p>Teraflops, ray-tracing, and next-gen hardware. From the PS5 Pro to the Steam Deck OLED.</p>
+          <div class="meta">أجهزة ألعاب</div>
+          <h3>أفضل 10 أجهزة ألعاب وأجهزة محمولة</h3>
+          <p>تيرافلوبس وتتبع الأشعة وأجهزة الجيل القادم. من PS5 Pro إلى Steam Deck OLED.</p>
         </a>
         <a href="/articles/top-10-electric-sports-cars.html" class="card">
-          <div class="meta">EV Performance</div>
-          <h3>Top 10 Electric Sports Cars of 2026</h3>
-          <p>0-60 times, battery architecture, and extreme torque. From the Rimac Nevera to the Lucid Air Sapphire.</p>
+          <div class="meta">أداء كهربائي</div>
+          <h3>أفضل 10 سيارات رياضية كهربائية 2026</h3>
+          <p>أوقات 0-60 وبنية البطارية وعزم الدوران الشديد. من Rimac Nevera إلى Lucid Air Sapphire.</p>
         </a>
         <a href="/articles/top-10-smartphones.html" class="card">
-          <div class="meta">Mobile Tech</div>
-          <h3>Top 10 Flagship Smartphones of 2026</h3>
-          <p>AI integration, 1-inch camera sensors, titanium builds, and processing power. From Apple to Samsung and Google.</p>
+          <div class="meta">تقنية محمولة</div>
+          <h3>أفضل 10 هواتف رائدة 2026</h3>
+          <p>تكامل الذكاء الاصطناعي ومستشعرات كاميرا 1 بوصة وهياكل تيتانيوم وقوة معالجة. من Apple إلى Samsung و Google.</p>
         </a>
         <a href="/articles/top-10-gaming-laptops.html" class="card">
-          <div class="meta">PC Gaming</div>
-          <h3>Top 10 Gaming Laptops of 2026</h3>
-          <p>RTX 50-series GPUs, OLED refresh rates, and vapor chamber cooling. From Razer Blade 16 to ROG Zephyrus G16.</p>
+          <div class="meta">ألعاب كمبيوتر</div>
+          <h3>أفضل 10 لابتوب ألعاب 2026</h3>
+          <p>معالجات RTX 50-series ومعدلات تحديث OLED وتبريد غرفة البخار. من Razer Blade 16 إلى ROG Zephyrus G16.</p>
         </a>
         <a href="/articles/top-10-pc-games.html" class="card">
-          <div class="meta">PC Gaming</div>
-          <h3>Top 10 Most Graphically Demanding PC Games</h3>
-          <p>Path-tracing, Unreal Engine 5 showcases, and open-world fidelity that push extreme hardware to its limits.</p>
+          <div class="meta">ألعاب كمبيوتر</div>
+          <h3>أفضل 10 ألعاب كمبيوتر تتطلب رسوميات عالية</h3>
+          <p>تتبع المسار وعروض Unreal Engine 5 ودقة العالم المفتوح التي تدفع الأجهزة المتطرفة إلى حدودها.</p>
         </a>
         <a href="/articles/top-10-mobile-games.html" class="card">
-          <div class="meta">Mobile Gaming</div>
-          <h3>Top 10 High-Fidelity Mobile Games</h3>
-          <p>Cross-platform engines, esports responsiveness, and massive open worlds. Console quality on the go.</p>
+          <div class="meta">ألعاب محمولة</div>
+          <h3>أفضل 10 ألعاب محمولة عالية الدقة</h3>
+          <p>محركات متعددة المنصات واستجابة الرياضات الإلكترونية وعوالم مفتوحة ضخمة. جودة وحدة التحكم أثناء التنقل.</p>
         </a>
         <a href="/articles/top-10-most-interesting-websites.html" class="card">
-          <div class="meta">Internet Culture</div>
-          <h3>Top 10 Most Fascinating Websites on the Internet</h3>
-          <p>Unique, useful, and mind-bending sites ranked by user experience. From Neal.fun to the Internet Archive.</p>
+          <div class="meta">ثقافة الإنترنت</div>
+          <h3>أفضل 10 مواقع رائعة على الإنترنت</h3>
+          <p>مواقع فريدة ومفيدة ومذهلة مصنفة حسب تجربة المستخدم. من Neal.fun إلى Internet Archive.</p>
         </a>
         <a href="/articles/top-10-gaming-companies.html" class="card">
-          <div class="meta">Gaming Industry</div>
-          <h3>Top 10 Most Influential Video Game Companies</h3>
-          <p>Titans of the industry ranked by innovation, revenue, and cultural impact. From Nintendo to Valve to Rockstar.</p>
+          <div class="meta">صناعة الألعاب</div>
+          <h3>أفضل 10 شركات ألعاب فيديو مؤثرة</h3>
+          <p>عمالقة الصناعة مصنفون حسب الابتكار والإيرادات والأثر الثقافي. من Nintendo إلى Valve و Rockstar.</p>
         </a>
         <a href="/articles/top-10-greatest-movies.html" class="card">
-          <div class="meta">Cinema</div>
-          <h3>Top 10 Greatest Cinematic Masterpieces</h3>
-          <p>Groundbreaking cinematography, storytelling, and cultural impact. From Citizen Kane to Parasite.</p>
+          <div class="meta">سينما</div>
+          <h3>أفضل 10 تحف سينمائية</h3>
+          <p>تصوير سينمائي رائد وسرد وأثر ثقافي. من Citizen Kane إلى Parasite.</p>
         </a>
         <a href="/articles/top-10-bingeworthy-series.html" class="card">
-          <div class="meta">Television</div>
-          <h3>Top 10 Most Gripping Television Series</h3>
-          <p>Premium television and streaming phenomena ranked by writing and cultural impact. From Breaking Bad to Succession.</p>
+          <div class="meta">تلفزيون</div>
+          <h3>أفضل 10 مسلسلات تلفزيونية مشوقة</h3>
+          <p>التلفزيون المتميز وظواهر البث مصنفة حسب الكتابة والأثر الثقافي. من Breaking Bad إلى Succession.</p>
         </a>
         <a href="/articles/top-10-greatest-albums.html" class="card">
-          <div class="meta">Music History</div>
-          <h3>Top 10 Most Groundbreaking Music Albums</h3>
-          <p>Albums that redefined genres and production standards. From Dark Side of the Moon to To Pimp a Butterfly.</p>
+          <div class="meta">تاريخ الموسيقى</div>
+          <h3>أفضل 10 ألبومات موسيقية رائدة</h3>
+          <p>ألبومات أعادت تعريف الأنواع ومعايير الإنتاج. من Dark Side of the Moon إلى To Pimp a Butterfly.</p>
         </a>
       </div>
     </section>
@@ -1654,11 +1687,11 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="/" class="logo">TOP<span>10</span></a>
-          <p class="credit">Designed &amp; Developed by <strong>Naresh Pawar</strong></p>
+          <p class="credit">تصميم وتطوير <strong>Naresh Pawar</strong></p>
         </div>
         <ul class="footer-links">
-          <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="/disclaimer.html">Disclaimer</a></li>
+          <li><a href="/privacy-policy.html">سياسة الخصوصية</a></li>
+          <li><a href="/disclaimer.html">إخلاء مسؤولية</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
@@ -1809,87 +1842,87 @@
     function convertLabel(label) {
       if (region === 'US' || !label) return label;
       return label
-        .replace('0-60 mph', '0-100 km/h')
-        .replace('0-124 mph', '0-200 km/h')
+        .replace('0-60 ميل/س', '0-100 km/h')
+        .replace('0-124 ميل/س', '0-200 km/h')
         .replace('miles', 'km')
         .replace('MPG', 'L/100km');
     }
 
     const cars = [
-      { rank:1, name:'Bugatti Chiron Super Sport', maker:'Bugatti', folder:'BugattiChironSuperSport', engine:'8.0L Quad-Turbo W16', hp:'1,578 hp', speed:'304 mph', price:'$3.9M', desc:'The ultimate hypercar with a quad-turbo W16 engine pushing boundaries of speed and luxury.',
+      { rank:1, name:'Bugatti Chiron Super Sport', maker:'Bugatti', folder:'BugattiChironSuperSport', engine:'8.0L Quad-Turbo W16', hp:'1,578 hp', speed:'304 mph', price:'$3.9M', desc:'السيارة الفائقة النهائية بمحرك W16 رباعي التيربو الذي يدفع حدود السرعة والفخامة.',
         details:[
-          { label:'0-60 mph', val:'2.3s' }, { label:'Top Speed', val:'304 mph' }, { label:'Engine', val:'8.0L Quad-Turbo W16' },
-          { label:'Horsepower', val:'1,578 hp' }, { label:'Torque', val:'1,180 lb-ft' }, { label:'Transmission', val:'7-Speed DCT' },
-          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'4,400 lbs' }, { label:'Production', val:'2021-Present' },
-          { label:'0-124 mph', val:'5.5s' }, { label:'Quarter Mile', val:'9.4s' }, { label:'Fuel Economy', val:'9/14 MPG' }
+          { label:'0-60 ميل/س', val:'2.3s' }, { label:'السرعة القصوى', val:'304 mph' }, { label:'المحرك', val:'8.0L Quad-Turbo W16' },
+          { label:'القدرة', val:'1,578 hp' }, { label:'عزم الدوران', val:'1,180 lb-ft' }, { label:'ناقل الحركة', val:'7-Speed DCT' },
+          { label:'نظام الدفع', val:'AWD' }, { label:'الوزن', val:'4,400 lbs' }, { label:'سنة الإنتاج', val:'2021-Present' },
+          { label:'0-124 ميل/س', val:'5.5s' }, { label:'ربع ميل', val:'9.4s' }, { label:'استهلاك الوقود', val:'9/14 MPG' }
         ] },
-      { rank:2, name:'Koenigsegg Jesko Absolut', maker:'Koenigsegg', folder:'KoenigseggJeskoAbsolut', engine:'5.0L Twin-Turbo V8', hp:'1,600 hp', speed:'330+ mph', price:'$3.0M', desc:'Aerodynamic masterpiece engineered for record-breaking top-speed runs.',
+      { rank:2, name:'Koenigsegg Jesko Absolut', maker:'Koenigsegg', folder:'KoenigseggJeskoAbsolut', engine:'5.0L Twin-Turbo V8', hp:'1,600 hp', speed:'330+ mph', price:'$3.0M', desc:'تحفة هندسية ديناميكية هوائية مصممة لتحقيق سرعات قصوى قياسية.',
         details:[
-          { label:'0-60 mph', val:'2.5s' }, { label:'Top Speed', val:'330+ mph' }, { label:'Engine', val:'5.0L Twin-Turbo V8' },
-          { label:'Horsepower', val:'1,600 hp' }, { label:'Torque', val:'1,106 lb-ft' }, { label:'Transmission', val:'9-Speed Multi-Clutch' },
-          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'2,955 lbs' }, { label:'Production', val:'2023-Present' },
-          { label:'0-124 mph', val:'4.5s' }, { label:'Quarter Mile', val:'8.5s' }, { label:'Fuel Economy', val:'12/18 MPG' }
+          { label:'0-60 ميل/س', val:'2.5s' }, { label:'السرعة القصوى', val:'330+ mph' }, { label:'المحرك', val:'5.0L Twin-Turbo V8' },
+          { label:'القدرة', val:'1,600 hp' }, { label:'عزم الدوران', val:'1,106 lb-ft' }, { label:'ناقل الحركة', val:'9-Speed Multi-Clutch' },
+          { label:'نظام الدفع', val:'RWD' }, { label:'الوزن', val:'2,955 lbs' }, { label:'سنة الإنتاج', val:'2023-Present' },
+          { label:'0-124 ميل/س', val:'4.5s' }, { label:'ربع ميل', val:'8.5s' }, { label:'استهلاك الوقود', val:'12/18 MPG' }
         ] },
-      { rank:3, name:'Ferrari SF90 Stradale', maker:'Ferrari', folder:'FerrariSF90Stradale', engine:'4.0L Twin-Turbo V8 + Hybrid', hp:'986 hp', speed:'211 mph', price:'$524K', desc:'Ferrari\'s first plug-in hybrid hypercar blending electrification with racing soul.',
+      { rank:3, name:'Ferrari SF90 Stradale', maker:'Ferrari', folder:'FerrariSF90Stradale', engine:'4.0L Twin-Turbo V8 + Hybrid', hp:'986 hp', speed:'211 mph', price:'$524K', desc:'أول سيارة هجينة قابلة للشحن من فيراري تمزج بين الكهرباء وروح السباقات.',
         details:[
-          { label:'0-60 mph', val:'2.5s' }, { label:'Top Speed', val:'211 mph' }, { label:'Engine', val:'4.0L Twin-Turbo V8 + Hybrid' },
-          { label:'Horsepower', val:'986 hp' }, { label:'Torque', val:'590 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
-          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'3,900 lbs' }, { label:'Production', val:'2020-Present' },
-          { label:'0-124 mph', val:'6.3s' }, { label:'EV Range', val:'16 miles' }, { label:'Battery', val:'7.9 kWh' }
+          { label:'0-60 ميل/س', val:'2.5s' }, { label:'السرعة القصوى', val:'211 mph' }, { label:'المحرك', val:'4.0L Twin-Turbo V8 + Hybrid' },
+          { label:'القدرة', val:'986 hp' }, { label:'عزم الدوران', val:'590 lb-ft' }, { label:'ناقل الحركة', val:'8-Speed DCT' },
+          { label:'نظام الدفع', val:'AWD' }, { label:'الوزن', val:'3,900 lbs' }, { label:'سنة الإنتاج', val:'2020-Present' },
+          { label:'0-124 ميل/س', val:'6.3s' }, { label:'مدى كهربائي', val:'16 miles' }, { label:'البطارية', val:'7.9 kWh' }
         ] },
-      { rank:4, name:'Lamborghini Revuelto', maker:'Lamborghini', folder:'LamborghiniRevuelto', engine:'6.5L V12 + Hybrid', hp:'1,001 hp', speed:'217 mph', price:'$608K', desc:'The first V12 hybrid from Sant\'Agata with three electric motors for unprecedented power.',
+      { rank:4, name:'Lamborghini Revuelto', maker:'Lamborghini', folder:'LamborghiniRevuelto', engine:'6.5L V12 + Hybrid', hp:'1,001 hp', speed:'217 mph', price:'$608K', desc:'أول سيارة هجينة V12 من sant\'agata بثلاثة محركات كهربائية لقوة غير مسبوقة.',
         details:[
-          { label:'0-60 mph', val:'2.3s' }, { label:'Top Speed', val:'217 mph' }, { label:'Engine', val:'6.5L V12 + Hybrid' },
-          { label:'Horsepower', val:'1,001 hp' }, { label:'Torque', val:'535 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
-          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'4,200 lbs' }, { label:'Production', val:'2023-Present' },
-          { label:'0-124 mph', val:'7.0s' }, { label:'Combined Power', val:'1,001 hp' }, { label:'Battery', val:'3.8 kWh' }
+          { label:'0-60 ميل/س', val:'2.3s' }, { label:'السرعة القصوى', val:'217 mph' }, { label:'المحرك', val:'6.5L V12 + Hybrid' },
+          { label:'القدرة', val:'1,001 hp' }, { label:'عزم الدوران', val:'535 lb-ft' }, { label:'ناقل الحركة', val:'8-Speed DCT' },
+          { label:'نظام الدفع', val:'AWD' }, { label:'الوزن', val:'4,200 lbs' }, { label:'سنة الإنتاج', val:'2023-Present' },
+          { label:'0-124 ميل/س', val:'7.0s' }, { label:'القدرة المشتركة', val:'1,001 hp' }, { label:'البطارية', val:'3.8 kWh' }
         ] },
-      { rank:5, name:'Porsche 911 Turbo S', maker:'Porsche', folder:'Porsche911TurboS', engine:'3.7L Twin-Turbo Flat-6', hp:'640 hp', speed:'205 mph', price:'$230K', desc:'The benchmark sports car combining everyday usability with supercar performance.',
+      { rank:5, name:'Porsche 911 Turbo S', maker:'Porsche', folder:'Porsche911TurboS', engine:'3.7L Twin-Turbo Flat-6', hp:'640 hp', speed:'205 mph', price:'$230K', desc:'السيارة الرياضية المرجعية التي تجمع بين قابلية الاستخدام اليومي وأداء السيارات الفائقة.',
         details:[
-          { label:'0-60 mph', val:'2.6s' }, { label:'Top Speed', val:'205 mph' }, { label:'Engine', val:'3.7L Twin-Turbo Flat-6' },
-          { label:'Horsepower', val:'640 hp' }, { label:'Torque', val:'590 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
-          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'3,640 lbs' }, { label:'Production', val:'2020-Present' },
-          { label:'0-124 mph', val:'8.9s' }, { label:'Quarter Mile', val:'10.5s' }, { label:'Fuel Economy', val:'15/20 MPG' }
+          { label:'0-60 ميل/س', val:'2.6s' }, { label:'السرعة القصوى', val:'205 mph' }, { label:'المحرك', val:'3.7L Twin-Turbo Flat-6' },
+          { label:'القدرة', val:'640 hp' }, { label:'عزم الدوران', val:'590 lb-ft' }, { label:'ناقل الحركة', val:'8-Speed DCT' },
+          { label:'نظام الدفع', val:'AWD' }, { label:'الوزن', val:'3,640 lbs' }, { label:'سنة الإنتاج', val:'2020-Present' },
+          { label:'0-124 ميل/س', val:'8.9s' }, { label:'ربع ميل', val:'10.5s' }, { label:'استهلاك الوقود', val:'15/20 MPG' }
         ] },
-      { rank:6, name:'McLaren Artura', maker:'McLaren', folder:'McLarenArtura', engine:'3.0L Twin-Turbo V6 + Hybrid', hp:'671 hp', speed:'205 mph', price:'$237K', desc:'McLaren\'s high-performance hybrid with cutting-edge lightweight architecture.',
+      { rank:6, name:'McLaren Artura', maker:'McLaren', folder:'McLarenArtura', engine:'3.0L Twin-Turbo V6 + Hybrid', hp:'671 hp', speed:'205 mph', price:'$237K', desc:'السيارة الهجينة عالية الأداء من ماكلارين بهيكل خفيف الوزن ومتطور.',
         details:[
-          { label:'0-60 mph', val:'3.0s' }, { label:'Top Speed', val:'205 mph' }, { label:'Engine', val:'3.0L Twin-Turbo V6 + Hybrid' },
-          { label:'Horsepower', val:'671 hp' }, { label:'Torque', val:'531 lb-ft' }, { label:'Transmission', val:'8-Speed DCT' },
-          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'3,300 lbs' }, { label:'Production', val:'2022-Present' },
-          { label:'0-124 mph', val:'8.3s' }, { label:'EV Range', val:'19 miles' }, { label:'Battery', val:'7.4 kWh' }
+          { label:'0-60 ميل/س', val:'3.0s' }, { label:'السرعة القصوى', val:'205 mph' }, { label:'المحرك', val:'3.0L Twin-Turbo V6 + Hybrid' },
+          { label:'القدرة', val:'671 hp' }, { label:'عزم الدوران', val:'531 lb-ft' }, { label:'ناقل الحركة', val:'8-Speed DCT' },
+          { label:'نظام الدفع', val:'RWD' }, { label:'الوزن', val:'3,300 lbs' }, { label:'سنة الإنتاج', val:'2022-Present' },
+          { label:'0-124 ميل/س', val:'8.3s' }, { label:'مدى كهربائي', val:'19 miles' }, { label:'البطارية', val:'7.4 kWh' }
         ] },
-      { rank:7, name:'Aston Martin DBS 770', maker:'Aston Martin', folder:'AstonMartinDBS770', engine:'5.2L Twin-Turbo V12', hp:'759 hp', speed:'211 mph', price:'$388K', desc:'A grand tourer with a hand-built V12 and breathtaking British design.',
+      { rank:7, name:'Aston Martin DBS 770', maker:'Aston Martin', folder:'AstonMartinDBS770', engine:'5.2L Twin-Turbo V12', hp:'759 hp', speed:'211 mph', price:'$388K', desc:'سيارة سياحية كبيرة بمحرك V12 مصنوع يدوياً وتصميم بريطاني مذهل.',
         details:[
-          { label:'0-60 mph', val:'3.2s' }, { label:'Top Speed', val:'211 mph' }, { label:'Engine', val:'5.2L Twin-Turbo V12' },
-          { label:'Horsepower', val:'759 hp' }, { label:'Torque', val:'664 lb-ft' }, { label:'Transmission', val:'8-Speed Auto' },
-          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'4,050 lbs' }, { label:'Production', val:'2023-Present' },
-          { label:'0-124 mph', val:'9.4s' }, { label:'Quarter Mile', val:'11.2s' }, { label:'Fuel Economy', val:'12/18 MPG' }
+          { label:'0-60 ميل/س', val:'3.2s' }, { label:'السرعة القصوى', val:'211 mph' }, { label:'المحرك', val:'5.2L Twin-Turbo V12' },
+          { label:'القدرة', val:'759 hp' }, { label:'عزم الدوران', val:'664 lb-ft' }, { label:'ناقل الحركة', val:'8-Speed Auto' },
+          { label:'نظام الدفع', val:'RWD' }, { label:'الوزن', val:'4,050 lbs' }, { label:'سنة الإنتاج', val:'2023-Present' },
+          { label:'0-124 ميل/س', val:'9.4s' }, { label:'ربع ميل', val:'11.2s' }, { label:'استهلاك الوقود', val:'12/18 MPG' }
         ] },
-      { rank:8, name:'Mercedes-AMG GT Black Series', maker:'Mercedes-AMG', folder:'Mercedes-AMG-GT-BlackSeries', engine:'4.0L Twin-Turbo V8', hp:'720 hp', speed:'202 mph', price:'$325K', desc:'Track-focused monster with active aerodynamics and a flat-plane crank V8.',
+      { rank:8, name:'Mercedes-AMG GT Black Series', maker:'Mercedes-AMG', folder:'Mercedes-AMG-GT-BlackSeries', engine:'4.0L Twin-Turbo V8', hp:'720 hp', speed:'202 mph', price:'$325K', desc:'وحش مخصص للحلبات ب ديناميكيات هوائية نشطة ومحرك V8 بعمود مرفق مستو.',
         details:[
-          { label:'0-60 mph', val:'3.1s' }, { label:'Top Speed', val:'202 mph' }, { label:'Engine', val:'4.0L Twin-Turbo V8' },
-          { label:'Horsepower', val:'720 hp' }, { label:'Torque', val:'590 lb-ft' }, { label:'Transmission', val:'7-Speed DCT' },
-          { label:'Drivetrain', val:'RWD' }, { label:'Weight', val:'3,650 lbs' }, { label:'Production', val:'2021-2023' },
-          { label:'0-124 mph', val:'9.0s' }, { label:'Quarter Mile', val:'10.9s' }, { label:'NÃ¼rburgring', val:'6:48.0' }
+          { label:'0-60 ميل/س', val:'3.1s' }, { label:'السرعة القصوى', val:'202 mph' }, { label:'المحرك', val:'4.0L Twin-Turbo V8' },
+          { label:'القدرة', val:'720 hp' }, { label:'عزم الدوران', val:'590 lb-ft' }, { label:'ناقل الحركة', val:'7-Speed DCT' },
+          { label:'نظام الدفع', val:'RWD' }, { label:'الوزن', val:'3,650 lbs' }, { label:'سنة الإنتاج', val:'2021-2023' },
+          { label:'0-124 ميل/س', val:'9.0s' }, { label:'ربع ميل', val:'10.9s' }, { label:'نوربورغرينغ', val:'6:48.0' }
         ] },
-      { rank:9, name:'Rolls-Royce Spectre', maker:'Rolls-Royce', folder:'Rolls-RoyceSpectre', engine:'Electric (Dual Motor)', hp:'577 hp', speed:'155 mph', price:'$420K', desc:'The first all-electric Rolls-Royce, silently redefining ultra-luxury motoring.',
+      { rank:9, name:'Rolls-Royce Spectre', maker:'Rolls-Royce', folder:'Rolls-RoyceSpectre', engine:'Electric (Dual Motor)', hp:'577 hp', speed:'155 mph', price:'$420K', desc:'أول رولز رويس كهربائية بالكامل، تعيد تعريف قيادة الفخامة بصمت.',
         details:[
-          { label:'0-60 mph', val:'4.4s' }, { label:'Top Speed', val:'155 mph' }, { label:'Engine', val:'Dual Electric Motors' },
-          { label:'Horsepower', val:'577 hp' }, { label:'Torque', val:'664 lb-ft' }, { label:'Transmission', val:'1-Speed Direct' },
-          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'6,559 lbs' }, { label:'Production', val:'2023-Present' },
-          { label:'Range', val:'260 miles' }, { label:'Battery', val:'102 kWh' }, { label:'Charging', val:'DC 195 kW' }
+          { label:'0-60 ميل/س', val:'4.4s' }, { label:'السرعة القصوى', val:'155 mph' }, { label:'المحرك', val:'Dual Electric Motors' },
+          { label:'القدرة', val:'577 hp' }, { label:'عزم الدوران', val:'664 lb-ft' }, { label:'ناقل الحركة', val:'1-Speed Direct' },
+          { label:'نظام الدفع', val:'AWD' }, { label:'الوزن', val:'6,559 lbs' }, { label:'سنة الإنتاج', val:'2023-Present' },
+          { label:'المدى', val:'260 miles' }, { label:'البطارية', val:'102 kWh' }, { label:'الشحن', val:'DC 195 kW' }
         ] },
-      { rank:10, name:'Audi R8 Performance', maker:'Audi', folder:'Audi-R8-Performance', engine:'5.2L V10', hp:'602 hp', speed:'205 mph', price:'$210K', desc:'A naturally aspirated V10 masterpiece and the swan song of Audi\'s supercar.',
+      { rank:10, name:'Audi R8 Performance', maker:'Audi', folder:'Audi-R8-Performance', engine:'5.2L V10', hp:'602 hp', speed:'205 mph', price:'$210K', desc:'تحفة V10 بسحب طبيعي وآخر أعمال أودي في عالم السيارات الفائقة.',
         details:[
-          { label:'0-60 mph', val:'3.2s' }, { label:'Top Speed', val:'205 mph' }, { label:'Engine', val:'5.2L V10' },
-          { label:'Horsepower', val:'602 hp' }, { label:'Torque', val:'413 lb-ft' }, { label:'Transmission', val:'7-Speed DCT' },
-          { label:'Drivetrain', val:'AWD' }, { label:'Weight', val:'3,570 lbs' }, { label:'Production', val:'2015-2024' },
-          { label:'0-124 mph', val:'9.5s' }, { label:'Quarter Mile', val:'11.0s' }, { label:'Fuel Economy', val:'13/22 MPG' }
+          { label:'0-60 ميل/س', val:'3.2s' }, { label:'السرعة القصوى', val:'205 mph' }, { label:'المحرك', val:'5.2L V10' },
+          { label:'القدرة', val:'602 hp' }, { label:'عزم الدوران', val:'413 lb-ft' }, { label:'ناقل الحركة', val:'7-Speed DCT' },
+          { label:'نظام الدفع', val:'AWD' }, { label:'الوزن', val:'3,570 lbs' }, { label:'سنة الإنتاج', val:'2015-2024' },
+          { label:'0-124 ميل/س', val:'9.5s' }, { label:'ربع ميل', val:'11.0s' }, { label:'استهلاك الوقود', val:'13/22 MPG' }
         ] }
     ];
 
     const angleNames = ['front', 'side', 'rear', 'front-three-quarter', 'rear-three-quarter'];
-    const angleLabels = ['Front', 'Side', 'Rear', '3/4 Front', '3/4 Rear'];
+    const angleLabels = ['الأمام', 'الجانب', 'الخلف', '3/4 الأمام', '3/4 الخلف'];
 
     const loadOrder = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     const container = document.getElementById('container');
