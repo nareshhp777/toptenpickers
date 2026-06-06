@@ -13,19 +13,19 @@
       gtag('config', 'G-HPLGYD20BG');
     });
   </script>
-  <title>Top10 — Os Melhores Rankings Top 10 do Mundo em Todas as Categorias</title>
+  <title>Top10 - Os Melhores Rankings Top 10 do Mundo em Todas as Categorias</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23111111'/%3E%3Ctext x='40' y='36' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='white' text-anchor='middle' dominant-baseline='middle'%3ETOP%3C/text%3E%3Ctext x='40' y='58' font-family='Space%20Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='%23FF6F00' text-anchor='middle' dominant-baseline='middle'%3E10%3C/text%3E%3C/svg%3E">
   <meta name="description" content="Descubra o Top 10 Carros do mundo — classificados por velocidade, potência e prestígio. Especificações detalhadas, fotos e comparação dos melhores hypercars, supercars e veículos de luxo.">
   <meta name="keywords" content="top 10 carros, melhores carros, hypercars, supercars, Bugatti, Koenigsegg, Ferrari, Lamborghini, Porsche, McLaren, ranking de carros">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Top10">
-  <meta property="og:title" content="Top10 — Os Melhores Rankings Top 10 do Mundo">
+  <meta property="og:title" content="Top10 - Os Melhores Rankings Top 10 do Mundo">
   <meta property="og:description" content="Rankings selecionados dos melhores carros do mundo com especificações detalhadas, fotos e comparações.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://toptenpickers.com/pt/">
   <meta property="og:image" content="https://toptenpickers.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Top10 — Os Melhores Rankings Top 10 do Mundo">
+  <meta name="twitter:title" content="Top10 - Os Melhores Rankings Top 10 do Mundo">
   <meta name="twitter:description" content="Rankings selecionados dos melhores carros do mundo com especificações detalhadas, fotos e comparações.">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <link rel="robots" href="/robots.txt">
@@ -542,7 +542,6 @@
       .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
       .nav .counter-current { font-size: 0.75rem; }
       .nav-right { display: flex; align-items: center; gap: 16px; justify-content: flex-end; }
-      .nav .specs-btn { display: none; }
       .specs-fab { display: inline-flex; }
       .hamburger { display: inline-flex; width: 32px; height: 32px; font-size: 0.85rem; }
       .lang-btn { width: 32px; height: 32px; padding: 0; justify-content: center; font-size: 0.85rem; }
@@ -575,8 +574,6 @@
     }
     body.spec-open .side-nav,
     body.recent-visible .side-nav { display: none; }
-    body.spec-open .specs-btn,
-    body.recent-visible .specs-btn { display: none; }
     body.spec-open .nav,
     body.recent-visible .nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
     .car-section.revealed .bg {
@@ -1006,27 +1003,54 @@
       color: var(--accent2);
     }
 
-    .specs-btn {
+    /* Inline specs button (inside car sections) */
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .inline-specs-btn {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.7);
-      padding: 0 22px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 8px 18px;
       border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s var(--ease);
-      height: 38px;
       display: inline-flex;
       align-items: center;
+      gap: 8px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, box-shadow, border-color;
     }
-    .specs-btn:hover {
+    .inline-specs-btn i {
+      font-size: 0.7rem;
+      color: var(--car-accent);
+      transition: transform 0.3s ease;
+    }
+    .inline-specs-btn:hover {
       color: #fff;
-      border-color: rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.12);
+      border-color: var(--car-accent);
+      background: rgba(255, 255, 255, 0.07);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 16px var(--car-glow);
+    }
+    .inline-specs-btn:hover i {
+      transform: rotate(90deg);
+    }
+    .inline-specs-btn:active {
+      transform: translateY(0);
+    }
+    /* RTL: flip icon to appear on the right */
+    html[dir="rtl"] .inline-specs-btn i {
+      order: 2;
     }
 
     /* Language selector */
@@ -1513,7 +1537,6 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-      <button class="specs-btn" id="specsNavBtn"><i class="fas fa-list"></i> &nbsp;Especificações</button>
     </div>
   </nav>
 
@@ -2031,7 +2054,12 @@
               <span class="rank-badge">#${c.rank}</span>
               <span class="maker-tag">${c.maker}</span>
             </div>
-            <div class="name-row"><h2>${c.name}</h2></div>
+            <div class="name-row">
+              <h2>${c.name}</h2>
+              <button class="inline-specs-btn" data-rank="${c.rank}">
+                <i class="fas fa-list"></i> <span>Especificações</span>
+              </button>
+            </div>
             <div class="maker">${c.engine}</div>
             <div class="specs">
               <span><i class="fas fa-engine"></i> ${c.engine}</span>
@@ -2215,7 +2243,11 @@
     }
 
     document.addEventListener('click', function(e) {
-      if (e.target.closest('#specsNavBtn') || e.target.closest('#specsFabBtn')) {
+      if (e.target.closest('.inline-specs-btn') || e.target.closest('#specsFabBtn')) {
+        const clickedBtn = e.target.closest('.inline-specs-btn');
+        if (clickedBtn) {
+          currentCarRank = parseInt(clickedBtn.dataset.rank);
+        }
         const c = cars.find(x => x.rank === currentCarRank);
         if (c && typeof gtag === 'function') {
           gtag('event', 'specs_overlay_open', { 'car_name': c.name, 'car_rank': currentCarRank });
