@@ -9,23 +9,27 @@ A premium static landing page showcasing curated top 10 car rankings with intera
 - **Auto-rotation** — Images cycle every 4 seconds; pauses 6s on manual interaction
 - **Full Specs Overlay** — 12-field specification panel per car
 - **Custom Cursor** — Brand logo cursor with badge-style design on car sections; blue dot on non-car sections
+- **10 Localized Versions** — ES, DE, FR, JA, PT, HI, AR, KO, IT, ID with translated UI, hreflang tags, and region-aware formatting
 - **Side Navigation** — Ranked dot nav with expandable car name labels
 - **Hamburger Menu** — Full-screen Glassmorphism mobile menu with navigation links
+- **Language Selector** — 11-language dropdown with click-outside-close and Escape key support
 - **Site Search** — Instant client-side filter for cars and articles with collapse/expand on mobile
 - **Mobile Responsive** — Adapted layout for phones (≤768px and ≤480px) with floating Specs FAB
 - **Region-Aware Formatting** — Locale-based unit conversion (mph/km/h, hp/PS, lb-ft/Nm, $/₹/€) via timezone detection
+- **Centralized Engine** — All logic extracted to `/app.js` (28KB), shared across 11 localized pages
 - **Lightning Trail** — GPU-accelerated cursor trail with 8 dots and staggered damping
 - **Performance Optimized** — `content-visibility: auto` on car sections, `aspect-ratio` on thumbnails, LCP image preload, non-blocking preloader
 - **SEO Optimized** — JSON-LD structured data, sitemap.xml, robots.txt, meta tags, Open Graph
 - **Google Analytics** — Tracked via G-HPLGYD20BG with custom GA4 event trackers (specs opens, angle clicks, section views, search queries)
-- **Recent Posts** — 15 SEO articles across automotive, tech, gaming, and lifestyle categories
+- **Google AdSense** — Auto-ads injected with local environment guard; CMP-ready for GDPR consent
+- **Recent Posts** — 20 SEO articles across automotive, tech, gaming, entertainment, and lifestyle categories
 - **Core Pages** — About, Contact, Privacy Policy, Disclaimer
 - **Footer** — Premium Glassmorphism footer with "Designed & Developed by Naresh Pawar" credit
 
 ## Tech Stack
 
 - **Vanilla HTML/CSS/JS** — No frameworks or build tools
-- **Google Fonts** — Inter (300–900), Space Grotesk (400, 700) with `font-display: optional`
+- **Google Fonts** — Inter (300–900), Space Grotesk (400, 700) with `font-display: swap`
 - **Font Awesome 6** — Icons with deferred loading (`media="print"`)
 - **GitHub Pages** — Hosting with custom domain (toptenpicker.com)
 
@@ -39,12 +43,24 @@ top-cars/
 ├── contact.html            # Contact page
 ├── privacy-policy.html     # Privacy policy
 ├── disclaimer.html         # Disclaimer
-├── sitemap.xml             # SEO sitemap (22 URLs)
+├── app.js                  # Centralized engine (region detection, convertUnit, cursor/trail, preloader, buildPage, IntersectionObserver, search, specs overlay, lang dropdown, hamburger)
+├── ads.txt                 # Google AdSense publisher verification
+├── sitemap.xml             # SEO sitemap (37+ URLs)
 ├── robots.txt              # Robots exclusion rules
 ├── CNAME                   # Custom domain (toptenpicker.com)
 ├── .gitignore
 ├── README.md
-├── articles/               # SEO articles (15 total)
+├── ar/                     # Arabic localized version (dir="rtl")
+├── de/                     # German localized version
+├── es/                     # Spanish localized version
+├── fr/                     # French localized version
+├── hi/                     # Hindi localized version
+├── id/                     # Indonesian localized version
+├── it/                     # Italian localized version
+├── ja/                     # Japanese localized version
+├── ko/                     # Korean localized version
+├── pt/                     # Portuguese localized version
+├── articles/               # SEO articles (20 total)
 │   ├── top-10-sports-bikes-2026.html
 │   ├── top-10-luxury-yachts.html
 │   ├── top-10-airplanes.html
@@ -59,7 +75,12 @@ top-cars/
 │   ├── top-10-smartphones.html
 │   ├── top-10-gaming-laptops.html
 │   ├── top-10-pc-games.html
-│   └── top-10-mobile-games.html
+│   ├── top-10-mobile-games.html
+│   ├── top-10-bingeworthy-series.html
+│   ├── top-10-gaming-companies.html
+│   ├── top-10-greatest-albums.html
+│   ├── top-10-greatest-movies.html
+│   └── top-10-most-interesting-websites.html
 └── cars/                   # Car assets (10 folders)
     ├── BugattiChironSuperSport/
     ├── KoenigseggJeskoAbsolut/
@@ -117,6 +138,11 @@ All articles follow a consistent template: hero section with category label, `<o
 | PC Gaming | Top 10 Gaming Laptops of 2026 | RTX 50-series, OLED refresh rates |
 | PC Gaming | Top 10 Most Graphically Demanding PC Games | Path-tracing, UE5, open-world fidelity |
 | Mobile Gaming | Top 10 High-Fidelity Mobile Games | Cross-platform engines, esports |
+| Streaming | Top 10 Bingeworthy Series of 2026 | Genres, critical acclaim, cultural impact |
+| Gaming Industry | Top 10 Gaming Companies of 2026 | Revenue, innovation, market influence |
+| Music | Top 10 Greatest Albums of All Time | Cultural impact, sales, critical reception |
+| Film | Top 10 Greatest Movies of All Time | Direction, storytelling, cinematic legacy |
+| Web Discovery | Top 10 Most Interesting Websites | Utility, creativity, deep-dive content |
 
 ## Local Development
 
@@ -141,7 +167,7 @@ Open `http://localhost:8000` in a browser.
 - **LCP image preload** for the first visible car (Audi R8 front.webp)
 - **`content-visibility: auto`** on car sections to skip rendering off-screen content
 - **`aspect-ratio: 1/1`** on thumbnail buttons to prevent CLS
-- **`font-display: optional`** to prevent layout shift from font loading
+- **`font-display: swap`** to show fallback text immediately while custom fonts load
 - **Non-blocking preloader** — DOM builds immediately, preloader fades after 800ms
 - **Deferred Font Awesome** — loaded via `media="print"` for non-blocking render
 - **Deferred Google Analytics** — loaded via `requestIdleCallback`
