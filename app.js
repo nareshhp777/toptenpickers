@@ -250,6 +250,8 @@
 
         s.innerHTML = `
           <div class="bg" data-bg="/cars/${c.folder}/front.webp"></div>
+          <!-- SEO Image Tag: Hidden from UI, visible to Google Images -->
+          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${c.name} - ${c.maker} Supercar, ${c.engine}, ${c.hp}" style="display: none;">
           <div class="noise"></div>
           <div class="vignette"></div>
           <div class="grid-lines"></div>
