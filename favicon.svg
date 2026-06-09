@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'>
+  <rect width='80' height='80' rx='16' fill='#111111'/>
+  <text x='40' y='36' font-family='Space Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='white' text-anchor='middle' dominant-baseline='middle'>TOP</text>
+  <text x='40' y='58' font-family='Space Grotesk,Arial,sans-serif' font-weight='900' font-size='28' fill='#FF6F00' text-anchor='middle' dominant-baseline='middle'>10</text>
+</svg>
