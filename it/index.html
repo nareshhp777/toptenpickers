@@ -309,6 +309,17 @@
       transition: color 0.3s ease;
     }
     .nav-pages a:hover { color: var(--accent2); }
+    .nav-pages a i {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-1px);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .nav-pages a:hover i {
+      color: var(--accent2);
+      opacity: 1;
+      transform: translateY(-1px) scale(1.15);
+    }
 
     .hamburger {
       display: none;
@@ -823,9 +834,9 @@
       margin-bottom: 12px;
     }
     .overlay .specs span {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-size: 0.78rem;
       color: #cbd4e6;
       opacity: 0;
@@ -1139,7 +1150,7 @@
     .lang-dropdown a.active {
       color: #fff;
       border-left-color: var(--accent2, #FF6F00);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.02);
     }
 
     .specs-fab {
@@ -1190,7 +1201,9 @@
       pointer-events: auto;
     }
     .spec-panel {
-      background: rgba(15,20,30,0.95);
+      background: rgba(10, 14, 23, 0.55);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 24px;
       padding: 40px 44px;
@@ -1250,7 +1263,7 @@
       gap: 12px;
     }
     .spec-item {
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.02);
       border: 1px solid rgba(255,255,255,0.05);
       border-radius: 12px;
       padding: 14px 18px;
@@ -1506,10 +1519,10 @@
         <span class="region-badge" id="regionBadge"></span>
       </div>
       <div class="nav-pages">
-        <a href="/about.html">Chi siamo</a>
-        <a href="/contact.html">Contatti</a>
-        <a href="/privacy-policy.html">Privacy</a>
-        <a href="/disclaimer.html">Disclaimer</a>
+        <a href="/about.html"><i class="fa-solid fa-circle-info"></i> Chi siamo</a>
+        <a href="/contact.html"><i class="fa-solid fa-envelope"></i> Contatti</a>
+        <a href="/privacy-policy.html"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+        <a href="/disclaimer.html"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
       </div>
     </div>
     <div class="nav-center">
@@ -1554,10 +1567,10 @@
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
       <i class="fa-solid fa-xmark"></i>
     </button>
-    <a href="/about.html" class="mobile-menu-link">Chi siamo</a>
-    <a href="/contact.html" class="mobile-menu-link">Contatti</a>
-    <a href="/privacy-policy.html" class="mobile-menu-link">Privacy</a>
-    <a href="/disclaimer.html" class="mobile-menu-link">Disclaimer</a>
+    <a href="/about.html" class="mobile-menu-link"><i class="fa-solid fa-circle-info"></i> Chi siamo</a>
+    <a href="/contact.html" class="mobile-menu-link"><i class="fa-solid fa-envelope"></i> Contatti</a>
+    <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+    <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
   </div>
 
   <nav class="side-nav" id="sideNav" aria-label="Car navigation"></nav>
@@ -1690,8 +1703,8 @@
           <p class="credit">Progettato &amp; Sviluppato da <strong>Naresh Pawar</strong></p>
         </div>
         <ul class="footer-links">
-          <li><a href="/privacy-policy.html">Informativa Privacy</a></li>
-          <li><a href="/disclaimer.html">Disclaimer</a></li>
+          <li><a href="/privacy-policy.html"><i class="fa-solid fa-shield-halved"></i> Informativa Privacy</a></li>
+          <li><a href="/disclaimer.html"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
