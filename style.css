@@ -262,3 +262,13 @@ strong { color: #e8edf5; }
   .card h3 { font-size: 0.9rem; }
   .btn { font-size: 0.6rem; padding: 9px 22px; }
 }
+
+/* RTL (Arabic) Header Typography Overrides */
+html[dir="rtl"] .nav-pages a {
+  font-size: 0.65rem;
+  letter-spacing: 0px;
+  gap: 6px;
+}
+html[dir="rtl"] .nav-pages {
+  gap: 16px;
+}
