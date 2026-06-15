@@ -50,8 +50,9 @@
     const region = detectedCode === 'US' ? 'US' : 'INTL';
     try {
       const countryName = detectedCode ? new Intl.DisplayNames(['en'], { type:'region' }).of(detectedCode) : null;
-      document.getElementById('regionBadge').textContent = countryName || 'Ã°Å¸Å’Â';
-    } catch(e) { document.getElementById('regionBadge').textContent = 'Ã°Å¸Å’Â'; }
+      const badge = document.getElementById('regionBadge');
+      if (badge) badge.textContent = countryName || 'Ã°Å¸Å’Â';
+    } catch(e) { const badge = document.getElementById('regionBadge'); if (badge) badge.textContent = 'Ã°Å¸Å’Â'; }
     console.log('Detected region:', detectedCode, 'from tz/timezone/language');
     function convertUnit(str) {
       if (region === 'US' || !str) return str;
@@ -121,6 +122,7 @@
         .replace('MPG', 'L/100km');
     }
 
+    if (typeof cars !== 'undefined') {
     const loadOrder = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     const container = document.getElementById('container');
     const sideNav = document.getElementById('sideNav');
@@ -256,8 +258,10 @@
           <div class="vignette"></div>
           <div class="grid-lines"></div>
           <div class="glow-ring"></div>
-          <button class="car-arrow prev" data-dir="-1" aria-label="Previous angle"><i class="fas fa-chevron-left"></i></button>
-          <button class="car-arrow next" data-dir="1" aria-label="Next angle"><i class="fas fa-chevron-right"></i></button>
+          <div class="mobile-nav-row">
+            <button class="car-arrow prev" data-dir="-1" aria-label="Previous angle"><i class="fas fa-chevron-left"></i></button>
+            <button class="car-arrow next" data-dir="1" aria-label="Next angle"><i class="fas fa-chevron-right"></i></button>
+          </div>
           <div class="overlay">
             <div class="top-row">
               <span class="rank-badge">#${c.rank}</span>
@@ -600,6 +604,7 @@
           this.style.transform = '';
         }, { passive: true });
       });
+    }
     }
 
     // Hamburger menu toggle

@@ -21,7 +21,19 @@
       <li><a href="/privacy-policy.html"><i class="fa-solid fa-shield-halved"></i> Privacy</a></li>
       <li><a href="/disclaimer.html"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a></li>
     </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <a href="/about.html" class="mobile-menu-link"><i class="fa-solid fa-circle-info"></i> About</a>
+    <a href="/contact.html" class="mobile-menu-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+    <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
+  </div>
   <div class="page-wrap">
     <div class="content">
       <span class="label">Legal</span>
@@ -49,5 +61,6 @@
       &copy; 2026 Top10 — <a href="/privacy-policy.html">Privacy Policy</a> &middot; <a href="/disclaimer.html">Disclaimer</a>
     </div>
   </div>
+  <script src="/app.js" defer></script>
 </body>
 </html>

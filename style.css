@@ -80,6 +80,88 @@ img { max-width: 100%; height: auto; aspect-ratio: auto; }
   transform: translateY(-1px) scale(1.15);
 }
 
+/* Hamburger */
+.hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  width: 38px;
+  height: 38px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s var(--ease);
+}
+.hamburger:hover {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+body.mobile-menu-open .hamburger {
+  border-color: var(--accent2);
+  color: #fff;
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(6, 8, 15, 0.75);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease);
+}
+body.mobile-menu-open .mobile-menu {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s var(--ease);
+}
+.mobile-menu-close:hover {
+  border-color: var(--accent2);
+  background: rgba(255,255,255,0.1);
+}
+.mobile-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.mobile-menu-link:hover { color: var(--accent2); }
+
 /* Page layout */
 .page-wrap {
   padding-top: 80px;
@@ -240,8 +322,8 @@ strong { color: #e8edf5; }
 
 @media (max-width: 768px) {
   .nav { padding: 14px 16px; }
-  .nav-links { gap: 12px; }
-  .nav-links a { font-size: 0.55rem; letter-spacing: 1px; }
+  .nav-links { display: none !important; }
+  .hamburger { display: inline-flex !important; }
   h1 { font-size: 1.6rem; }
   h2 { font-size: 1.15rem; }
   .content { padding: 24px 16px; }
@@ -261,6 +343,7 @@ strong { color: #e8edf5; }
   .card { padding: 18px; }
   .card h3 { font-size: 0.9rem; }
   .btn { font-size: 0.6rem; padding: 9px 22px; }
+  .mobile-menu-link { font-size: 1.25rem; }
 }
 
 /* RTL (Arabic) Header Typography Overrides */
