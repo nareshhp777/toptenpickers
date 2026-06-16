@@ -82,7 +82,7 @@ img { max-width: 100%; height: auto; aspect-ratio: auto; }
 
 /* Hamburger */
 .hamburger {
-  display: none;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   background: rgba(255,255,255,0.06);
@@ -153,7 +153,7 @@ body.mobile-menu-open .mobile-menu {
   gap: 12px;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #fff;
