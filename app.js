@@ -160,16 +160,16 @@
     document.addEventListener('mouseenter', () => { mouseOnScreen = true; });
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; mouseOnScreen = true; });
     (function loop() {
-      cx += (mx - cx) * 0.12;
-      cy += (my - cy) * 0.12;
+      cx += (mx - cx) * 0.35;
+      cy += (my - cy) * 0.35;
       cursor.style.left = cx + 'px';
       cursor.style.top = cy + 'px';
 
       let tx = cx, ty = cy;
       trailDots.forEach((dot, i) => {
         const coords = trailCoords[i];
-        coords.x += (tx - coords.x) * 0.35;
-        coords.y += (ty - coords.y) * 0.35;
+        coords.x += (tx - coords.x) * 0.45;
+        coords.y += (ty - coords.y) * 0.45;
         const ratio = 1 - (i / trailCount);
         dot.style.transform = `translate3d(${coords.x}px, ${coords.y}px, 0) translate(-50%, -50%) scale(${ratio})`;
         dot.style.opacity = mouseOnScreen ? ratio * 0.55 : 0;
@@ -657,3 +657,137 @@
         }
       });
     }
+
+    // Auto-Categorization & Filtering Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const articleCards = document.querySelectorAll('.recent-posts .card');
+
+    const filterLabels = {
+      en: ['All','Vehicles & Transport','Tech & Gaming','Entertainment'],
+      es: ['Todos','Vehículos y Transporte','Tecnología y Juegos','Entretenimiento'],
+      de: ['Alle','Fahrzeuge & Transport','Tech & Gaming','Unterhaltung'],
+      fr: ['Tous','Véhicules & Transport','Tech & Gaming','Divertissement'],
+      ja: ['すべて','車両と交通','テック＆ゲーム','エンターテイメント'],
+      pt: ['Todos','Veículos e Transporte','Tecnologia e Jogos','Entretenimento'],
+      hi: ['सभी','वाहन और परिवहन','टेक और गेमिंग','मनोरंजन'],
+      ar: ['الكل','المركبات والنقل','التقنية والألعاب','الترفيه'],
+      ko: ['모두','차량 및 교통','테크 & 게이밍','엔터테인먼트'],
+      it: ['Tutti','Veicoli e Trasporti','Tech & Gaming','Intrattenimento'],
+      id: ['Semua','Kendaraan & Transportasi','Teknologi & Game','Hiburan']
+    };
+    (function applyFilterLabels() {
+      var lang = document.documentElement.lang || 'en';
+      var labels = filterLabels[lang] || filterLabels.en;
+      filterBtns.forEach(function(btn, i) { if (labels[i]) btn.textContent = labels[i]; });
+    })();
+
+    const categoryMapping = {
+      // English
+      'Sports Bikes':'vehicles','Luxury Yachts':'vehicles','Aviation':'vehicles',
+      'Formula 1':'vehicles','Electric Motorcycles':'vehicles','High-Speed Rail':'vehicles',
+      'Offshore Powerboats':'vehicles','EV Performance':'vehicles',
+      'Tech Gadgets':'tech','Mobile Tech':'tech','Gaming Hardware':'tech',
+      'PC Gaming':'tech','Mobile Gaming':'tech','Gaming Industry':'tech','Internet Culture':'tech',
+      'Photography & Cinema':'tech','Cinema':'entertainment','Television':'entertainment','Music History':'entertainment',
+      // Spanish
+      'Motos Deportivas':'vehicles','Yates de Lujo':'vehicles','Aviación':'vehicles',
+      'Fórmula 1':'vehicles','Motos Eléctricas':'vehicles','Trenes de Alta Velocidad':'vehicles',
+      'Lanchas Rápidas':'vehicles','Rendimiento EV':'vehicles',
+      'Gadgets Tecnológicos':'tech','Tecnología Móvil':'tech','Hardware de Gaming':'tech',
+      'Gaming PC':'tech','Gaming Móvil':'tech','Industria del Gaming':'tech','Cultura de Internet':'tech',
+      'Fotografía y Cine':'tech','Cine':'entertainment','Televisión':'entertainment','Historia de la Música':'entertainment',
+      // German
+      'Sportmotorräder':'vehicles','Luxusyachten':'vehicles','Luftfahrt':'vehicles',
+      'Formel 1':'vehicles','Elektromotorräder':'vehicles','Hochgeschwindigkeitszüge':'vehicles',
+      'Offshore-Schnellboote':'vehicles','EV-Leistung':'vehicles',
+      'Technik-Gadgets':'tech','Mobile Tech':'tech','Gaming-Hardware':'tech',
+      'PC-Gaming':'tech','Mobile Gaming':'tech','Gaming-Industrie':'tech','Internetkultur':'tech',
+      'Fotografie & Kino':'tech','Kino':'entertainment','Fernsehen':'entertainment','Musikgeschichte':'entertainment',
+      // French
+      'Motos Sportives':'vehicles','Yachts de Luxe':'vehicles','Aviation':'vehicles',
+      'Formule 1':'vehicles','Motos Électriques':'vehicles','Train à Grande Vitesse':'vehicles',
+      'Hors-Bord Performants':'vehicles','Performance EV':'vehicles',
+      'Gadgets Tech':'tech','Tech Mobile':'tech','Matériel de Jeu':'tech',
+      'PC Gaming':'tech','Jeux Mobile':'tech','Industrie du Jeu Vidéo':'tech','Culture Internet':'tech',
+      'Photographie & Cinéma':'tech','Cinéma':'entertainment','Télévision':'entertainment','Histoire de la Musique':'entertainment',
+      // Japanese
+      'スポーツバイク':'vehicles','高級ヨット':'vehicles','航空':'vehicles',
+      'フォーミュラ1':'vehicles','電動バイク':'vehicles','高速鉄道':'vehicles',
+      'オフショアパワーボート':'vehicles','EVパフォーマンス':'vehicles',
+      'テックガジェット':'tech','モバイルテック':'tech','ゲームハードウェア':'tech',
+      'PCゲーム':'tech','モバイルゲーム':'tech','ゲーム業界':'tech','インターネット文化':'tech',
+      '写真 & シネマ':'tech','シネマ':'entertainment','テレビ':'entertainment','音楽史':'entertainment',
+      // Portuguese
+      'Motos Esportivas':'vehicles','Iates de Luxo':'vehicles','Aviação':'vehicles',
+      'Fórmula 1':'vehicles','Motas Elétricas':'vehicles','Comboios de Alta Velocidade':'vehicles',
+      'Lanchas de Alta Velocidade':'vehicles','Desempenho EV':'vehicles',
+      'Gadgets Tech':'tech','Tecnologia Móvel':'tech','Hardware de Jogos':'tech',
+      'PC Gaming':'tech','Jogos Mobile':'tech','Indústria de Jogos':'tech','Cultura da Internet':'tech',
+      'Fotografia & Cinema':'tech','Cinema':'entertainment','Televisão':'entertainment','História da Música':'entertainment',
+      // Hindi
+      'स्पोर्ट्स बाइक':'vehicles','लक्ज़री यॉट':'vehicles','विमानन':'vehicles',
+      'फ़ॉर्मूला 1':'vehicles','इलेक्ट्रिक मोटरसाइकिल':'vehicles','हाई-स्पीड रेल':'vehicles',
+      'ऑफशोर पावरबोट':'vehicles','EV प्रदर्शन':'vehicles',
+      'टेक गैजेट':'tech','मोबाइल टेक':'tech','गेमिंग हार्डवेयर':'tech',
+      'पीसी गेमिंग':'tech','मोबाइल गेमिंग':'tech','गेमिंग उद्योग':'tech','इंटरनेट संस्कृति':'tech',
+      'फ़ोटोग्राफ़ी और सिनेमा':'tech','सिनेमा':'entertainment','टेलीविज़न':'entertainment','संगीत इतिहास':'entertainment',
+      // Arabic
+      'دراجات رياضية':'vehicles','يخوت فاخرة':'vehicles','طيران':'vehicles',
+      'فورمولا 1':'vehicles','دراجات كهربائية':'vehicles','سكك حديدية عالية السرعة':'vehicles',
+      'قوارب سريعة':'vehicles','أداء كهربائي':'vehicles',
+      'أدوات تقنية':'tech','تقنية محمولة':'tech','أجهزة ألعاب':'tech',
+      'ألعاب كمبيوتر':'tech','ألعاب محمولة':'tech','صناعة الألعاب':'tech','ثقافة الإنترنت':'tech',
+      'تصوير وسينما':'tech','سينما':'entertainment','تلفزيون':'entertainment','تاريخ الموسيقى':'entertainment',
+      // Korean
+      '스포츠 바이크':'vehicles','럭셔리 요트':'vehicles','항공':'vehicles',
+      '포뮬러 1':'vehicles','전기 모터사이클':'vehicles','고속 철도':'vehicles',
+      '고속 모터보트':'vehicles','EV 퍼포먼스':'vehicles',
+      '테크 가젯':'tech','모바일 기술':'tech','게임 하드웨어':'tech',
+      'PC 게이밍':'tech','모바일 게이밍':'tech','게임 산업':'tech','인터넷 문화':'tech',
+      '사진 &amp; 시네마':'tech','시네마':'entertainment','텔레비전':'entertainment','음악 역사':'entertainment',
+      // Italian
+      'Moto Sportive':'vehicles','Yacht di Lusso':'vehicles','Aviazione':'vehicles',
+      'Formula 1':'vehicles','Moto Elettriche':'vehicles','Treni Alta Velocità':'vehicles',
+      'Motoscafi Offshore':'vehicles','Prestazioni EV':'vehicles',
+      'Gadget Tech':'tech','Tecnologia Mobile':'tech','Hardware Gaming':'tech',
+      'PC Gaming':'tech','Gaming Mobile':'tech','Industria Videoludica':'tech','Cultura Internet':'tech',
+      'Fotografia & Cinema':'tech','Cinema':'entertainment','Televisione':'entertainment','Storia della Musica':'entertainment',
+      // Indonesian
+      'Motor Sport':'vehicles','Yacht Mewah':'vehicles','Penerbangan':'vehicles',
+      'Formula 1':'vehicles','Motor Listrik':'vehicles','Kereta Cepat':'vehicles',
+      'Perahu Motor Lepas Pantai':'vehicles','Performa EV':'vehicles',
+      'Gadget Teknologi':'tech','Teknologi Mobile':'tech','Hardware Gaming':'tech',
+      'PC Gaming':'tech','Mobile Gaming':'tech','Industri Gaming':'tech','Budaya Internet':'tech',
+      'Fotografi & Sinema':'tech','Sinema':'entertainment','Televisi':'entertainment','Sejarah Musik':'entertainment'
+    };
+
+    articleCards.forEach(card => {
+      const metaText = card.querySelector('.meta').textContent.trim();
+      card.dataset.category = categoryMapping[metaText] || 'other';
+    });
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filterValue = btn.dataset.filter;
+
+        articleCards.forEach(card => {
+          if (filterValue === 'all' || card.dataset.category === filterValue) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.classList.remove('filtering-out');
+              card.style.position = 'relative';
+            }, 10);
+          } else {
+            card.classList.add('filtering-out');
+            setTimeout(() => {
+              if(card.classList.contains('filtering-out')) {
+                card.style.display = 'none';
+              }
+            }, 400);
+          }
+        });
+      });
+    });
