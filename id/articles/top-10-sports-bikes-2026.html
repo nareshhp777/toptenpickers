@@ -17,14 +17,71 @@
     .article-hero .label { margin-bottom: 12px; }
     .article-hero h1 { font-size: 2rem; }
     .article-hero .byline { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; margin-top: 8px; }
-    .rank-list { counter-reset: rank; list-style: none; margin: 30px 0 0; padding: 0; }
-    .rank-list li { counter-increment: rank; margin-bottom: 40px; padding: 24px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; }
-    .rank-list li::before { content: "#" counter(rank); display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
-    .rank-list h2 { margin: 4px 0 8px; font-size: 1.15rem; }
-    .rank-list .spec-row { display: flex; flex-wrap: wrap; gap: 16px; margin: 10px 0; font-size: 0.8rem; }
-    .rank-list .spec-row span { color: #7a849c; }
-    .rank-list .spec-row strong { color: #e8edf5; }
-    @media (max-width: 640px) { .article-hero h1 { font-size: 1.4rem; } .rank-list li { padding: 16px; } }
+
+    .showcase-feed { display: flex; flex-direction: column; gap: 64px; margin-top: 40px; }
+
+    .showcase-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 24px;
+      padding: 32px;
+      transition: border-color 0.3s ease;
+    }
+    .showcase-card:hover { border-color: rgba(255, 255, 255, 0.18); }
+
+    .card-top { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+    .giant-rank {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .card-top h2 { font-size: 1.6rem; margin: 0; color: #ffffff; letter-spacing: -0.5px; }
+
+    .bento-gallery {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      grid-template-rows: 180px 180px;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .bento-item { background: #12141a; overflow: hidden; position: relative; }
+    .bento-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .bento-item:hover img { transform: scale(1.04); }
+    .bento-item.hero { grid-row: span 2; }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .spec-pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .spec-pill .label { font-size: 0.65rem; font-weight: 700; color: #7a849c; letter-spacing: 0.5px; }
+    .spec-pill .val { font-size: 0.95rem; font-weight: 700; color: #ffffff; font-family: 'Space Grotesk', sans-serif; }
+
+    .showcase-card p { color: #a1abc2; line-height: 1.7; font-size: 1rem; margin: 0; }
+
+    @media (max-width: 768px) {
+      .article-hero h1 { font-size: 1.4rem; }
+      .showcase-card { padding: 20px; }
+      .bento-gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 240px 140px;
+      }
+      .bento-item.hero { grid-column: span 2; grid-row: span 1; }
+      .spec-grid { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -47,58 +104,199 @@
       </div>
       <p>Top 10 Motor Sport 2026 tidak cukup dijelaskan dengan daftar nama dan angka singkat. Dalam versi lokal ini, kami melihat performa, warisan, kegunaan nyata, dan dampak budaya. Diperingkat berdasarkan kecepatan, aerodinamika, dan performa lintasan. Dari Ducati Panigale V4 R hingga Kawasaki Ninja H2R. Tujuannya adalah menjelaskan mengapa setiap entri pantas masuk ranking, bukan sekadar mengulang spesifikasi.</p>
 
-      <ol class="rank-list">
-        <li>
-          <h2>Ducati Panigale V4 R</h2>
-          <div class="spec-row"><span>Engine: <strong>998cc Desmosedici Stradale V4</strong></span> <span>Horsepower: <strong>237 hp</strong></span> <span>Top Speed: <strong>199 mph</strong></span> <span>Weight: <strong>366 lbs</strong></span></div>
+      <section class="showcase-feed">
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#1</span>
+            <h2>Ducati Panigale V4 R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/ducati-panigale-v4-r/angle1.webp" alt="Ducati Panigale V4 R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/ducati-panigale-v4-r/angle2.webp" alt="Ducati Panigale V4 R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/ducati-panigale-v4-r/angle3.webp" alt="Ducati Panigale V4 R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Desmosedici Stradale V4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">237 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">199 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">366 lbs</span></div>
+          </div>
           <p>Ducati Panigale V4 R berada di posisi #1 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>BMW M 1000 RR</h2>
-          <div class="spec-row"><span>Engine: <strong>999cc ShiftCam Inline-4</strong></span> <span>Horsepower: <strong>212 hp</strong></span> <span>Top Speed: <strong>196 mph</strong></span> <span>Weight: <strong>375 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#2</span>
+            <h2>BMW M 1000 RR</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/bmw-m-1000-rr/angle1.webp" alt="BMW M 1000 RR - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/bmw-m-1000-rr/angle2.webp" alt="BMW M 1000 RR - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/bmw-m-1000-rr/angle3.webp" alt="BMW M 1000 RR - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">999cc ShiftCam Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">212 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">196 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">375 lbs</span></div>
+          </div>
           <p>BMW M 1000 RR berada di posisi #2 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>Aprilia RSV4 Factory</h2>
-          <div class="spec-row"><span>Engine: <strong>1,099cc 65-degree V4</strong></span> <span>Horsepower: <strong>217 hp</strong></span> <span>Top Speed: <strong>193 mph</strong></span> <span>Weight: <strong>385 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#3</span>
+            <h2>Aprilia RSV4 Factory</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/aprilia-rsv4-factory/angle1.webp" alt="Aprilia RSV4 Factory - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/aprilia-rsv4-factory/angle2.webp" alt="Aprilia RSV4 Factory - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/aprilia-rsv4-factory/angle3.webp" alt="Aprilia RSV4 Factory - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">1,099cc 65-degree V4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">217 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">193 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">385 lbs</span></div>
+          </div>
           <p>Aprilia RSV4 Factory berada di posisi #3 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>Kawasaki Ninja H2R</h2>
-          <div class="spec-row"><span>Engine: <strong>998cc Supercharged Inline-4</strong></span> <span>Horsepower: <strong>326 hp</strong></span> <span>Top Speed: <strong>249+ mph</strong></span> <span>Weight: <strong>476 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#4</span>
+            <h2>Kawasaki Ninja H2R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/kawasaki-ninja-h2r/angle1.webp" alt="Kawasaki Ninja H2R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/kawasaki-ninja-h2r/angle2.webp" alt="Kawasaki Ninja H2R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/kawasaki-ninja-h2r/angle3.webp" alt="Kawasaki Ninja H2R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Supercharged Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">326 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">249+ mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">476 lbs</span></div>
+          </div>
           <p>Kawasaki Ninja H2R berada di posisi #4 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>Yamaha YZF-R1M</h2>
-          <div class="spec-row"><span>Engine: <strong>998cc Crossplane Inline-4</strong></span> <span>Horsepower: <strong>200 hp</strong></span> <span>Top Speed: <strong>186 mph</strong></span> <span>Weight: <strong>392 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#5</span>
+            <h2>Yamaha YZF-R1M</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/yamaha-yzf-r1m/angle1.webp" alt="Yamaha YZF-R1M - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/yamaha-yzf-r1m/angle2.webp" alt="Yamaha YZF-R1M - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/yamaha-yzf-r1m/angle3.webp" alt="Yamaha YZF-R1M - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Crossplane Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">200 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">186 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">392 lbs</span></div>
+          </div>
           <p>Yamaha YZF-R1M berada di posisi #5 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>Suzuki GSX-R1000R</h2>
-          <div class="spec-row"><span>Engine: <strong>999cc Inline-4</strong></span> <span>Horsepower: <strong>199 hp</strong></span> <span>Top Speed: <strong>186 mph</strong></span> <span>Weight: <strong>397 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#6</span>
+            <h2>Suzuki GSX-R1000R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/suzuki-gsx-r1000r/angle1.webp" alt="Suzuki GSX-R1000R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/suzuki-gsx-r1000r/angle2.webp" alt="Suzuki GSX-R1000R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/suzuki-gsx-r1000r/angle3.webp" alt="Suzuki GSX-R1000R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">999cc Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">199 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">186 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">397 lbs</span></div>
+          </div>
           <p>Suzuki GSX-R1000R berada di posisi #6 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>Honda CBR1000RR-R Fireblade SP</h2>
-          <div class="spec-row"><span>Engine: <strong>999cc Inline-4</strong></span> <span>Horsepower: <strong>214 hp</strong></span> <span>Top Speed: <strong>192 mph</strong></span> <span>Weight: <strong>395 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#7</span>
+            <h2>Honda CBR1000RR-R Fireblade SP</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/honda-cbr1000rr-r-fireblade-sp/angle1.webp" alt="Honda CBR1000RR-R Fireblade SP - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/honda-cbr1000rr-r-fireblade-sp/angle2.webp" alt="Honda CBR1000RR-R Fireblade SP - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/honda-cbr1000rr-r-fireblade-sp/angle3.webp" alt="Honda CBR1000RR-R Fireblade SP - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">999cc Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">214 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">192 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">395 lbs</span></div>
+          </div>
           <p>Honda CBR1000RR-R Fireblade SP berada di posisi #7 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>MV Agusta Superveloce 1000 Serie Oro</h2>
-          <div class="spec-row"><span>Engine: <strong>998cc Inline-4</strong></span> <span>Horsepower: <strong>208 hp</strong></span> <span>Top Speed: <strong>190 mph</strong></span> <span>Weight: <strong>370 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#8</span>
+            <h2>MV Agusta Superveloce 1000 Serie Oro</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/mv-agusta-superveloce-1000-serie-oro/angle1.webp" alt="MV Agusta Superveloce 1000 Serie Oro - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/mv-agusta-superveloce-1000-serie-oro/angle2.webp" alt="MV Agusta Superveloce 1000 Serie Oro - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/mv-agusta-superveloce-1000-serie-oro/angle3.webp" alt="MV Agusta Superveloce 1000 Serie Oro - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">208 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">190 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">370 lbs</span></div>
+          </div>
           <p>MV Agusta Superveloce 1000 Serie Oro berada di posisi #8 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>KTM 990 RC R</h2>
-          <div class="spec-row"><span>Engine: <strong>947cc Parallel-Twin</strong></span> <span>Horsepower: <strong>148 hp</strong></span> <span>Top Speed: <strong>174 mph</strong></span> <span>Weight: <strong>354 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#9</span>
+            <h2>KTM 990 RC R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/ktm-990-rc-r/angle1.webp" alt="KTM 990 RC R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/ktm-990-rc-r/angle2.webp" alt="KTM 990 RC R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/ktm-990-rc-r/angle3.webp" alt="KTM 990 RC R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">947cc Parallel-Twin</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">148 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">174 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">354 lbs</span></div>
+          </div>
           <p>KTM 990 RC R berada di posisi #9 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-        <li>
-          <h2>Energica Ego RS</h2>
-          <div class="spec-row"><span>Motor: <strong>15.5 kWh Permanent Magnet AC</strong></span> <span>Horsepower: <strong>169 hp</strong></span> <span>Top Speed: <strong>162 mph</strong></span> <span>Weight: <strong>573 lbs</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#10</span>
+            <h2>Energica Ego RS</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/energica-ego-rs/angle1.webp" alt="Energica Ego RS - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/energica-ego-rs/angle2.webp" alt="Energica Ego RS - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/energica-ego-rs/angle3.webp" alt="Energica Ego RS - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">MOTOR</span><span class="val">15.5 kWh Permanent Magnet AC</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">169 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">162 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">573 lbs</span></div>
+          </div>
           <p>Energica Ego RS berada di posisi #10 karena menonjol lewat kombinasi data, desain, reputasi, dan relevansi nyata di kategorinya. Dibandingkan posisi terdekat, nilainya tidak bergantung pada satu angka besar saja, tetapi pada keseimbangan performa, karakter, dan konsistensi. Pendekatan editorial kami mengutamakan pilihan yang benar-benar meninggalkan jejak.</p>
-        </li>
-      </ol>
+        </article>
+
+      </section>
 
       <h2>Kesimpulan</h2>
       <p>Ranking Top 10 Motor Sport 2026 ini adalah panduan editorial, bukan tabel spesifikasi yang kaku. Posisi bisa berubah seiring rilis baru, pengujian, dan dinamika pasar, tetapi sepuluh entri ini saat ini mewakili kualitas, pengaruh, dan identitas yang kuat.</p>
