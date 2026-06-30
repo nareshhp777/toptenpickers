@@ -28,13 +28,18 @@
 <body>
   <nav class="nav">
     <a href="/de/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
-    <ul class="nav-links">
-      <li><a href="/de/">Startseite</a></li>
-      <li><a href="/about.html">Über uns</a></li>
-      <li><a href="/contact.html">Kontakt</a></li>
-      <li><a href="/privacy-policy.html">Datenschutz</a></li>
-      <li><a href="/disclaimer.html">Hinweis</a></li>
-    </ul>
+    <div class="nav-right">
+      <div class="language-selector">
+        <select onchange="location = this.value;">
+          <option value="/">EN</option>
+          <option value="/es/">ES</option>
+          <option value="/fr/">FR</option>
+          <option value="/de/">DE</option>
+          <option value="/ja/">JA</option>
+        </select>
+      </div>
+      <button class="hamburger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
   </nav>
   <div class="page-wrap">
     <div class="content">

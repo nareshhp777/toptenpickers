@@ -346,6 +346,25 @@ strong { color: #e8edf5; }
   .mobile-menu-link { font-size: 1.25rem; }
 }
 
+/* Nav right (language selector + hamburger) */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  justify-content: flex-end;
+}
+.language-selector select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  font-weight: 700;
+  outline: none;
+}
+.language-selector select option { background: #12141a; color: #fff; }
+
 /* RTL (Arabic) Header Typography Overrides */
 html[dir="rtl"] .nav-pages a {
   font-size: 0.65rem;
