@@ -371,7 +371,7 @@ strong { color: #e8edf5; }
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: 10001;
   display: flex;
   align-items: center;
   gap: 16px;
