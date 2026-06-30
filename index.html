@@ -1756,39 +1756,38 @@
     }
     .floating-promo-banner {
       position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 9999;
-      display: flex; align-items: center; gap: 14px;
-      background: rgba(18, 20, 24, 0.65);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 12px 24px; border-radius: 50px;
-      text-decoration: none; color: #ffffff;
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(15, 15, 18, 0.75);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 12px 24px;
+      text-decoration: none; color: #fff;
       font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .floating-promo-banner:hover {
-      background: rgba(25, 28, 35, 0.85);
-      border-color: rgba(255, 255, 255, 0.25);
-      transform: translate(-50%, -4px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 77, 77, 0.15);
+      transform: translate(-50%, -6px);
+      border-color: rgba(255, 77, 77, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 77, 77, 0.25);
+    }
+    .promo-icon {
+      color: #ff4d4d;
+      filter: drop-shadow(0 0 8px rgba(255, 77, 77, 0.6));
+      animation: pulseGlow 1.5s infinite alternate;
     }
     .trending-gradient {
-      background: linear-gradient(90deg, #ff4d4d, #f9cb28);
+      background: linear-gradient(90deg, #f9cb28, #ff4d4d);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      font-weight: 800; letter-spacing: 0.5px; margin-right: 4px;
+      font-weight: 800; margin-right: 6px;
     }
-    .pulse-indicator {
-      width: 8px; height: 8px; background-color: #ff4d4d; border-radius: 50%;
-      box-shadow: 0 0 12px #ff4d4d; animation: pulseGlow 2s infinite;
-    }
+    .promo-arrow { transition: transform 0.3s ease; color: rgba(255,255,255,0.5); }
+    .floating-promo-banner:hover .promo-arrow { transform: translateX(6px); color: #fff; }
     @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.6); }
-      70% { box-shadow: 0 0 0 8px rgba(255, 77, 77, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+      from { opacity: 0.7; }
+      to { opacity: 1; filter: drop-shadow(0 0 12px #ff4d4d); }
     }
-    .promo-arrow { transition: transform 0.3s ease; color: rgba(255,255,255,0.7); }
-    .floating-promo-banner:hover .promo-arrow { transform: translateX(4px); color: #ffffff; }
     @media (max-width: 768px) {
       .floating-promo-banner { bottom: 24px; width: 90%; justify-content: space-between; padding: 12px 18px; font-size: 0.85rem; }
     }
@@ -2118,8 +2117,10 @@
     const angleLabels = ['Front', 'Side', 'Rear', '3/4 Front', '3/4 Rear'];
   </script>
   <a href="/articles/top-10-sports-bikes-2026.html" class="floating-promo-banner">
-    <span class="pulse-indicator"></span>
-    <span class="promo-text"><span class="trending-gradient">MOST VIEWED:</span> Top 10 Sports Bikes of 2026</span>
+    <i class="fa-solid fa-gauge-high promo-icon"></i>
+    <span class="promo-text">
+      <span class="trending-gradient">MOST VIEWED:</span> Top 10 Sports Bikes
+    </span>
     <i class="fa-solid fa-arrow-right promo-arrow"></i>
   </a>
   <script src="/app.js" defer></script>
