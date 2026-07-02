@@ -354,6 +354,18 @@ strong { color: #e8edf5; }
   flex: 1;
   justify-content: flex-end;
 }
+.language-selector {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+.language-selector:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
 .language-selector select {
   background: transparent;
   border: none;
@@ -362,6 +374,8 @@ strong { color: #e8edf5; }
   cursor: pointer;
   font-weight: 700;
   outline: none;
+  appearance: none;
+  padding: 0 10px;
 }
 .language-selector select option { background: #12141a; color: #fff; }
 
