@@ -568,7 +568,20 @@
     });
     cursor.addEventListener('animationend', () => cursor.classList.remove('breathing'));
 
-    // Language selector dropdown toggle
+    // Disable cursor animation on touch devices
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      document.querySelectorAll('a, button, .dot, .angle-btn, .car-arrow').forEach(el => {
+        el.addEventListener('touchstart', function() {
+          this.style.transform = 'scale(0.95)';
+        }, { passive: true });
+        el.addEventListener('touchend', function() {
+          this.style.transform = '';
+        }, { passive: true });
+      });
+    }
+    }
+
+    // Language selector dropdown toggle (runs on all pages, incl. articles)
     const langBtn = document.getElementById('langBtn');
     const langDropdown = document.getElementById('langDropdown');
     if (langBtn && langDropdown) {
@@ -592,19 +605,6 @@
           langBtn.focus();
         }
       });
-    }
-
-    // Disable cursor animation on touch devices
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-      document.querySelectorAll('a, button, .dot, .angle-btn, .car-arrow').forEach(el => {
-        el.addEventListener('touchstart', function() {
-          this.style.transform = 'scale(0.95)';
-        }, { passive: true });
-        el.addEventListener('touchend', function() {
-          this.style.transform = '';
-        }, { passive: true });
-      });
-    }
     }
 
     // Hamburger menu toggle

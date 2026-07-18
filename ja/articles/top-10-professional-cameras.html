@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -29,22 +29,24 @@
   <nav class="nav">
     <a href="/ja/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
     <div class="nav-right">
-      <div class="language-selector">
-        <select onchange="location = this.value;" style="background: transparent; border: none; color: #fff; font-family: 'Space Grotesk', sans-serif; cursor: pointer; font-weight: 700; outline: none; appearance: none; padding: 0 10px;">
-          <option value="/">EN</option>
-          <option value="/es/">ES</option>
-          <option value="/fr/">FR</option>
-          <option value="/de/">DE</option>
-          <option value="/ja/">JA</option>
-          <option value="/zh/">ZH</option>
-          <option value="/hi/">HI</option>
-          <option value="/ar/">AR</option>
-          <option value="/pt/">PT</option>
-          <option value="/ru/">RU</option>
-        </select>
-        <i class="fa-solid fa-chevron-down" style="font-size: 0.6rem; margin-left: 4px; pointer-events: none; color: #7a849c;"></i>
+      <div class="lang-selector" id="langSelector">
+        <button class="lang-btn" id="langBtn" aria-label="Change language" aria-expanded="false">
+          <i class="fa-solid fa-globe"></i> <span>JA</span> <i class="fa-solid fa-chevron-down lang-chevron"></i>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="menu">
+          <a href="/" role="menuitem">English (EN)</a>
+          <a href="/es/" role="menuitem">Español (ES)</a>
+          <a href="/de/" role="menuitem">Deutsch (DE)</a>
+          <a href="/fr/" role="menuitem">Français (FR)</a>
+          <a href="/ja/" class="active" role="menuitem">日本語 (JA)</a>
+          <a href="/pt/" role="menuitem">Português (PT)</a>
+          <a href="/hi/" role="menuitem">हिन्दी (HI)</a>
+          <a href="/ar/" role="menuitem">العربية (AR)</a>
+          <a href="/ko/" role="menuitem">한국어 (KO)</a>
+          <a href="/it/" role="menuitem">Italiano (IT)</a>
+        </div>
       </div>
-      <button class="hamburger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
     </div>
   </nav>
   <div class="page-wrap">
@@ -116,5 +118,15 @@
       &copy; 2026 Top 10 Picker — <a href="/privacy-policy.html">プライバシー</a> &middot; <a href="/disclaimer.html">免責事項</a>
     </div>
   </div>
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <a href="/about.html" class="mobile-menu-link"><i class="fa-solid fa-circle-info"></i> About</a>
+    <a href="/contact.html" class="mobile-menu-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+    <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
+  </div>
+  <script src="/app.js" defer></script>
 </body>
 </html>
