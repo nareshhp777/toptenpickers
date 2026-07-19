@@ -585,6 +585,21 @@
     const langBtn = document.getElementById('langBtn');
     const langDropdown = document.getElementById('langDropdown');
     if (langBtn && langDropdown) {
+      // On article pages, point each language link at the same article
+      // (instead of that language's homepage) so switching language
+      // keeps the reader on the current article.
+      const articleMatch = window.location.pathname.match(/^(?:\/(ar|de|es|fr|hi|it|ja|ko|pt))?\/articles\/([^\/]+\.html)$/);
+      if (articleMatch) {
+        const articleFile = articleMatch[2];
+        langDropdown.querySelectorAll('a').forEach(function(link) {
+          const href = link.getAttribute('href');
+          const langMatch = href && href.match(/^\/(ar|de|es|fr|hi|it|ja|ko|pt)?\/?$/);
+          if (langMatch) {
+            const prefix = langMatch[1] ? '/' + langMatch[1] : '';
+            link.setAttribute('href', prefix + '/articles/' + articleFile);
+          }
+        });
+      }
       langBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         const willShow = !langDropdown.classList.contains('show');

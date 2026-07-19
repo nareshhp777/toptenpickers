@@ -1752,6 +1752,43 @@
         text-align: center;
       }
     }
+    .floating-promo-banner {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 9999;
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(15, 15, 18, 0.75);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 12px 24px;
+      text-decoration: none; color: #fff;
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .floating-promo-banner:hover {
+      transform: translate(-50%, -6px);
+      border-color: rgba(255, 77, 77, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 77, 77, 0.25);
+    }
+    .promo-icon {
+      color: #ff4d4d;
+      filter: drop-shadow(0 0 8px rgba(255, 77, 77, 0.6));
+      animation: pulseGlow 1.5s infinite alternate;
+    }
+    .trending-gradient {
+      background: linear-gradient(90deg, #f9cb28, #ff4d4d);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-weight: 800; margin-right: 6px;
+    }
+    .promo-arrow { transition: transform 0.3s ease; color: rgba(255,255,255,0.5); }
+    .floating-promo-banner:hover .promo-arrow { transform: translateX(6px); color: #fff; }
+    @keyframes pulseGlow {
+      from { opacity: 0.7; }
+      to { opacity: 1; filter: drop-shadow(0 0 12px #ff4d4d); }
+    }
+    @media (max-width: 768px) {
+      .floating-promo-banner { bottom: 24px; width: 90%; justify-content: space-between; padding: 12px 18px; font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
@@ -2074,6 +2111,13 @@
     const angleNames = ['front', 'side', 'rear', 'front-three-quarter', 'rear-three-quarter'];
     const angleLabels = ['Frente', 'Lado', 'Traseira', '3/4 Frente', '3/4 Traseira'];
   </script>
+  <a href="/pt/articles/top-10-sports-bikes-2026.html" class="floating-promo-banner">
+    <i class="fa-solid fa-gauge-high promo-icon"></i>
+    <span class="promo-text">
+      <span class="trending-gradient">MAIS VISTO:</span> Top 10 Motos Esportivas
+    </span>
+    <i class="fa-solid fa-arrow-right promo-arrow"></i>
+  </a>
   <script src="/app.js" defer></script>
 </body>
 </html>
