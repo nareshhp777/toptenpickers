@@ -1,0 +1,16 @@
+---
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for page in collections.all | sort(false, false, "page.url") %}
+  {% if page.url != "/sitemap.xml" %}
+  <url>
+    <loc>https://toptenpicker.com{{ page.url }}</loc>
+    <lastmod>{{ page.date | date("Y-MM-DD") if page.date else "2026-07-19" }}</lastmod>
+    <changefreq>{{ page.data.changefreq if page.data.changefreq else "monthly" }}</changefreq>
+    <priority>{{ page.data.priority if page.data.priority else "0.8" }}</priority>
+  </url>
+  {% endif %}
+{% endfor %}
+</urlset>

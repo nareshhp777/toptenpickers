@@ -1,0 +1,151 @@
+---
+changefreq: monthly
+priority: 0.8
+layout: layouts/article.njk
+family: article
+title: أفضل 10 مواقع رائعة على الإنترنت | Top 10 Picker
+description: مواقع فريدة ومفيدة ومذهلة مصنفة حسب تجربة المستخدم. من Neal.fun إلى Internet Archive.
+robots: index, follow
+canonical: https://toptenpicker.com/ar/articles/top-10-most-interesting-websites.html
+hreflangs:
+  - hreflang: en
+    href: https://toptenpicker.com/articles/top-10-most-interesting-websites.html
+  - hreflang: es
+    href: https://toptenpicker.com/es/articles/top-10-most-interesting-websites.html
+  - hreflang: de
+    href: https://toptenpicker.com/de/articles/top-10-most-interesting-websites.html
+  - hreflang: fr
+    href: https://toptenpicker.com/fr/articles/top-10-most-interesting-websites.html
+  - hreflang: ja
+    href: https://toptenpicker.com/ja/articles/top-10-most-interesting-websites.html
+  - hreflang: pt
+    href: https://toptenpicker.com/pt/articles/top-10-most-interesting-websites.html
+  - hreflang: hi
+    href: https://toptenpicker.com/hi/articles/top-10-most-interesting-websites.html
+  - hreflang: ar
+    href: https://toptenpicker.com/ar/articles/top-10-most-interesting-websites.html
+  - hreflang: ko
+    href: https://toptenpicker.com/ko/articles/top-10-most-interesting-websites.html
+  - hreflang: it
+    href: https://toptenpicker.com/it/articles/top-10-most-interesting-websites.html
+  - hreflang: x-default
+    href: https://toptenpicker.com/articles/top-10-most-interesting-websites.html
+lang: ar
+dir: rtl
+permalink: /ar/articles/top-10-most-interesting-websites.html
+headTailHtml: |-
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+      .article-hero { text-align: center; padding: 40px 0 20px; }
+      .article-hero h1 { font-size: 2rem; }
+      .article-hero .byline { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; margin-top: 8px; }
+      .rank-list { counter-reset: rank; list-style: none; margin: 30px 0 0; padding: 0; }
+      .rank-list li { counter-increment: rank; margin-bottom: 40px; padding: 24px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; }
+      .rank-list li::before { content: "#" counter(rank); display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+      .rank-list h2 { margin: 4px 0 8px; font-size: 1.15rem; }
+      .rank-list .spec-row { display: flex; flex-wrap: wrap; gap: 16px; margin: 10px 0; font-size: 0.8rem; color: #7a849c; }
+      .rank-list .spec-row strong { color: #e8edf5; }
+      @media (max-width: 640px) { .article-hero h1 { font-size: 1.4rem; } .rank-list li { padding: 16px; } }
+    </style>
+navHtml: |-
+  <nav class="nav">
+      <a href="/ar/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
+      <div class="nav-right">
+        <div class="lang-selector" id="langSelector">
+          <button class="lang-btn" id="langBtn" aria-label="Change language" aria-expanded="false">
+            <i class="fa-solid fa-globe"></i> <span>AR</span> <i class="fa-solid fa-chevron-down lang-chevron"></i>
+          </button>
+          <div class="lang-dropdown" id="langDropdown" role="menu">
+            <a href="/articles/top-10-most-interesting-websites.html" role="menuitem">English (EN)</a>
+            <a href="/es/articles/top-10-most-interesting-websites.html" role="menuitem">Español (ES)</a>
+            <a href="/de/articles/top-10-most-interesting-websites.html" role="menuitem">Deutsch (DE)</a>
+            <a href="/fr/articles/top-10-most-interesting-websites.html" role="menuitem">Français (FR)</a>
+            <a href="/ja/articles/top-10-most-interesting-websites.html" role="menuitem">日本語 (JA)</a>
+            <a href="/pt/articles/top-10-most-interesting-websites.html" role="menuitem">Português (PT)</a>
+            <a href="/hi/articles/top-10-most-interesting-websites.html" role="menuitem">हिन्दी (HI)</a>
+            <a href="/ar/articles/top-10-most-interesting-websites.html" class="active" role="menuitem">العربية (AR)</a>
+            <a href="/ko/articles/top-10-most-interesting-websites.html" role="menuitem">한국어 (KO)</a>
+            <a href="/it/articles/top-10-most-interesting-websites.html" role="menuitem">Italiano (IT)</a>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </nav>
+footerHtml: '&copy; 2026 Top 10 Picker — <a href="/privacy-policy.html">الخصوصية</a> &middot; <a href="/disclaimer.html">إخلاء المسؤولية</a>'
+mobileMenuHtml: |-
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <a href="/about.html" class="mobile-menu-link"><i class="fa-solid fa-circle-info"></i> About</a>
+      <a href="/contact.html" class="mobile-menu-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+      <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
+    </div>
+---
+<div class="article-hero">
+        <span class="label">ثقافة الإنترنت</span>
+        <h1>أفضل 10 مواقع رائعة على الإنترنت</h1>
+        <p class="byline">تصنيف مبني على تحليل تحريري وبيانات عامة وتأثير ثقافي</p>
+      </div>
+      <p>أفضل 10 مواقع رائعة على الإنترنت ليس مجرد قائمة سريعة من الأسماء والأرقام. في هذه النسخة المحلية ننظر إلى الأداء والإرث والاستخدام الحقيقي والتأثير الثقافي. مواقع فريدة ومفيدة ومذهلة مصنفة حسب تجربة المستخدم. من Neal.fun إلى Internet Archive. الهدف هو شرح سبب وجود كل اختيار في مكانه، وليس تكرار المواصفات فقط.</p>
+
+      <ol class="rank-list">
+        <li>
+          <h2>Neal.fun</h2>
+          <div class="spec-row"><span>Creator: <strong>Neal Agarwal</strong></span> <span>Launched: <strong>2015</strong></span> <span>Visitors: <strong>30M+ monthly</strong></span> <span>Category: <strong>Interactive Art</strong></span></div>
+          <p>Neal.fun يأتي في المركز #1 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>Internet Archive (archive.org)</h2>
+          <div class="spec-row"><span>Founded: <strong>1996</strong></span> <span>Pages Archived: <strong>900B+</strong></span> <span>Data Stored: <strong>100+ petabytes</strong></span> <span>Founder: <strong>Brewster Kahle</strong></span></div>
+          <p>Internet Archive (archive.org) يأتي في المركز #2 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>Window Swap</h2>
+          <div class="spec-row"><span>Launched: <strong>2020</strong></span> <span>Windows: <strong>10,000+ submissions</strong></span> <span>Category: <strong>Travel & Mindfulness</strong></span> <span>Concept: <strong>View from someone's window</strong></span></div>
+          <p>Window Swap يأتي في المركز #3 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>A Soft Murmur</h2>
+          <div class="spec-row"><span>Launched: <strong>2012</strong></span> <span>Sounds: <strong>20+ ambient layers</strong></span> <span>Category: <strong>Wellness & Focus</strong></span> <span>Creator: <strong>Gabriel Aronson</strong></span></div>
+          <p>A Soft Murmur يأتي في المركز #4 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>The Useless Web</h2>
+          <div class="spec-row"><span>Launched: <strong>2012</strong></span> <span>Sites: <strong>200+ useless destinations</strong></span> <span>Category: <strong>Entertainment</strong></span> <span>Creator: <strong>Tim Holman</strong></span></div>
+          <p>The Useless Web يأتي في المركز #5 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>Radio Garden</h2>
+          <div class="spec-row"><span>Launched: <strong>2016</strong></span> <span>Stations: <strong>10,000+ live broadcasts</strong></span> <span>Category: <strong>Audio Discovery</strong></span> <span>Project: <strong>Studio Puckey & Moniker</strong></span></div>
+          <p>Radio Garden يأتي في المركز #6 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>Patatap</h2>
+          <div class="spec-row"><span>Launched: <strong>2013</strong></span> <span>Sounds: <strong>120+ unique pairs</strong></span> <span>Category: <strong>Interactive Music</strong></span> <span>Creators: <strong>Jono Brandel & Nicole Jaffe</strong></span></div>
+          <p>Patatap يأتي في المركز #7 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>Little Alchemy 2</h2>
+          <div class="spec-row"><span>Launched: <strong>2017</strong></span> <span>Elements: <strong>720+ combinations</strong></span> <span>Category: <strong>Puzzle & Education</strong></span> <span>Creator: <strong>Jakub Koziol</strong></span></div>
+          <p>Little Alchemy 2 يأتي في المركز #8 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>Zoomquilt</h2>
+          <div class="spec-row"><span>Launched: <strong>2004</strong></span> <span>Artwork: <strong>Infinite zoom illustration</strong></span> <span>Category: <strong>Visual Art</strong></span> <span>Creators: <strong>Nikolaus Baumgarten & collaborators</strong></span></div>
+          <p>Zoomquilt يأتي في المركز #9 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+        <li>
+          <h2>Strobe.cool</h2>
+          <div class="spec-row"><span>Launched: <strong>2019</strong></span> <span>Concept: <strong>Stroboscopic art</strong></span> <span>Category: <strong>Visual Art & Music</strong></span> <span>Creator: <strong>Matt Pearson</strong></span></div>
+          <p>Strobe.cool يأتي في المركز #10 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </li>
+      </ol>
+
+      <h2>الخلاصة</h2>
+      <p>هذا التصنيف حول أفضل 10 مواقع رائعة على الإنترنت هو دليل تحريري وليس جدولا ثابتا. قد تتغير المراكز مع الإصدارات الجديدة والاختبارات وتغير السوق، لكن هذه الاختيارات العشرة تمثل حاليا مجموعة قوية من حيث الجودة والتأثير والتميز.</p>

@@ -1,0 +1,20 @@
+---
+changefreq: monthly
+priority: 0.8
+layout: layouts/base.njk
+---
+{{ navHtml | safe }}
+{% if family == "static" %}
+{{ mobileMenuHtml | safe }}
+{% endif %}
+  <div class="page-wrap">
+    <div class="content">
+{{ content | safe }}
+    </div>
+    <div class="footer">
+{{ footerHtml | safe }}
+    </div>
+  </div>
+{% if family != "static" %}
+{{ mobileMenuHtml | safe }}
+{% endif %}

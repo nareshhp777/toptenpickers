@@ -1,0 +1,17 @@
+---
+changefreq: monthly
+priority: 0.8
+layout: layouts/base.njk
+---
+{{ navHtml | safe }}
+  <div class="page-wrap">
+    <div class="content">
+{{ content | safe }}
+    </div>
+    <div class="footer">
+{{ footerHtml | safe }}
+    </div>
+  </div>
+{{ lightboxHtml | safe }}
+{{ pageScriptHtml | safe }}
+{{ mobileMenuHtml | safe }}

@@ -1,0 +1,499 @@
+---
+changefreq: monthly
+priority: 0.8
+layout: layouts/showcase.njk
+family: showcase
+title: أفضل 10 دراجات رياضية 2026 | Top 10 Picker
+description: مصنفة حسب السرعة والديناميكيات الهوائية وأداء الحلبة. من Ducati Panigale V4 R إلى Kawasaki Ninja H2R.
+robots: index, follow
+canonical: https://toptenpicker.com/ar/articles/top-10-sports-bikes-2026.html
+hreflangs:
+  - hreflang: en
+    href: https://toptenpicker.com/articles/top-10-sports-bikes-2026.html
+  - hreflang: es
+    href: https://toptenpicker.com/es/articles/top-10-sports-bikes-2026.html
+  - hreflang: de
+    href: https://toptenpicker.com/de/articles/top-10-sports-bikes-2026.html
+  - hreflang: fr
+    href: https://toptenpicker.com/fr/articles/top-10-sports-bikes-2026.html
+  - hreflang: ja
+    href: https://toptenpicker.com/ja/articles/top-10-sports-bikes-2026.html
+  - hreflang: pt
+    href: https://toptenpicker.com/pt/articles/top-10-sports-bikes-2026.html
+  - hreflang: hi
+    href: https://toptenpicker.com/hi/articles/top-10-sports-bikes-2026.html
+  - hreflang: ar
+    href: https://toptenpicker.com/ar/articles/top-10-sports-bikes-2026.html
+  - hreflang: ko
+    href: https://toptenpicker.com/ko/articles/top-10-sports-bikes-2026.html
+  - hreflang: it
+    href: https://toptenpicker.com/it/articles/top-10-sports-bikes-2026.html
+  - hreflang: x-default
+    href: https://toptenpicker.com/articles/top-10-sports-bikes-2026.html
+lang: ar
+dir: rtl
+permalink: /ar/articles/top-10-sports-bikes-2026.html
+headTailHtml: |-
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+      .article-hero { text-align: center; padding: 40px 0 20px; }
+      .article-hero .label { margin-bottom: 12px; }
+      .article-hero h1 { font-size: 2rem; }
+      .article-hero .byline { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; margin-top: 8px; }
+
+      .showcase-feed { display: flex; flex-direction: column; gap: 64px; margin-top: 40px; }
+
+      .showcase-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 24px;
+        padding: 32px;
+        transition: border-color 0.3s ease;
+      }
+      .showcase-card:hover { border-color: rgba(255, 255, 255, 0.18); }
+
+      .card-top { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+      .giant-rank {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--accent);
+      }
+      .card-top h2 { font-size: 1.6rem; margin: 0; color: #ffffff; letter-spacing: -0.5px; }
+
+      .bento-gallery {
+        display: grid;
+        grid-template-columns: 2.2fr 1fr;
+        grid-template-rows: 180px 180px;
+        gap: 12px;
+        margin-bottom: 24px;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .bento-item {
+        background: #12141a;
+        overflow: hidden;
+        position: relative;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .bento-item.hero { transition-delay: 0.1s; grid-row: span 2; }
+      .bento-item.detail-1 { transition-delay: 0.25s; }
+      .bento-item.detail-2 { transition-delay: 0.4s; }
+      .bento-gallery.is-visible .bento-item {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .bento-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, filter 0.4s ease;
+        cursor: pointer;
+      }
+      .bento-gallery:hover .bento-item:not(:hover) img {
+        filter: brightness(0.5) contrast(1.1);
+      }
+      .bento-item:active img {
+        transform: scale(0.97);
+      }
+      .bento-item.swapping img {
+        opacity: 0;
+        transform: scale(1.05);
+      }
+
+      .spec-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .spec-pill {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 12px 16px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .spec-pill .label { font-size: 0.65rem; font-weight: 700; color: #7a849c; letter-spacing: 0.5px; }
+      .spec-pill .val { font-size: 0.95rem; font-weight: 700; color: #ffffff; font-family: 'Space Grotesk', sans-serif; }
+
+      .showcase-card p { color: #a1abc2; line-height: 1.7; font-size: 1rem; margin: 0; }
+
+      .lightbox-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(8, 9, 12, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .lightbox-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .lightbox-img {
+        max-width: 90%;
+        max-height: 90vh;
+        border-radius: 16px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        object-fit: contain;
+        transform: scale(0.95);
+        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .lightbox-overlay.active .lightbox-img {
+        transform: scale(1);
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 1.5rem;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10000;
+      }
+      .lightbox-close:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        .article-hero h1 { font-size: 1.4rem; }
+        .showcase-card { padding: 20px; }
+        .bento-gallery {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 240px 140px;
+        }
+        .bento-item.hero { grid-column: span 2; grid-row: span 1; }
+        .spec-grid { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+navHtml: |-
+  <nav class="nav">
+      <a href="/ar/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
+      <div class="nav-right">
+        <div class="lang-selector" id="langSelector">
+          <button class="lang-btn" id="langBtn" aria-label="Change language" aria-expanded="false">
+            <i class="fa-solid fa-globe"></i> <span>AR</span> <i class="fa-solid fa-chevron-down lang-chevron"></i>
+          </button>
+          <div class="lang-dropdown" id="langDropdown" role="menu">
+            <a href="/articles/top-10-sports-bikes-2026.html" role="menuitem">English (EN)</a>
+            <a href="/es/articles/top-10-sports-bikes-2026.html" role="menuitem">Español (ES)</a>
+            <a href="/de/articles/top-10-sports-bikes-2026.html" role="menuitem">Deutsch (DE)</a>
+            <a href="/fr/articles/top-10-sports-bikes-2026.html" role="menuitem">Français (FR)</a>
+            <a href="/ja/articles/top-10-sports-bikes-2026.html" role="menuitem">日本語 (JA)</a>
+            <a href="/pt/articles/top-10-sports-bikes-2026.html" role="menuitem">Português (PT)</a>
+            <a href="/hi/articles/top-10-sports-bikes-2026.html" role="menuitem">हिन्दी (HI)</a>
+            <a href="/ar/articles/top-10-sports-bikes-2026.html" class="active" role="menuitem">العربية (AR)</a>
+            <a href="/ko/articles/top-10-sports-bikes-2026.html" role="menuitem">한국어 (KO)</a>
+            <a href="/it/articles/top-10-sports-bikes-2026.html" role="menuitem">Italiano (IT)</a>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </nav>
+footerHtml: '&copy; 2026 Top 10 Picker — <a href="/privacy-policy.html">الخصوصية</a> &middot; <a href="/disclaimer.html">إخلاء المسؤولية</a>'
+mobileMenuHtml: |-
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <a href="/about.html" class="mobile-menu-link"><i class="fa-solid fa-circle-info"></i> About</a>
+      <a href="/contact.html" class="mobile-menu-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+      <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
+    </div>
+lightboxHtml: |-
+  <div id="imageLightbox" class="lightbox-overlay">
+      <button class="lightbox-close" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+      <img src="" alt="Fullscreen View" class="lightbox-img">
+    </div>
+pageScriptHtml: |-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var galleries = document.querySelectorAll('.bento-gallery');
+      galleries.forEach(function(gallery) {
+        var heroItem = gallery.querySelector('.bento-item.hero img');
+        var subItems = gallery.querySelectorAll('.bento-item:not(.hero) img');
+        subItems.forEach(function(subItem) {
+          subItem.addEventListener('click', function() {
+            heroItem.parentElement.classList.add('swapping');
+            subItem.parentElement.classList.add('swapping');
+            setTimeout(function() {
+              var tempSrc = heroItem.src;
+              var tempAlt = heroItem.alt;
+              heroItem.src = subItem.src;
+              heroItem.alt = subItem.alt;
+              subItem.src = tempSrc;
+              subItem.alt = tempAlt;
+              heroItem.parentElement.classList.remove('swapping');
+              subItem.parentElement.classList.remove('swapping');
+            }, 300);
+          });
+        });
+      });
+
+      var observerOptions = { root: null, rootMargin: '0px 0px -100px 0px', threshold: 0.1 };
+      var galleryObserver = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      galleries.forEach(function(g) { galleryObserver.observe(g); });
+
+      var lightbox = document.getElementById('imageLightbox');
+      var lightboxImg = lightbox.querySelector('.lightbox-img');
+      var lightboxClose = lightbox.querySelector('.lightbox-close');
+      var heroImages = document.querySelectorAll('.bento-item.hero img');
+      heroImages.forEach(function(img) {
+        img.addEventListener('click', function() {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add('active');
+        });
+      });
+      lightboxClose.addEventListener('click', function() {
+        lightbox.classList.remove('active');
+      });
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+          lightbox.classList.remove('active');
+        }
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          lightbox.classList.remove('active');
+        }
+      });
+    });
+    </script>
+---
+<div class="article-hero">
+        <span class="label">دراجات رياضية</span>
+        <h1>أفضل 10 دراجات رياضية 2026</h1>
+        <p class="byline">تصنيف مبني على تحليل تحريري وبيانات عامة وتأثير ثقافي</p>
+      </div>
+      <p>أفضل 10 دراجات رياضية 2026 ليس مجرد قائمة سريعة من الأسماء والأرقام. في هذه النسخة المحلية ننظر إلى الأداء والإرث والاستخدام الحقيقي والتأثير الثقافي. مصنفة حسب السرعة والديناميكيات الهوائية وأداء الحلبة. من Ducati Panigale V4 R إلى Kawasaki Ninja H2R. الهدف هو شرح سبب وجود كل اختيار في مكانه، وليس تكرار المواصفات فقط.</p>
+
+      <section class="showcase-feed">
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#1</span>
+            <h2>Ducati Panigale V4 R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/ducati-panigale-v4-r/angle1.webp" alt="Ducati Panigale V4 R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/ducati-panigale-v4-r/angle2.webp" alt="Ducati Panigale V4 R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/ducati-panigale-v4-r/angle3.webp" alt="Ducati Panigale V4 R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Desmosedici Stradale V4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">237 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">199 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">366 lbs</span></div>
+          </div>
+          <p>Ducati Panigale V4 R يأتي في المركز #1 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#2</span>
+            <h2>BMW M 1000 RR</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/bmw-m-1000-rr/angle1.webp" alt="BMW M 1000 RR - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/bmw-m-1000-rr/angle2.webp" alt="BMW M 1000 RR - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/bmw-m-1000-rr/angle3.webp" alt="BMW M 1000 RR - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">999cc ShiftCam Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">212 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">196 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">375 lbs</span></div>
+          </div>
+          <p>BMW M 1000 RR يأتي في المركز #2 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#3</span>
+            <h2>Aprilia RSV4 Factory</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/aprilia-rsv4-factory/angle1.webp" alt="Aprilia RSV4 Factory - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/aprilia-rsv4-factory/angle2.webp" alt="Aprilia RSV4 Factory - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/aprilia-rsv4-factory/angle3.webp" alt="Aprilia RSV4 Factory - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">1,099cc 65-degree V4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">217 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">193 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">385 lbs</span></div>
+          </div>
+          <p>Aprilia RSV4 Factory يأتي في المركز #3 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#4</span>
+            <h2>Kawasaki Ninja H2R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/kawasaki-ninja-h2r/angle1.webp" alt="Kawasaki Ninja H2R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/kawasaki-ninja-h2r/angle2.webp" alt="Kawasaki Ninja H2R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/kawasaki-ninja-h2r/angle3.webp" alt="Kawasaki Ninja H2R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Supercharged Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">326 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">249+ mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">476 lbs</span></div>
+          </div>
+          <p>Kawasaki Ninja H2R يأتي في المركز #4 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#5</span>
+            <h2>Yamaha YZF-R1M</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/yamaha-yzf-r1m/angle1.webp" alt="Yamaha YZF-R1M - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/yamaha-yzf-r1m/angle2.webp" alt="Yamaha YZF-R1M - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/yamaha-yzf-r1m/angle3.webp" alt="Yamaha YZF-R1M - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Crossplane Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">200 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">186 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">392 lbs</span></div>
+          </div>
+          <p>Yamaha YZF-R1M يأتي في المركز #5 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#6</span>
+            <h2>Suzuki GSX-R1000R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/suzuki-gsx-r1000r/angle1.webp" alt="Suzuki GSX-R1000R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/suzuki-gsx-r1000r/angle2.webp" alt="Suzuki GSX-R1000R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/suzuki-gsx-r1000r/angle3.webp" alt="Suzuki GSX-R1000R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">999cc Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">199 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">186 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">397 lbs</span></div>
+          </div>
+          <p>Suzuki GSX-R1000R يأتي في المركز #6 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#7</span>
+            <h2>Honda CBR1000RR-R Fireblade SP</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/honda-cbr1000rr-r-fireblade-sp/angle1.webp" alt="Honda CBR1000RR-R Fireblade SP - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/honda-cbr1000rr-r-fireblade-sp/angle2.webp" alt="Honda CBR1000RR-R Fireblade SP - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/honda-cbr1000rr-r-fireblade-sp/angle3.webp" alt="Honda CBR1000RR-R Fireblade SP - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">999cc Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">214 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">192 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">395 lbs</span></div>
+          </div>
+          <p>Honda CBR1000RR-R Fireblade SP يأتي في المركز #7 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#8</span>
+            <h2>MV Agusta Superveloce 1000 Serie Oro</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/mv-agusta-superveloce-1000-serie-oro/angle1.webp" alt="MV Agusta Superveloce 1000 Serie Oro - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/mv-agusta-superveloce-1000-serie-oro/angle2.webp" alt="MV Agusta Superveloce 1000 Serie Oro - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/mv-agusta-superveloce-1000-serie-oro/angle3.webp" alt="MV Agusta Superveloce 1000 Serie Oro - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">998cc Inline-4</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">208 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">190 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">370 lbs</span></div>
+          </div>
+          <p>MV Agusta Superveloce 1000 Serie Oro يأتي في المركز #8 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#9</span>
+            <h2>KTM 990 RC R</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/ktm-990-rc-r/angle1.webp" alt="KTM 990 RC R - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/ktm-990-rc-r/angle2.webp" alt="KTM 990 RC R - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/ktm-990-rc-r/angle3.webp" alt="KTM 990 RC R - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">947cc Parallel-Twin</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">148 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">174 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">354 lbs</span></div>
+          </div>
+          <p>KTM 990 RC R يأتي في المركز #9 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#10</span>
+            <h2>Energica Ego RS</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/bikes/energica-ego-rs/angle1.webp" alt="Energica Ego RS - Front Three-Quarter"></div>
+            <div class="bento-item detail-1"><img src="/bikes/energica-ego-rs/angle2.webp" alt="Energica Ego RS - Rear Three-Quarter"></div>
+            <div class="bento-item detail-2"><img src="/bikes/energica-ego-rs/angle3.webp" alt="Energica Ego RS - Side Profile"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">MOTOR</span><span class="val">15.5 kWh Permanent Magnet AC</span></div>
+            <div class="spec-pill"><span class="label">POWER</span><span class="val">169 hp</span></div>
+            <div class="spec-pill"><span class="label">TOP SPEED</span><span class="val">162 mph</span></div>
+            <div class="spec-pill"><span class="label">WEIGHT</span><span class="val">573 lbs</span></div>
+          </div>
+          <p>Energica Ego RS يأتي في المركز #10 لأنه يجمع بين الأرقام والتصميم والسمعة والأهمية الفعلية داخل فئته. عند مقارنته بالمراكز القريبة، لا تعتمد قيمته على رقم واحد لافت، بل على توازن الأداء والشخصية والاستمرارية. منهجنا التحريري يفضل الاختيارات التي تترك أثرا واضحا في فئتها.</p>
+        </article>
+
+      </section>
+
+      <h2>الخلاصة</h2>
+      <p>هذا التصنيف حول أفضل 10 دراجات رياضية 2026 هو دليل تحريري وليس جدولا ثابتا. قد تتغير المراكز مع الإصدارات الجديدة والاختبارات وتغير السوق، لكن هذه الاختيارات العشرة تمثل حاليا مجموعة قوية من حيث الجودة والتأثير والتميز.</p>

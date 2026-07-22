@@ -1,0 +1,34 @@
+{
+  "name": "top-ten-picker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-language Top 10 rankings site built with Eleventy.",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "migrate:check": "node scripts/migrate-to-eleventy.js",
+    "migrate:write": "node scripts/migrate-to-eleventy.js --write",
+    "verify:parity": "node scripts/verify-parity.js",
+    "ci": "npx @11ty/eleventy"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nareshhp777/toptenpickers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nareshhp777/toptenpickers/issues"
+  },
+  "homepage": "https://github.com/nareshhp777/toptenpickers#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "cheerio": "^1.2.0",
+    "yaml": "^2.9.0"
+  }
+}

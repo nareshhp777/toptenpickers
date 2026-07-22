@@ -39,7 +39,7 @@ const LOCALES = [
   { dir: 'it', code: 'it' },
 ];
 const LOCALE_DIRS = new Set(LOCALES.filter(l => l.dir).map(l => l.dir));
-const SKIP_DIRS = new Set(['.git', 'node_modules', '.claude']);
+const SKIP_DIRS = new Set(['.git', 'node_modules', '.claude', '_site', 'src']);
 
 // ---------------------------------------------------------------- helpers
 

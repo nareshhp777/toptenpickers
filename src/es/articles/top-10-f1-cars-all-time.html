@@ -1,0 +1,151 @@
+---
+changefreq: monthly
+priority: 0.8
+layout: layouts/article.njk
+family: article
+title: Top 10 Coches de F1 de Todos los Tiempos | Top 10 Picker
+description: Máquinas campeonas del mundo y motores legendarios. Desde el MP4/4 hasta el RB19.
+robots: index, follow
+canonical: https://toptenpicker.com/es/articles/top-10-f1-cars-all-time.html
+hreflangs:
+  - hreflang: en
+    href: https://toptenpicker.com/articles/top-10-f1-cars-all-time.html
+  - hreflang: es
+    href: https://toptenpicker.com/es/articles/top-10-f1-cars-all-time.html
+  - hreflang: de
+    href: https://toptenpicker.com/de/articles/top-10-f1-cars-all-time.html
+  - hreflang: fr
+    href: https://toptenpicker.com/fr/articles/top-10-f1-cars-all-time.html
+  - hreflang: ja
+    href: https://toptenpicker.com/ja/articles/top-10-f1-cars-all-time.html
+  - hreflang: pt
+    href: https://toptenpicker.com/pt/articles/top-10-f1-cars-all-time.html
+  - hreflang: hi
+    href: https://toptenpicker.com/hi/articles/top-10-f1-cars-all-time.html
+  - hreflang: ar
+    href: https://toptenpicker.com/ar/articles/top-10-f1-cars-all-time.html
+  - hreflang: ko
+    href: https://toptenpicker.com/ko/articles/top-10-f1-cars-all-time.html
+  - hreflang: it
+    href: https://toptenpicker.com/it/articles/top-10-f1-cars-all-time.html
+  - hreflang: x-default
+    href: https://toptenpicker.com/articles/top-10-f1-cars-all-time.html
+lang: es
+dir: ltr
+permalink: /es/articles/top-10-f1-cars-all-time.html
+headTailHtml: |-
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+      .article-hero { text-align: center; padding: 40px 0 20px; }
+      .article-hero h1 { font-size: 2rem; }
+      .article-hero .byline { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; margin-top: 8px; }
+      .rank-list { counter-reset: rank; list-style: none; margin: 30px 0 0; padding: 0; }
+      .rank-list li { counter-increment: rank; margin-bottom: 40px; padding: 24px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; }
+      .rank-list li::before { content: "#" counter(rank); display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+      .rank-list h2 { margin: 4px 0 8px; font-size: 1.15rem; }
+      .rank-list .spec-row { display: flex; flex-wrap: wrap; gap: 16px; margin: 10px 0; font-size: 0.8rem; color: #7a849c; }
+      .rank-list .spec-row strong { color: #e8edf5; }
+      @media (max-width: 640px) { .article-hero h1 { font-size: 1.4rem; } .rank-list li { padding: 16px; } }
+    </style>
+navHtml: |-
+  <nav class="nav">
+      <a href="/es/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
+      <div class="nav-right">
+        <div class="lang-selector" id="langSelector">
+          <button class="lang-btn" id="langBtn" aria-label="Change language" aria-expanded="false">
+            <i class="fa-solid fa-globe"></i> <span>ES</span> <i class="fa-solid fa-chevron-down lang-chevron"></i>
+          </button>
+          <div class="lang-dropdown" id="langDropdown" role="menu">
+            <a href="/articles/top-10-f1-cars-all-time.html" role="menuitem">English (EN)</a>
+            <a href="/es/articles/top-10-f1-cars-all-time.html" class="active" role="menuitem">Español (ES)</a>
+            <a href="/de/articles/top-10-f1-cars-all-time.html" role="menuitem">Deutsch (DE)</a>
+            <a href="/fr/articles/top-10-f1-cars-all-time.html" role="menuitem">Français (FR)</a>
+            <a href="/ja/articles/top-10-f1-cars-all-time.html" role="menuitem">日本語 (JA)</a>
+            <a href="/pt/articles/top-10-f1-cars-all-time.html" role="menuitem">Português (PT)</a>
+            <a href="/hi/articles/top-10-f1-cars-all-time.html" role="menuitem">हिन्दी (HI)</a>
+            <a href="/ar/articles/top-10-f1-cars-all-time.html" role="menuitem">العربية (AR)</a>
+            <a href="/ko/articles/top-10-f1-cars-all-time.html" role="menuitem">한국어 (KO)</a>
+            <a href="/it/articles/top-10-f1-cars-all-time.html" role="menuitem">Italiano (IT)</a>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </nav>
+footerHtml: '&copy; 2026 Top 10 Picker — <a href="/privacy-policy.html">Privacidad</a> &middot; <a href="/disclaimer.html">Aviso legal</a>'
+mobileMenuHtml: |-
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <a href="/about.html" class="mobile-menu-link"><i class="fa-solid fa-circle-info"></i> About</a>
+      <a href="/contact.html" class="mobile-menu-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+      <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
+    </div>
+---
+<div class="article-hero">
+        <span class="label">Fórmula 1</span>
+        <h1>Top 10 Coches de F1 de Todos los Tiempos</h1>
+        <p class="byline">Clasificado con criterio editorial, datos publicos y relevancia cultural</p>
+      </div>
+      <p>Top 10 Coches de F1 de Todos los Tiempos merece mas que una lista rapida de nombres y cifras. En esta version localizada analizamos la categoria desde el punto de vista de rendimiento, legado, utilidad real e impacto cultural. Máquinas campeonas del mundo y motores legendarios. Desde el MP4/4 hasta el RB19. La idea es explicar por que cada entrada pertenece al ranking, no solo repetir especificaciones.</p>
+
+      <ol class="rank-list">
+        <li>
+          <h2>McLaren MP4/4 (1988)</h2>
+          <div class="spec-row"><span>Engine: <strong>Honda RA168E 1.5L V6 Turbo</strong></span> <span>Wins: <strong>15 of 16</strong></span> <span>Drivers: <strong>Senna, Prost</strong></span></div>
+          <p>McLaren MP4/4 (1988) ocupa el puesto #1 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Ferrari F2004</h2>
+          <div class="spec-row"><span>Engine: <strong>Ferrari Tipo 053 3.0L V10</strong></span> <span>Wins: <strong>15 of 18</strong></span> <span>Drivers: <strong>Schumacher, Barrichello</strong></span></div>
+          <p>Ferrari F2004 ocupa el puesto #2 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Williams FW14B (1992)</h2>
+          <div class="spec-row"><span>Engine: <strong>Renault RS4 3.5L V10</strong></span> <span>Wins: <strong>10 of 16</strong></span> <span>Drivers: <strong>Mansell, Patrese</strong></span></div>
+          <p>Williams FW14B (1992) ocupa el puesto #3 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Red Bull RB19 (2023)</h2>
+          <div class="spec-row"><span>Engine: <strong>Honda RBPTH001 1.6L V6 Hybrid</strong></span> <span>Wins: <strong>21 of 22</strong></span> <span>Drivers: <strong>Verstappen, Perez</strong></span></div>
+          <p>Red Bull RB19 (2023) ocupa el puesto #4 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Lotus 79 (1978)</h2>
+          <div class="spec-row"><span>Engine: <strong>Ford Cosworth DFV 3.0L V8</strong></span> <span>Wins: <strong>6 of 16</strong></span> <span>Drivers: <strong>Andretti, Peterson</strong></span></div>
+          <p>Lotus 79 (1978) ocupa el puesto #5 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Mercedes W11 (2020)</h2>
+          <div class="spec-row"><span>Engine: <strong>Mercedes M11 EQ Performance 1.6L V6 Hybrid</strong></span> <span>Wins: <strong>13 of 17</strong></span> <span>Drivers: <strong>Hamilton, Bottas</strong></span></div>
+          <p>Mercedes W11 (2020) ocupa el puesto #6 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>McLaren MP4-23 (2008)</h2>
+          <div class="spec-row"><span>Engine: <strong>Mercedes FO 108V 2.4L V8</strong></span> <span>Wins: <strong>6 of 18</strong></span> <span>Drivers: <strong>Hamilton, Kovalainen</strong></span></div>
+          <p>McLaren MP4-23 (2008) ocupa el puesto #7 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Ferrari 312T (1975-1980)</h2>
+          <div class="spec-row"><span>Engine: <strong>Ferrari Flat-12</strong></span> <span>Wins: <strong>27 over 6 seasons</strong></span> <span>Drivers: <strong>Lauda, Scheckter, Villeneuve</strong></span></div>
+          <p>Ferrari 312T (1975-1980) ocupa el puesto #8 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Brabham BT46B (1978)</h2>
+          <div class="spec-row"><span>Engine: <strong>Alfa Romeo 3.0L Flat-12</strong></span> <span>Wins: <strong>1 (banned)</strong></span> <span>Drivers: <strong>Lauda</strong></span></div>
+          <p>Brabham BT46B (1978) ocupa el puesto #9 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+        <li>
+          <h2>Red Bull RB6 (2010)</h2>
+          <div class="spec-row"><span>Engine: <span>Renault RS27 2.4L V8</span></span> <span>Wins: <strong>9 of 19</strong></span> <span>Drivers: <strong>Vettel, Webber</strong></span></div>
+          <p>Red Bull RB6 (2010) ocupa el puesto #10 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
+        </li>
+      </ol>
+
+      <h2>Reflexiones finales</h2>
+      <p>Este ranking de Top 10 Coches de F1 de Todos los Tiempos esta pensado como una guia editorial, no como una ficha tecnica aislada. Las posiciones pueden cambiar con nuevos lanzamientos, pruebas y cambios del mercado, pero estas diez entradas representan hoy una seleccion solida por calidad, influencia y capacidad de destacar.</p>
