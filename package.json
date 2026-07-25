@@ -4,12 +4,12 @@
   "private": true,
   "description": "Multi-language Top 10 rankings site built with Eleventy.",
   "scripts": {
-    "build": "eleventy",
+    "build": "npx @11ty/eleventy && node scripts/minify-build.js",
     "serve": "eleventy --serve",
     "migrate:check": "node scripts/migrate-to-eleventy.js",
     "migrate:write": "node scripts/migrate-to-eleventy.js --write",
     "verify:parity": "node scripts/verify-parity.js",
-    "ci": "npx @11ty/eleventy"
+    "ci": "npx @11ty/eleventy && node scripts/minify-build.js"
   },
   "engines": {
     "node": ">=20"
@@ -29,6 +29,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "cheerio": "^1.2.0",
+    "esbuild": "^0.28.1",
+    "lightningcss": "^1.33.0",
     "yaml": "^2.9.0"
   }
 }

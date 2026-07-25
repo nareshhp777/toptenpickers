@@ -24,7 +24,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx @11ty/eleventy
+      - run: npm run build
       - name: Verify CNAME in artifact
         run: test -f _site/CNAME && grep -q "toptenpicker.com" _site/CNAME
       - uses: actions/upload-pages-artifact@v3

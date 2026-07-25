@@ -159,7 +159,14 @@
     document.addEventListener('mouseleave', () => { mouseOnScreen = false; });
     document.addEventListener('mouseenter', () => { mouseOnScreen = true; });
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; mouseOnScreen = true; });
-    (function loop() {
+
+    // Cursor trail loop with idle/visibility pause to reduce CPU + battery
+    let cursorLoopId = null;
+    let lastMoveTime = Date.now();
+    let cursorPaused = false;
+    document.addEventListener('mousemove', () => { lastMoveTime = Date.now(); });
+
+    function cursorLoop() {
       cx += (mx - cx) * 0.35;
       cy += (my - cy) * 0.35;
       cursor.style.left = cx + 'px';
@@ -177,40 +184,78 @@
         ty = coords.y;
       });
 
-      requestAnimationFrame(loop);
-    })();
+      cursorLoopId = requestAnimationFrame(cursorLoop);
+    }
 
-    let loaded = 0;
-    const allImages = [];
-    cars.forEach(c => {
-      angleNames.forEach(a => {
-        allImages.push(`/cars/${c.folder}/${a}.webp`);
-      });
+    function pauseCursorLoop() {
+      if (cursorPaused) return;
+      cursorPaused = true;
+      if (cursorLoopId !== null) {
+        cancelAnimationFrame(cursorLoopId);
+        cursorLoopId = null;
+      }
+      trailDots.forEach(d => { d.style.opacity = 0; });
+    }
+
+    function resumeCursorLoop() {
+      if (!cursorPaused) return;
+      cursorPaused = false;
+      cursorLoopId = requestAnimationFrame(cursorLoop);
+    }
+
+    // Pause when tab is hidden, when mouse hasn't moved, or when user is off-window
+    setInterval(() => {
+      if (!mouseOnScreen || document.hidden || (Date.now() - lastMoveTime > 2000)) {
+        pauseCursorLoop();
+      } else if (!cursorPaused) {
+        // Resume if previously paused
+        resumeCursorLoop();
+      }
+    }, 500);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseCursorLoop();
+      else if (!cursorPaused && mouseOnScreen && (Date.now() - lastMoveTime <= 2000)) resumeCursorLoop();
     });
-    const totalImgs = allImages.length;
+
+    cursorLoop();
+
+    // Build page immediately so DOM is fully constructed before preloader fades
+    buildPage();
+
+    // Smart preloading: only fetch the first car's images eagerly (LCP candidate).
+    // The IntersectionObserver below lazy-loads each section's background as it scrolls into view,
+    // so the remaining 9 cars are loaded on-demand instead of all upfront (~7 MB saved on bounce).
+    let loaded = 0;
+    const firstCar = cars.find(c => c.rank === 10); // loadOrder starts with rank 10
+    const firstCarImages = firstCar ? angleNames.map(a => `/cars/${firstCar.folder}/${a}.webp`) : [];
+    const totalImgs = firstCarImages.length;
 
     function onImgLoad() {
       loaded++;
       const pct = Math.round((loaded / totalImgs) * 100);
-      preloaderBar.style.width = pct + '%';
-      preloaderCounter.textContent = pct;
+      if (preloaderBar) preloaderBar.style.width = pct + '%';
+      if (preloaderCounter) preloaderCounter.textContent = pct;
       if (loaded >= totalImgs) {
-        preloader.classList.add('done');
+        if (preloader) preloader.classList.add('done');
       }
     }
 
-    // Build page immediately so DOM is fully constructed before preloader fades
-    buildPage();
-    setTimeout(() => {
-      preloader.classList.add('done');
-    }, 800);
-
-    allImages.forEach(src => {
-      const img = new Image();
-      img.src = src;
-      img.onload = onImgLoad;
-      img.onerror = onImgLoad;
-    });
+    if (totalImgs > 0) {
+      firstCarImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        img.onload = onImgLoad;
+        img.onerror = onImgLoad;
+      });
+      // Fallback: dismiss preloader after 800ms even if image decoding is slow
+      setTimeout(() => {
+        if (preloader && !preloader.classList.contains('done')) {
+          preloader.classList.add('done');
+        }
+      }, 800);
+    } else {
+      if (preloader) preloader.classList.add('done');
+    }
 
     let currentCarRank = 1;
 
@@ -245,7 +290,7 @@
         angleNames.forEach((an, ai) => {
           const activeClass = ai === 0 ? ' active' : '';
           angleBtnsHtml += `<button class="angle-btn${activeClass}" data-angle="${ai}">
-            <img src="/cars/${c.folder}/${an}.webp" alt="${c.name} - ${angleLabels[ai]} view">
+            <img src="/cars/${c.folder}/${an}.webp" alt="${c.name} - ${angleLabels[ai]} view" width="120" height="80" loading="lazy" decoding="async">
             <span class="angle-label">${angleLabels[ai]}</span>
           </button>`;
         });
@@ -253,7 +298,7 @@
         s.innerHTML = `
           <div class="bg" data-bg="/cars/${c.folder}/front.webp"></div>
           <!-- SEO Image Tag: Hidden from UI, visible to Google Images -->
-          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${c.name} - ${c.maker} Supercar, ${c.engine}, ${c.hp}" style="display: none;">
+          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${c.name} - ${c.maker} Supercar, ${c.engine}, ${c.hp}" width="1200" height="675" style="display: none;">
           <div class="noise"></div>
           <div class="vignette"></div>
           <div class="grid-lines"></div>
