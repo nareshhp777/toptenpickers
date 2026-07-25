@@ -6,6 +6,35 @@
   <link rel="preconnect" href="https://www.googletagmanager.com">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- Google Consent Mode v2 — default deny -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HPLGYD20BG"></script>
+  <script>
+    // Disable GA tracking on local environments
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:") {
+      window['ga-disable-G-HPLGYD20BG'] = true;
+    }
+    (self.requestIdleCallback || function(fn){setTimeout(fn, 1)})(function(){
+      gtag('js', new Date());
+      gtag('config', 'G-HPLGYD20BG');
+    });
+  </script>
+
 {% if headLeadHtml %}
 {{ headLeadHtml | safe }}
 {% endif %}
@@ -27,5 +56,55 @@
 <body{% if bodyClass %} class="{{ bodyClass | escape }}"{% endif %}>
 {{ content | safe }}
   <script src="/app.js" defer></script>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookieBanner" role="dialog" aria-modal="true" aria-label="Cookie Consent" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:99999; background:rgba(8,9,12,0.97); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-top:1px solid rgba(255,255,255,0.06); padding:24px 32px; font-family:'Inter',sans-serif; font-size:0.85rem; color:#e8edf5; box-shadow:0 -8px 40px rgba(0,0,0,0.5);">
+    <div style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:16px;">
+      <div style="flex:1; min-width:240px;">
+        <p style="margin:0 0 6px; font-weight:600; font-size:0.95rem;">We value your privacy</p>
+        <p style="margin:0; line-height:1.5; color:rgba(232,237,245,0.7); font-size:0.8rem;">
+          We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and serve personalized advertisements. You can choose which categories to allow. See our <a href="/privacy-policy.html" style="color:var(--accent2); text-decoration:underline;">Privacy Policy</a> for details.
+        </p>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="cookieRejectAll" style="background:transparent; border:1px solid rgba(255,255,255,0.12); color:#a1abc2; padding:10px 20px; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:500;">Reject All</button>
+        <button id="cookieAcceptAll" style="background:linear-gradient(135deg,var(--accent, #ff4d4d),var(--accent2, #ff9a3c)); border:none; color:#fff; padding:10px 24px; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600;">Accept All</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var banner = document.getElementById('cookieBanner');
+      if (!banner) return;
+      var consent = localStorage.getItem('top10_consent');
+      if (consent) {
+        applyConsent(consent);
+        return;
+      }
+      banner.style.display = 'block';
+
+      document.getElementById('cookieAcceptAll').addEventListener('click', function() {
+        localStorage.setItem('top10_consent', 'all');
+        applyConsent('all');
+        banner.style.display = 'none';
+      });
+      document.getElementById('cookieRejectAll').addEventListener('click', function() {
+        localStorage.setItem('top10_consent', 'necessary');
+        applyConsent('necessary');
+        banner.style.display = 'none';
+      });
+      function applyConsent(mode) {
+        var grants = {
+          'ad_storage': mode === 'all' ? 'granted' : 'denied',
+          'ad_user_data': mode === 'all' ? 'granted' : 'denied',
+          'ad_personalization': mode === 'all' ? 'granted' : 'denied',
+          'analytics_storage': mode === 'all' ? 'granted' : 'denied',
+          'functionality_storage': 'granted',
+          'security_storage': 'granted'
+        };
+        gtag('consent', 'update', grants);
+      }
+    })();
+  </script>
 </body>
 </html>
