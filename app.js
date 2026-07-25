@@ -203,18 +203,18 @@
       cursorLoopId = requestAnimationFrame(cursorLoop);
     }
 
-    // Pause when tab is hidden, when mouse hasn't moved, or when user is off-window
+    // Pause when tab is hidden, when mouse hasn't moved, or when user is off-window.
+    // resumeCursorLoop() is always safe to call — it guards itself with cursorPaused.
     setInterval(() => {
       if (!mouseOnScreen || document.hidden || (Date.now() - lastMoveTime > 2000)) {
         pauseCursorLoop();
-      } else if (!cursorPaused) {
-        // Resume if previously paused
+      } else {
         resumeCursorLoop();
       }
     }, 500);
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) pauseCursorLoop();
-      else if (!cursorPaused && mouseOnScreen && (Date.now() - lastMoveTime <= 2000)) resumeCursorLoop();
+      else if (Date.now() - lastMoveTime <= 2000) resumeCursorLoop();
     });
 
     cursorLoop();
