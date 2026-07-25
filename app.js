@@ -733,7 +733,6 @@
       ar: ['الكل','المركبات والنقل','التقنية والألعاب','الترفيه'],
       ko: ['모두','차량 및 교통','테크 & 게이밍','엔터테인먼트'],
       it: ['Tutti','Veicoli e Trasporti','Tech & Gaming','Intrattenimento'],
-      id: ['Semua','Kendaraan & Transportasi','Teknologi & Game','Hiburan']
     };
     (function applyFilterLabels() {
       var lang = document.documentElement.lang || 'en';
@@ -811,14 +810,7 @@
       'Motoscafi Offshore':'vehicles','Prestazioni EV':'vehicles',
       'Gadget Tech':'tech','Tecnologia Mobile':'tech','Hardware Gaming':'tech',
       'PC Gaming':'tech','Gaming Mobile':'tech','Industria Videoludica':'tech','Cultura Internet':'tech',
-      'Fotografia & Cinema':'tech','Cinema':'entertainment','Televisione':'entertainment','Storia della Musica':'entertainment',
-      // Indonesian
-      'Motor Sport':'vehicles','Yacht Mewah':'vehicles','Penerbangan':'vehicles',
-      'Formula 1':'vehicles','Motor Listrik':'vehicles','Kereta Cepat':'vehicles',
-      'Perahu Motor Lepas Pantai':'vehicles','Performa EV':'vehicles',
-      'Gadget Teknologi':'tech','Teknologi Mobile':'tech','Hardware Gaming':'tech',
-      'PC Gaming':'tech','Mobile Gaming':'tech','Industri Gaming':'tech','Budaya Internet':'tech',
-      'Fotografi & Sinema':'tech','Sinema':'entertainment','Televisi':'entertainment','Sejarah Musik':'entertainment'
+      'Fotografia & Cinema':'tech','Cinema':'entertainment','Televisione':'entertainment','Storia della Musica':'entertainment'
     };
 
     articleCards.forEach(card => {
