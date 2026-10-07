@@ -143,17 +143,25 @@
     cursor.style.left = cx + 'px';
     cursor.style.top = cy + 'px';
 
-    // Light trail initialization
-    const trailCount = 8;
-    const trailDots = [];
-    const trailCoords = [];
-    for (let i = 0; i < trailCount; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'trail-dot';
-      document.body.appendChild(dot);
-      trailDots.push(dot);
-      trailCoords.push({ x: cx, y: cy });
+    // Light trail initialization with Canvas (Performance Optimization)
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9998'; 
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const trailCount = 8;
+    const trailCoords = Array(trailCount).fill().map(() => ({ x: cx, y: cy }));
 
     let mouseOnScreen = true;
     document.addEventListener('mouseleave', () => { mouseOnScreen = false; });
@@ -172,17 +180,28 @@
       cursor.style.left = cx + 'px';
       cursor.style.top = cy + 'px';
 
-      let tx = cx, ty = cy;
-      trailDots.forEach((dot, i) => {
-        const coords = trailCoords[i];
-        coords.x += (tx - coords.x) * 0.45;
-        coords.y += (ty - coords.y) * 0.45;
-        const ratio = 1 - (i / trailCount);
-        dot.style.transform = `translate3d(${coords.x}px, ${coords.y}px, 0) translate(-50%, -50%) scale(${ratio})`;
-        dot.style.opacity = mouseOnScreen ? ratio * 0.55 : 0;
-        tx = coords.x;
-        ty = coords.y;
-      });
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (mouseOnScreen) {
+        let tx = cx, ty = cy;
+        const trailColor = getComputedStyle(document.documentElement).getPropertyValue('--trail-color').trim() || '#fff';
+        
+        trailCoords.forEach((coords, i) => {
+          coords.x += (tx - coords.x) * 0.45;
+          coords.y += (ty - coords.y) * 0.45;
+          const ratio = 1 - (i / trailCount);
+          
+          ctx.beginPath();
+          ctx.arc(coords.x, coords.y, 4 * ratio, 0, Math.PI * 2);
+          ctx.fillStyle = trailColor;
+          ctx.globalAlpha = ratio * 0.55;
+          ctx.fill();
+          
+          tx = coords.x;
+          ty = coords.y;
+        });
+        ctx.globalAlpha = 1.0;
+      }
 
       cursorLoopId = requestAnimationFrame(cursorLoop);
     }
@@ -194,7 +213,7 @@
         cancelAnimationFrame(cursorLoopId);
         cursorLoopId = null;
       }
-      trailDots.forEach(d => { d.style.opacity = 0; });
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     function resumeCursorLoop() {
@@ -218,6 +237,29 @@
     });
 
     cursorLoop();
+
+    // Global Event Delegation (DOM Performance Optimization)
+    container.addEventListener('click', function(e) {
+      const angleBtn = e.target.closest('.angle-btn');
+      if (angleBtn) {
+        e.stopPropagation();
+        const section = angleBtn.closest('.car-section');
+        const idx = parseInt(angleBtn.dataset.angle);
+        setAngle(section, idx, true);
+        return;
+      }
+
+      const arrow = e.target.closest('.car-arrow');
+      if (arrow) {
+        e.stopPropagation();
+        const section = arrow.closest('.car-section');
+        const dir = parseInt(arrow.dataset.dir);
+        const cur = section._currentAngle;
+        const next = (cur + dir + angleNames.length) % angleNames.length;
+        setAngle(section, next, true);
+        return;
+      }
+    });
 
     // Build page immediately so DOM is fully constructed before preloader fades
     buildPage();
@@ -335,25 +377,7 @@
 
         container.appendChild(s);
 
-        s.querySelectorAll('.angle-btn').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const section = this.closest('.car-section');
-            const idx = parseInt(this.dataset.angle);
-            setAngle(section, idx, true);
-          });
-        });
 
-        s.querySelectorAll('.car-arrow').forEach(arrow => {
-          arrow.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const section = this.closest('.car-section');
-            const dir = parseInt(this.dataset.dir);
-            const cur = section._currentAngle;
-            const next = (cur + dir + angleNames.length) % angleNames.length;
-            setAngle(section, next, true);
-          });
-        });
       });
 
       const sections = document.querySelectorAll('.car-section');
@@ -379,10 +403,13 @@
           if (e.isIntersecting) {
             e.target.classList.add('revealed');
             // Lazy-load background image only when section becomes visible
-            const bgEl = e.target.querySelector('.bg');
-            if (bgEl && bgEl.dataset.bg) {
-              bgEl.style.backgroundImage = `url('${bgEl.dataset.bg}')`;
-              bgEl.removeAttribute('data-bg');
+            if (!e.target.dataset.bgLoaded) {
+              const bgEl = e.target.querySelector('.bg');
+              if (bgEl && bgEl.dataset.bg) {
+                bgEl.style.backgroundImage = `url('${bgEl.dataset.bg}')`;
+                bgEl.removeAttribute('data-bg');
+              }
+              e.target.dataset.bgLoaded = "true";
             }
             const idx = parseInt(e.target.dataset.index);
             const c = cars.find(x => x.rank === loadOrder[idx]);
@@ -843,3 +870,21 @@
         });
       });
     });
+
+// Theme Toggle Logic
+document.addEventListener('click', e => {
+  const toggleBtn = e.target.closest('.theme-toggle');
+  if (toggleBtn) {
+    const isLight = document.documentElement.classList.toggle('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    document.querySelectorAll('.theme-toggle i').forEach(icon => {
+      icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    });
+  }
+});
+setTimeout(() => {
+    const isLight = document.documentElement.classList.contains('light-theme');
+    document.querySelectorAll('.theme-toggle i').forEach(icon => {
+      icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    });
+}, 0);
