@@ -2421,3 +2421,30 @@ html.light-theme .trending-gradient {
 html.light-theme .key-takeaways ul {
   color: #1e293b !important;
 }
+/* Fix mobile nav layout overlap */
+@media (max-width: 900px) {
+  .nav-center {
+    position: static !important;
+    transform: none !important;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .nav-right {
+    gap: 8px !important;
+    flex: 0 0 auto;
+  }
+  .theme-toggle {
+    margin-right: 4px !important;
+  }
+}
+@media (max-width: 450px) {
+  .nav-right {
+    gap: 4px !important;
+  }
+  .theme-toggle {
+    margin-right: 2px !important;
+    padding: 0 4px;
+  }
+}
