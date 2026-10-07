@@ -2448,3 +2448,44 @@ html.light-theme .key-takeaways ul {
     padding: 0 4px;
   }
 }
+/* Mobile nav icon shapes and light theme search icon */
+@media (max-width: 900px) {
+  .theme-toggle,
+  .hamburger,
+  .lang-btn,
+  .nav .search-form {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .theme-toggle {
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    background: rgba(255,255,255,0.06) !important;
+    margin-right: 0 !important;
+  }
+  .lang-btn span, 
+  .lang-btn .lang-chevron {
+    display: none !important;
+  }
+}
+
+html.light-theme .theme-toggle {
+  border-color: rgba(0,0,0,0.15) !important;
+  background: rgba(255,255,255,0.8) !important;
+}
+html.light-theme .theme-toggle:hover {
+  background: #fff !important;
+  border-color: rgba(0,0,0,0.3) !important;
+}
+
+html.light-theme .nav .search-form .search-btn {
+  color: #64748b !important;
+}
+html.light-theme .nav .search-form .search-btn:hover {
+  color: #0f172a !important;
+}
