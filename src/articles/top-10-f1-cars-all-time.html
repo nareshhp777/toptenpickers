@@ -51,6 +51,30 @@ headTailHtml: |-
       .rank-list .spec-row strong { color: #e8edf5; }
       @media (max-width: 640px) { .article-hero h1 { font-size: 1.4rem; } .rank-list li { padding: 16px; } }
     </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the #1 ranked item in this top 10 list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The #1 ranked item is McLaren MP4/4 (1988), featuring industry-leading performance and specifications."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which items made the top 3?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The top 3 items are McLaren MP4/4 (1988), Ferrari F2004, and Williams FW14B (1992)."
+          }
+        }
+      ]
+    }
+  </script>
 navHtml: |-
   <nav class="nav">
       <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
@@ -93,6 +117,15 @@ mobileMenuHtml: |-
         <p class="byline">Ranked by championship dominance, engine innovation, and racing legacy</p>
       </div>
       <p>Formula 1 has produced some of the most extraordinary racing machines in history. From the screaming V10s of the 1990s to the hybrid turbo V6s of today, each era has delivered cars that pushed the boundaries of engineering and driver capability. Here is our definitive ranking of the top 10 F1 cars of all time.</p>
+      <div class="key-takeaways" style="background: var(--card-bg); border-left: 4px solid var(--accent); padding: 20px; margin: 30px 0; border-radius: 0 8px 8px 0;">
+        <h3 style="margin-top: 0; font-size: 1.2rem;">Key Takeaways</h3>
+        <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.95rem; color: #e8edf5;">
+          <li><strong>#1 Pick:</strong> McLaren MP4/4 (1988) leads the rankings with unmatched specifications.</li>
+          <li><strong>Runner-up:</strong> Ferrari F2004 offers incredible performance and value.</li>
+          <li><strong>Top Tier:</strong> Williams FW14B (1992) rounds out the top 3, securing its place among the elite.</li>
+        </ul>
+      </div>
+    
 
       <ol class="rank-list">
         <li>

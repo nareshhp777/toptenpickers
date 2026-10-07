@@ -51,6 +51,30 @@ headTailHtml: |-
       .rank-list .spec-row strong { color: #e8edf5; }
       @media (max-width: 640px) { .article-hero h1 { font-size: 1.4rem; } .rank-list li { padding: 16px; } }
     </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the #1 ranked item in this top 10 list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The #1 ranked item is Samsung Galaxy S26 Ultra, featuring industry-leading performance and specifications."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which items made the top 3?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The top 3 items are Samsung Galaxy S26 Ultra, Apple iPhone 17 Pro Max, and Google Pixel 10 Pro."
+          }
+        }
+      ]
+    }
+  </script>
 navHtml: |-
   <nav class="nav">
       <a href="/" class="logo">TOP<span style="color:var(--accent)">10</span></a>
@@ -89,10 +113,19 @@ mobileMenuHtml: |-
 ---
 <div class="article-hero">
         <span class="label">Mobile Tech</span>
-        <h1>Top 10 Flagship Smartphones of 2026 — Ultimate Tech & Cameras</h1>
+        <h1>Top 10 Flagship Smartphones of 2026 — Ultimate Tech &amp; Cameras</h1>
         <p class="byline">Ranked by AI integration, camera sensors, titanium builds, and processing power</p>
       </div>
       <p>The smartphone landscape in 2026 is defined by three forces: on-device AI that rivals cloud-based models, camera systems with 1-inch sensors that blur the line between phone and cinema camera, and titanium frames that make devices lighter yet more durable. Processing power has reached desktop-class benchmarks, and satellite connectivity is now standard. Here are the 10 flagships setting the standard.</p>
+      <div class="key-takeaways" style="background: var(--card-bg); border-left: 4px solid var(--accent); padding: 20px; margin: 30px 0; border-radius: 0 8px 8px 0;">
+        <h3 style="margin-top: 0; font-size: 1.2rem;">Key Takeaways</h3>
+        <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.95rem; color: #e8edf5;">
+          <li><strong>#1 Pick:</strong> Samsung Galaxy S26 Ultra leads the rankings with unmatched specifications.</li>
+          <li><strong>Runner-up:</strong> Apple iPhone 17 Pro Max offers incredible performance and value.</li>
+          <li><strong>Top Tier:</strong> Google Pixel 10 Pro rounds out the top 3, securing its place among the elite.</li>
+        </ul>
+      </div>
+    
 
       <ol class="rank-list">
         <li>
