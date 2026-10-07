@@ -2161,3 +2161,263 @@ html[dir="rtl"] .nav-pages {
       @media (max-width: 768px) {
         .floating-promo-banner { bottom: 24px; width: 90%; justify-content: space-between; padding: 12px 18px; font-size: 0.85rem; }
       }
+/* --- Theme Toggle & Light Theme Overrides --- */
+.theme-toggle {
+  background: transparent; border: none; color: rgba(255,255,255,0.7);
+  font-size: 1.1rem; cursor: pointer; padding: 0 12px; transition: all 0.3s ease;
+}
+.theme-toggle:hover { color: var(--accent2); }
+
+.light-theme body {
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  color: #1e293b;
+}
+.light-theme .nav { background: rgba(248, 250, 252, 0.85); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.light-theme .nav .logo { color: #0f172a; }
+.light-theme .nav-links a { color: #64748b; }
+.light-theme .nav-links a i { color: #94a3b8; }
+.light-theme .hamburger { border-color: rgba(0,0,0,0.15); color: #0f172a; }
+.light-theme .theme-toggle { color: #475569; }
+.light-theme .theme-toggle:hover { color: var(--accent2); }
+.light-theme .mobile-menu { background: rgba(248, 250, 252, 0.95); }
+.light-theme .mobile-menu-link { color: #0f172a; }
+.light-theme .mobile-menu-close { color: #0f172a; border-color: rgba(0,0,0,0.15); }
+.light-theme h1 { background: linear-gradient(135deg, #0f172a 30%, var(--accent2) 80%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.light-theme h2 { color: #0f172a; }
+.light-theme h3 { color: #1e293b; }
+.light-theme p, .light-theme ul, .light-theme ol { color: #475569; }
+.light-theme strong { color: #0f172a; }
+.light-theme .card { border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+.light-theme .card h3 a { color: #0f172a; }
+.light-theme .card .meta { color: #94a3b8; }
+.light-theme .footer { border-top: 1px solid rgba(0,0,0,0.05); color: #64748b; }
+.light-theme .form-group input, .light-theme .form-group textarea { background: #ffffff; border: 1px solid #cbd5e1; color: #0f172a; }
+.light-theme .form-group label { color: #334155; }
+.light-theme .rank-list li { border: 1px solid rgba(0,0,0,0.1); }
+.light-theme .rank-list .spec-row { color: #64748b; }
+.light-theme .rank-list .spec-row strong { color: #0f172a; }
+.light-theme .key-takeaways { border: 1px solid rgba(0,0,0,0.1); }
+.light-theme .key-takeaways ul { color: #1e293b; }
+/* Light theme image and overlay overrides */
+.light-theme .overlay {
+  background: linear-gradient(transparent 0%, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0.95) 55%);
+}
+@media (max-width: 768px) {
+  .light-theme .overlay {
+    background: linear-gradient(to bottom, transparent 0%, rgba(248, 250, 252, 0.95) 60px, rgba(248, 250, 252, 1) 100%) !important;
+  }
+}
+.light-theme .car-section.revealed .bg {
+  filter: brightness(0.95) saturate(1.05);
+}
+@media (max-width: 768px) {
+  .light-theme .car-section.revealed .bg {
+    filter: brightness(1) saturate(1.1);
+  }
+}
+
+.light-theme .car-arrow {
+  background: rgba(255,255,255,0.6);
+  color: #0f172a;
+  border-color: rgba(0,0,0,0.1);
+}
+.light-theme .car-arrow:hover {
+  background: rgba(255,255,255,0.9);
+  border-color: rgba(0,0,0,0.2);
+  color: #000;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 0 30px var(--car-glow, rgba(255,77,77,0.15));
+}
+.light-theme .vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(248, 250, 252, 0.8) 100%);
+}
+
+.light-theme .overlay .name-row h2 { color: #0f172a; }
+.light-theme .overlay .maker-tag { color: #334155; background: rgba(0,0,0,0.05); }
+.light-theme .overlay .specs span { color: #475569; }
+.light-theme .overlay .specs span i { color: #94a3b8; }
+.light-theme .overlay .maker { color: #64748b; }
+.light-theme .overlay .desc { color: #334155; }
+.light-theme .overlay .price { color: #0f172a; }
+.light-theme .overlay .price-label { color: #64748b; }
+.light-theme .angle-label { color: #0f172a; }
+.light-theme .angle-btn img { border-color: rgba(0,0,0,0.15); }
+.light-theme .angle-btn.active img { border-color: var(--car-accent, var(--accent)); }
+.light-theme .nav .counter-current { color: #0f172a; }
+/* Further Light Theme Fixes */
+.light-theme .nav .lang-btn { color: #64748b; border-color: rgba(0,0,0,0.15); background: rgba(255,255,255,0.8); }
+.light-theme .nav .lang-btn:hover { color: #0f172a; background: #fff; border-color: rgba(0,0,0,0.3); }
+.light-theme .lang-dropdown { background: rgba(248, 250, 252, 0.95); border-color: rgba(0,0,0,0.1); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+.light-theme .lang-dropdown a { color: #64748b; }
+.light-theme .lang-dropdown a:hover, .light-theme .lang-dropdown a.active { color: #0f172a; }
+
+.light-theme .search-form { border-color: rgba(0,0,0,0.15); background: rgba(255,255,255,0.5); }
+.light-theme .search-input { color: #0f172a; }
+.light-theme .search-input::placeholder { color: #94a3b8; }
+.light-theme .search-btn { color: #64748b; }
+.light-theme .search-btn:hover { color: #0f172a; }
+.light-theme .nav-pages a { color: #64748b; }
+.light-theme .nav-pages a:hover { color: #0f172a; }
+
+.light-theme .inline-specs-btn { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.15); color: #475569; }
+.light-theme .inline-specs-btn:hover { background: rgba(0, 0, 0, 0.1); color: #0f172a; border-color: rgba(0, 0, 0, 0.3); }
+
+/* Spec Popup */
+.light-theme .spec-overlay { background: rgba(255, 255, 255, 0.7); }
+.light-theme .spec-panel { background: rgba(248, 250, 252, 0.95); border-color: rgba(0,0,0,0.1); box-shadow: 0 40px 80px rgba(0,0,0,0.15); }
+.light-theme .spec-header h3 { color: #0f172a; }
+.light-theme .spec-close { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #64748b; }
+.light-theme .spec-close:hover { background: rgba(0,0,0,0.1); color: #0f172a; border-color: rgba(0,0,0,0.3); }
+.light-theme .spec-item { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.05); }
+.light-theme .spec-item:hover { background: rgba(255,255,255,1); border-color: rgba(0,0,0,0.1); }
+.light-theme .spec-item .spec-label { color: #64748b; }
+
+/* Article pages */
+.light-theme .card-top h2 { color: #0f172a !important; }
+.light-theme .showcase-card { background: #ffffff !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+.light-theme .article-hero .byline { color: #64748b !important; }
+.light-theme .bento-item { background: #f1f5f9 !important; border: 1px solid rgba(0,0,0,0.05); }
+/* Light theme fixes for article showcase cards (specs and paragraphs) */
+.light-theme .spec-pill {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+.light-theme .spec-pill .label {
+  color: #64748b !important;
+}
+.light-theme .spec-pill .val {
+  color: #0f172a !important;
+}
+.light-theme .showcase-card p {
+  color: #334155 !important;
+}
+/* Explicit fix for Article Hero in light theme */
+html.light-theme .article-hero h1 {
+  background: linear-gradient(135deg, #0f172a 10%, var(--accent2) 90%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #0f172a !important;
+}
+html.light-theme .article-hero .label {
+  color: #64748b !important;
+  background: rgba(0,0,0,0.05);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+}
+html.light-theme .article-hero .byline {
+  color: #475569 !important;
+}
+/* Light theme fixes for side navigation (dot indicators) */
+.light-theme .side-nav .dot .dot-num {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #475569;
+}
+.light-theme .side-nav .dot:hover .dot-num {
+  background: rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.3);
+  color: #0f172a;
+}
+.light-theme .side-nav .dot.active .dot-num {
+  color: #ffffff; /* keep active dot text white since background is the bright accent */
+}
+.light-theme .side-nav .dot .dot-label {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+/* Light theme fixes for Recent Posts Section */
+html.light-theme .recent-posts h2 {
+  background: linear-gradient(135deg, #0f172a 10%, var(--accent2) 90%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #0f172a !important;
+}
+html.light-theme .filter-btn {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #475569;
+}
+html.light-theme .filter-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #0f172a;
+}
+html.light-theme .filter-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(255, 77, 77, 0.2);
+}
+html.light-theme .recent-posts .card h3 {
+  color: #0f172a;
+}
+html.light-theme .recent-posts .card p {
+  color: #475569;
+}
+/* Light theme fixes for footers */
+html.light-theme .footer {
+  border-top-color: rgba(0,0,0,0.1);
+  color: #64748b;
+}
+html.light-theme .footer a {
+  color: #475569;
+}
+html.light-theme .footer a:hover {
+  color: #0f172a;
+}
+
+html.light-theme .site-footer {
+  background: rgba(248, 250, 252, 0.95);
+  border-top-color: rgba(0,0,0,0.1);
+}
+html.light-theme .site-footer p {
+  color: #64748b;
+}
+html.light-theme .site-footer a {
+  color: #475569;
+}
+html.light-theme .site-footer a:hover {
+  color: #0f172a;
+}
+/* Fix car title gradient in light theme */
+html.light-theme .overlay h2,
+html.light-theme .overlay .name-row h2 {
+  background: linear-gradient(135deg, #0f172a 20%, var(--car-accent, var(--accent)) 80%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #0f172a !important;
+}
+/* Light theme fix for region badge */
+html.light-theme .nav .region-badge {
+  color: #64748b;
+}
+/* Light theme fixes for floating promo banner */
+html.light-theme .floating-promo-banner {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #0f172a;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+html.light-theme .floating-promo-banner:hover {
+  border-color: rgba(255, 77, 77, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 77, 77, 0.15);
+}
+html.light-theme .promo-arrow {
+  color: #64748b;
+}
+html.light-theme .floating-promo-banner:hover .promo-arrow {
+  color: #0f172a;
+}
+html.light-theme .trending-gradient {
+  background: linear-gradient(90deg, #ea580c, #dc2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Light theme fix for Key Takeaways inline style */
+html.light-theme .key-takeaways ul {
+  color: #1e293b !important;
+}
