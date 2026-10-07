@@ -33,7 +33,7 @@ walkDir(srcDir, function(filePath) {
       // But let's just do a naive replace and we'll check if it already has placeholders.
       
       const encodedText = encodeURIComponent(p3.trim());
-      const imgTag = `\n          <img src="https://via.placeholder.com/800x450?text=${encodedText}" alt="${p3.trim()}" class="article-img" style="width: 100%; border-radius: 8px; margin: 16px 0; object-fit: cover; aspect-ratio: 16/9;">`;
+      const imgTag = `\n          <img src="https://fakeimg.pl/800x450/?text=${encodedText}" alt="${p3.trim()}" class="article-img" style="width: 100%; border-radius: 8px; margin: 16px 0; object-fit: cover; aspect-ratio: 16/9;">`;
       
       hasChanges = true;
       return p1 + p2 + imgTag;
