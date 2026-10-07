@@ -41,37 +41,69 @@ mobileMenuHtml: |-
       <p>Have a suggestion for our next top 10 list? Want to collaborate, report an issue, or request a correction to a published ranking? We'd love to hear from you. The Top10 editorial team is based in India, but we respond to readers, brands, and press contacts worldwide.</p>
       <p>Fill out the form below or reach us directly at <a href="mailto:nareshhp777@gmail.com" style="color:var(--accent2);">nareshhp777@gmail.com</a>.</p>
       <p style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-top:-8px;"><strong>Response time:</strong> We aim to respond to all genuine inquiries within 2–3 business days (IST). Editorial corrections are prioritized and typically actioned within 24–48 hours once verified.</p>
-      <form action="https://formspree.io/f/xjgnpegw" method="POST" style="margin-top: 30px;" id="contactForm">
+      <form action="https://formspree.io/f/xjgnpegw" method="POST" style="margin-top: 30px;" id="contactForm" novalidate>
         <div class="form-group">
           <label for="name">Your Name <span style="color:var(--accent);">*</span></label>
           <input type="text" id="name" name="name" placeholder="John Doe" required>
+          <div class="error-message" id="nameError" style="color: var(--accent); font-size: 0.8rem; margin-top: 6px; display: none;">Please enter your name.</div>
         </div>
         <div class="form-group">
           <label for="email">Email Address <span style="color:var(--accent);">*</span></label>
           <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          <div class="error-message" id="emailError" style="color: var(--accent); font-size: 0.8rem; margin-top: 6px; display: none;">Please enter a valid email address.</div>
         </div>
         <div class="form-group">
           <label for="subject">Subject <span style="color:var(--accent);">*</span></label>
           <input type="text" id="subject" name="subject" placeholder="Suggestion / Collaboration / Issue" required>
+          <div class="error-message" id="subjectError" style="color: var(--accent); font-size: 0.8rem; margin-top: 6px; display: none;">Please enter a subject.</div>
         </div>
         <div class="form-group">
           <label for="message">Message <span style="color:var(--accent);">*</span></label>
           <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+          <div class="error-message" id="messageError" style="color: var(--accent); font-size: 0.8rem; margin-top: 6px; display: none;">Please enter a message.</div>
         </div>
         <button type="submit" class="btn" id="submitBtn">Send Message</button>
       </form>
       <script>
         document.getElementById('contactForm').addEventListener('submit', function(e) {
-          const name = document.getElementById('name').value.trim();
-          const email = document.getElementById('email').value.trim();
-          const subject = document.getElementById('subject').value.trim();
-          const message = document.getElementById('message').value.trim();
+          e.preventDefault(); // Prevent default browser validation and submission
           
-          if (!name || !email || !subject || !message) {
-            e.preventDefault(); // Prevent form from submitting
-            alert('Please fill out all mandatory fields (Name, Email, Subject, and Message) before sending.');
-            return false;
+          let isValid = true;
+          
+          const validateField = (id, errorId, validationFn) => {
+            const field = document.getElementById(id);
+            const error = document.getElementById(errorId);
+            const val = field.value.trim();
+            if (!validationFn(val)) {
+              error.style.display = 'block';
+              field.style.borderColor = 'var(--accent)';
+              isValid = false;
+            } else {
+              error.style.display = 'none';
+              field.style.borderColor = ''; // Reverts to CSS stylesheet border
+            }
+          };
+
+          // Validation rules
+          validateField('name', 'nameError', val => val.length > 0);
+          validateField('email', 'emailError', val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+          validateField('subject', 'subjectError', val => val.length > 0);
+          validateField('message', 'messageError', val => val.length > 0);
+          
+          if (isValid) {
+            this.submit(); // Actually submit if all is valid
           }
+        });
+
+        // Real-time clearing of errors when user starts typing
+        const fields = ['name', 'email', 'subject', 'message'];
+        fields.forEach(field => {
+          document.getElementById(field).addEventListener('input', function() {
+            if (this.style.borderColor) {
+              this.style.borderColor = '';
+              document.getElementById(field + 'Error').style.display = 'none';
+            }
+          });
         });
       </script>
       <div style="margin-top: 24px; text-align:center;">
