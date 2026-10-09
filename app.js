@@ -897,15 +897,39 @@ document.addEventListener('click', e => {
   const toggleBtn = e.target.closest('.theme-toggle');
   if (toggleBtn) {
     const isLight = document.documentElement.classList.toggle('light-theme');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    const newTheme = isLight ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
     document.querySelectorAll('.theme-toggle i').forEach(icon => {
       icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
     });
+    // Track theme toggle action in Google Analytics
+    if (typeof gtag === 'function') {
+      gtag('event', 'theme_toggle', {
+        'theme_mode': newTheme,
+        'event_category': 'user_preference',
+        'event_label': newTheme
+      });
+      gtag('set', 'user_properties', {
+        'theme_mode': newTheme
+      });
+    }
   }
 });
 setTimeout(() => {
-    const isLight = document.documentElement.classList.contains('light-theme');
-    document.querySelectorAll('.theme-toggle i').forEach(icon => {
-      icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  const isLight = document.documentElement.classList.contains('light-theme');
+  const activeTheme = isLight ? 'light' : 'dark';
+  document.querySelectorAll('.theme-toggle i').forEach(icon => {
+    icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  });
+  // Track active theme usage in Google Analytics on page load
+  if (typeof gtag === 'function') {
+    gtag('set', 'user_properties', {
+      'theme_mode': activeTheme
     });
+    gtag('event', 'theme_usage', {
+      'theme_mode': activeTheme,
+      'event_category': 'user_preference',
+      'event_label': activeTheme
+    });
+  }
 }, 0);
