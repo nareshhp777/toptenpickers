@@ -2253,10 +2253,11 @@ html[dir="rtl"] .nav-pages {
 
       /* Site Footer */
       .site-footer {
-        background: rgba(6, 8, 15, 0.9);
+        background: rgba(6, 8, 15, 0.95);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
         padding: 60px 24px 30px;
         font-family: 'Inter', sans-serif;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         scroll-snap-align: start;
       }
       .footer-top {
@@ -2269,24 +2270,25 @@ html[dir="rtl"] .nav-pages {
       }
       .footer-brand .logo {
         font-family: 'Space Grotesk', sans-serif;
-        font-weight: 700;
+        font-weight: 800;
         font-size: 1.4rem;
         letter-spacing: 2px;
         color: #fff;
         text-decoration: none;
         display: inline-block;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
       .footer-brand .logo span { color: var(--accent); }
       .footer-brand .credit {
-        font-size: 0.75rem;
-        letter-spacing: 0.5px;
-        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.78rem;
+        letter-spacing: 0.3px;
+        color: rgba(255, 255, 255, 0.5);
         margin: 0;
+        line-height: 1.5;
       }
       .footer-brand .credit strong {
         color: #fff;
-        font-weight: 600;
+        font-weight: 700;
       }
       .footer-links {
         display: flex;
@@ -2298,10 +2300,11 @@ html[dir="rtl"] .nav-pages {
         text-align: right;
       }
       .footer-links a {
+        font-family: 'Space Grotesk', sans-serif;
         font-size: 0.75rem;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
         transition: color 0.3s ease;
       }
@@ -2310,11 +2313,11 @@ html[dir="rtl"] .nav-pages {
         max-width: 1100px;
         margin: 40px auto 0;
         padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
         text-align: center;
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         letter-spacing: 1px;
-        color: rgba(255, 255, 255, 0.25);
+        color: rgba(255, 255, 255, 0.35);
       }
       @media (max-width: 640px) {
         .site-footer { padding: 40px 20px 24px; }
@@ -2692,18 +2695,43 @@ html.light-theme .footer a:hover {
   color: #0f172a;
 }
 
-html.light-theme .site-footer {
-  background: rgba(248, 250, 252, 0.95);
-  border-top-color: rgba(0,0,0,0.1);
+html.light-theme .site-footer,
+.light-theme .site-footer {
+  background: #f8fafc !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #64748b !important;
 }
-html.light-theme .site-footer p {
-  color: #64748b;
+html.light-theme .site-footer .footer-brand .logo,
+.light-theme .site-footer .footer-brand .logo {
+  color: #0f172a !important;
 }
-html.light-theme .site-footer a {
-  color: #475569;
+html.light-theme .site-footer .footer-brand .logo span,
+.light-theme .site-footer .footer-brand .logo span {
+  color: var(--accent) !important;
 }
-html.light-theme .site-footer a:hover {
-  color: #0f172a;
+html.light-theme .site-footer .credit,
+.light-theme .site-footer .credit,
+html.light-theme .site-footer p,
+.light-theme .site-footer p {
+  color: #64748b !important;
+}
+html.light-theme .site-footer .credit strong,
+.light-theme .site-footer .credit strong {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+html.light-theme .site-footer .footer-links a,
+.light-theme .site-footer .footer-links a {
+  color: #64748b !important;
+}
+html.light-theme .site-footer .footer-links a:hover,
+.light-theme .site-footer .footer-links a:hover {
+  color: var(--accent) !important;
+}
+html.light-theme .site-footer .footer-bottom,
+.light-theme .site-footer .footer-bottom {
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #94a3b8 !important;
 }
 /* Fix car title gradient in light theme */
 html.light-theme .overlay h2,
