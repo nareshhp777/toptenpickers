@@ -786,106 +786,109 @@ html[dir="rtl"] .nav-pages {
 
       .side-nav {
         position: fixed;
-        right: 20px;
+        right: 18px;
         top: 50%;
         transform: translateY(-50%);
         z-index: 1000;
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
-        gap: 10px;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 6px;
+        background: rgba(10, 14, 26, 0.65);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 40px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
       }
       .side-nav .dot {
         display: flex;
         align-items: center;
+        justify-content: center;
         cursor: pointer;
         user-select: none;
         position: relative;
       }
       .side-nav .dot .dot-left {
+        position: absolute;
+        right: calc(100% + 12px);
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
         display: flex;
-        flex-direction: column;
         align-items: center;
         max-width: 0;
         overflow: hidden;
-        transition: max-width 0.45s var(--ease);
-      }
-      .side-nav .dot .dot-label {
-        font-family: 'Space Grotesk', sans-serif;
-        font-weight: 700;
-        font-size: 0.5rem;
-        color: var(--car-accent, var(--accent));
         white-space: nowrap;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        line-height: 1.4;
         opacity: 0;
-        transition: opacity 0.3s var(--ease) 0.1s;
-        text-shadow: 0 0 12px rgba(0,0,0,0.8);
+        transition: max-width 0.4s var(--ease), opacity 0.3s ease;
       }
-      .side-nav .dot .dot-line {
-        height: 1.5px;
-        width: 100%;
-        background: var(--car-accent, var(--accent));
-        opacity: 0;
-        transition: opacity 0.3s var(--ease) 0.1s;
-        box-shadow: 0 0 6px var(--car-glow, rgba(255,77,77,0.3));
-        margin-top: 2px;
-      }
-      .side-nav .dot .dot-num {
-        width: 28px; height: 28px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.06);
-        border: 1.5px solid rgba(255,255,255,0.12);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: rgba(255,255,255,0.7);
-        flex-shrink: 0;
-        margin-left: 0;
-        transition: margin-left 0.45s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease), color 0.4s var(--ease);
-      }
-      .side-nav .dot:hover .dot-num {
-        background: rgba(255,255,255,0.12);
-        border-color: rgba(255,255,255,0.3);
-        color: rgba(255,255,255,0.7);
-        transform: scale(1.15);
-      }
-      @keyframes dot-heartbeat {
-        0%, 100% { transform: scale(1.15); }
-        12% { transform: scale(1.38); }
-        24% { transform: scale(1.15); }
-        36% { transform: scale(1.28); }
-        48% { transform: scale(1.15); }
-      }
-      .side-nav .dot.active .dot-num {
-        background: linear-gradient(135deg, var(--car-accent, var(--accent)), var(--car-accent2, var(--accent2)));
-        border-color: var(--car-accent, var(--accent));
-        box-shadow: 0 0 14px var(--car-glow, rgba(255,77,77,0.5)), 0 0 28px color-mix(in srgb, var(--car-accent, var(--accent)) 40%, transparent);
-        color: #fff;
-        transform: scale(1.15);
-        margin-left: 10px;
-        animation: dot-heartbeat 1.6s ease-in-out infinite;
-      }
-      .side-nav .dot.active .dot-left {
-        max-width: 160px;
-      }
-      .side-nav .dot.active .dot-label,
-      .side-nav .dot.active .dot-line {
+      .side-nav .dot.active .dot-left,
+      .side-nav .dot:hover .dot-left {
+        max-width: 240px;
         opacity: 1;
       }
       .side-nav .dot.active.compact .dot-left {
         max-width: 0;
-      }
-      .side-nav .dot.active.compact .dot-label,
-      .side-nav .dot.active.compact .dot-line {
         opacity: 0;
       }
-      .side-nav .dot.active.compact .dot-num {
-        margin-left: 0;
+      .side-nav .dot:hover.compact .dot-left {
+        max-width: 240px;
+        opacity: 1;
+      }
+      .side-nav .dot .dot-label {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 0.68rem;
+        letter-spacing: 0.5px;
+        color: #ffffff;
+        background: rgba(10, 14, 26, 0.88);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 5px 12px;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        white-space: nowrap;
+        text-transform: uppercase;
+        display: inline-block;
+      }
+      .side-nav .dot .dot-line {
+        display: none;
+      }
+      .side-nav .dot .dot-num {
+        width: 28px; height: 28px;
+        border-radius: 50%;
+        background: transparent;
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.65);
+        flex-shrink: 0;
+        margin-left: 0 !important;
+        transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s var(--ease), box-shadow 0.25s ease;
+      }
+      .side-nav .dot:hover .dot-num {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        transform: scale(1.1);
+      }
+      .side-nav .dot.active .dot-num {
+        background: linear-gradient(135deg, var(--car-accent, var(--accent)), var(--car-accent2, var(--accent2))) !important;
+        border-color: transparent !important;
+        box-shadow: 0 4px 16px var(--car-glow, rgba(255,77,77,0.4)), 0 0 10px var(--car-glow, rgba(255,77,77,0.3)) !important;
+        color: #ffffff !important;
+        font-weight: 800;
+        font-size: 0.72rem;
+        transform: scale(1.12);
+        animation: none;
       }
 
       .car-section {
@@ -902,19 +905,25 @@ html[dir="rtl"] .nav-pages {
 
       .car-section .bg {
         position: absolute;
-        inset: 0;
+        top: 0; bottom: 0; right: 0; left: 0;
         background-size: cover;
         background-position: center;
+        background-repeat: no-repeat;
         filter: brightness(0.45) saturate(1.1);
-        transform: scale(1.15);
+        transform: scale(1.02);
         transition: transform 1.8s var(--ease), filter 1.8s var(--ease), opacity 0.5s ease;
         z-index: 0;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 6vw, rgba(0,0,0,0.85) 24vw, black 34vw, black 100%);
+        mask-image: linear-gradient(to right, transparent 0%, transparent 6vw, rgba(0,0,0,0.85) 24vw, black 34vw, black 100%);
       }
       @media (max-width: 768px) {
         .car-section .bg {
+          left: 0 !important;
           background-size: contain;
           background-position: center 40%;
           background-repeat: no-repeat;
+          -webkit-mask-image: none;
+          mask-image: none;
         }
         .spec-panel {
           width: 95%;
@@ -960,8 +969,14 @@ html[dir="rtl"] .nav-pages {
         body.search-expanded .hamburger { display: none; }
         body.search-expanded .lang-selector { display: none; }
         body.search-expanded .nav-center { display: none; }
-        .side-nav { right: 6px; gap: 6px; }
-        .side-nav .dot .dot-num { width: 26px; height: 26px; font-size: 0.55rem; }
+        .side-nav {
+          right: 6px;
+          gap: 4px;
+          padding: 6px 3px;
+          border-radius: 30px;
+        }
+        .side-nav .dot .dot-num { width: 24px; height: 24px; font-size: 0.55rem; }
+        .side-nav .dot .dot-left { display: none !important; }
         .angle-btn { width: 52px; height: 52px; }
         .angle-selector { gap: 8px; }
         .mobile-nav-row {
@@ -1006,33 +1021,36 @@ html[dir="rtl"] .nav-pages {
           width: 100% !important;
           max-width: 100% !important;
           box-sizing: border-box !important;
-          display: flex !important;
-          flex-direction: row !important;
-          flex-wrap: wrap !important;
-          justify-content: space-between !important;
-          align-items: center !important;
-          gap: 12px;
-          margin-bottom: 14px !important;
+          display: block !important;
+          margin-bottom: 6px !important;
         }
         .name-row h2 {
           margin: 0 !important;
-          line-height: 1.1;
+          line-height: 1.15;
           padding-left: 0 !important;
-          font-size: 1.5rem;
-          flex: 1;
+          font-size: 1.4rem;
         }
         .overlay .top-row {
-          margin-bottom: 10px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          width: 100% !important;
+          margin-bottom: 6px !important;
+        }
+        .overlay .top-row-left {
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 8px !important;
         }
         .inline-specs-btn {
           margin-right: 0 !important;
           flex-shrink: 0 !important;
-          padding: 8px 20px;
+          padding: 4px 12px;
           display: inline-flex;
           align-items: center;
           height: auto;
           border-radius: 30px;
-          font-size: 0.8rem;
+          font-size: 0.68rem;
           letter-spacing: 1px;
         }
         .overlay .specs {
@@ -1129,6 +1147,11 @@ html[dir="rtl"] .nav-pages {
           gap: 16px;
           align-items: stretch;
           z-index: 2;
+          border: none !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
         }
         .overlay::before { 
           display: block !important; 
@@ -1163,7 +1186,7 @@ html[dir="rtl"] .nav-pages {
       body.recent-visible .nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
       .car-section.revealed .bg {
         filter: brightness(0.6) saturate(1.05);
-        transform: scale(1.02);
+        transform: scale(1);
       }
       .car-section .bg.fading {
         opacity: 0;
@@ -1184,7 +1207,7 @@ html[dir="rtl"] .nav-pages {
         position: absolute;
         inset: 0;
         z-index: 0;
-        background: radial-gradient(ellipse at center, transparent 40%, var(--bg) 100%);
+        background: radial-gradient(ellipse at 65% center, transparent 60%, rgba(6, 8, 15, 0.4) 100%);
         pointer-events: none;
       }
 
@@ -1267,8 +1290,8 @@ html[dir="rtl"] .nav-pages {
         box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         border: 1px solid rgba(255,255,255,0.08);
       }
-      .car-arrow.prev { left: 240px; }
-      .car-arrow.next { right: 240px; }
+      .car-arrow.prev { left: 28px; }
+      .car-arrow.next { right: 70px; }
       .car-section.revealed .car-arrow {
         pointer-events: auto;
         opacity: 1;
@@ -1293,26 +1316,45 @@ html[dir="rtl"] .nav-pages {
       }
 
       .overlay {
-        position: relative;
+        position: absolute;
+        top: 130px;
+        left: 4vw;
         z-index: 2;
         width: 100%;
-        padding: 40px 40px 55px;
-        background: linear-gradient(transparent 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.95) 55%);
+        max-width: 360px;
+        padding: 18px 20px 18px;
+        background: rgba(10, 12, 18, 0.4);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+        display: flex;
+        flex-direction: column;
       }
       .overlay::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse 80% 60% at 50% 30%, var(--car-glow, rgba(255,77,77,0.12)), transparent 70%);
+        background: radial-gradient(circle at 100% 0%, var(--car-glow, rgba(255,77,77,0.15)), transparent 70%);
         pointer-events: none;
         z-index: -1;
+        border-radius: 8px;
       }
 
       .overlay .top-row {
         display: flex;
         align-items: center;
-        gap: 12px;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
         margin-bottom: 6px;
+      }
+      .overlay .top-row-left {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
       }
 
       .rank-badge {
@@ -1324,12 +1366,13 @@ html[dir="rtl"] .nav-pages {
         color: #fff;
         font-weight: 800;
         font-size: 0.7rem;
-        padding: 4px 16px;
+        padding: 4px 14px;
         border-radius: 30px;
         overflow: hidden;
         opacity: 0;
         transform: translateX(-20px) scale(0.8);
         transition: opacity 0.6s ease, transform 0.6s var(--ease);
+        flex-shrink: 0;
       }
       .car-section.revealed .rank-badge {
         opacity: 1;
@@ -1351,24 +1394,29 @@ html[dir="rtl"] .nav-pages {
 
       .maker-tag {
         font-size: 0.65rem;
-        letter-spacing: 3px;
+        letter-spacing: 2px;
         text-transform: uppercase;
         color: rgba(255,255,255,0.7);
+        padding: 3px 8px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.06);
         opacity: 0;
         transition: opacity 0.6s ease 0.25s;
+        white-space: nowrap;
       }
       .car-section.revealed .maker-tag { opacity: 1; }
 
       .overlay .name-row {
         overflow: hidden;
-        margin-bottom: 2px;
+        margin-bottom: 6px;
       }
       .overlay h2 {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        font-size: clamp(1.35rem, 2.5vw, 1.7rem);
         font-weight: 900;
-        line-height: 1.1;
-        letter-spacing: -1px;
+        line-height: 1.15;
+        letter-spacing: -0.5px;
+        margin: 0 !important;
         background: linear-gradient(135deg, #fff 20%, var(--car-accent2, var(--accent2)) 80%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -1398,8 +1446,8 @@ html[dir="rtl"] .nav-pages {
       .overlay .specs {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px 20px;
-        margin-bottom: 12px;
+        gap: 6px 14px;
+        margin-bottom: 8px;
       }
       .overlay .specs span {
         display: inline-flex;
@@ -1430,13 +1478,54 @@ html[dir="rtl"] .nav-pages {
         flex-shrink: 0;
       }
 
+      .expandable-content {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.4s var(--ease-out), opacity 0.3s ease;
+      }
+      .overlay.expanded .expandable-content {
+        max-height: 600px;
+        opacity: 1;
+        transition: max-height 0.6s var(--ease), opacity 0.4s ease 0.1s;
+      }
+      .expand-btn {
+        background: none;
+        border: none;
+        color: var(--car-accent, var(--accent));
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.7rem;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 3px 0 0 0;
+        margin-bottom: 0px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.5s ease, transform 0.5s var(--ease);
+      }
+      .car-section.revealed .expand-btn {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.55s;
+      }
+      .expand-btn i {
+        transition: transform 0.3s var(--ease);
+      }
+      .overlay.expanded .expand-btn i {
+        transform: rotate(180deg);
+      }
+
       .overlay .desc {
         font-size: 0.85rem;
         line-height: 1.7;
         color: #cbd4e6;
         max-width: 550px;
-        opacity: 0;
-        transform: translateY(15px);
+        margin-bottom: 16px;
         transition: opacity 0.6s ease, transform 0.6s var(--ease);
       }
       .car-section.revealed .desc {
@@ -1450,8 +1539,7 @@ html[dir="rtl"] .nav-pages {
         align-items: center;
         gap: 14px;
         margin-top: 14px;
-        opacity: 0;
-        transform: translateY(10px);
+        margin-bottom: 14px;
         transition: opacity 0.5s ease, transform 0.5s var(--ease);
       }
       .car-section.revealed .price-row {
@@ -1478,8 +1566,8 @@ html[dir="rtl"] .nav-pages {
 
       .angle-selector {
         display: flex;
-        gap: 10px;
-        margin-top: 16px;
+        gap: 8px;
+        margin-top: 10px;
         opacity: 0;
         transform: translateY(10px);
         transition: opacity 0.5s ease, transform 0.5s var(--ease);
@@ -1589,43 +1677,45 @@ html[dir="rtl"] .nav-pages {
       }
 
       /* Inline specs button (inside car sections) */
-      .name-row {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-        margin-bottom: 6px;
-      }
       .inline-specs-btn {
         font-family: 'Space Grotesk', sans-serif;
         font-weight: 700;
         font-size: 0.65rem;
-        letter-spacing: 1.5px;
+        letter-spacing: 1.2px;
         text-transform: uppercase;
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.04);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.6);
-        padding: 8px 18px;
-        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: rgba(255, 255, 255, 0.7);
+        padding: 4px 12px;
+        border-radius: 30px;
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        gap: 6px;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.5s ease, transform 0.5s var(--ease), background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         will-change: transform, box-shadow, border-color;
+        flex-shrink: 0;
+      }
+      .car-section.revealed .inline-specs-btn {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.25s;
       }
       .inline-specs-btn i {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         color: var(--car-accent);
         transition: transform 0.3s ease;
       }
       .inline-specs-btn:hover {
         color: #fff;
         border-color: var(--car-accent);
-        background: rgba(255, 255, 255, 0.07);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 16px var(--car-glow);
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 0 12px var(--car-glow);
       }
       .inline-specs-btn:hover i {
         transform: rotate(90deg);
@@ -1878,8 +1968,8 @@ html[dir="rtl"] .nav-pages {
         .spec-header h3 { font-size: 0.85rem; }
         .spec-header { margin-bottom: 14px; }
         .mobile-menu-link { font-size: 1.25rem; }
-        .side-nav { right: 4px; gap: 4px; }
-        .side-nav .dot .dot-num { width: 22px; height: 22px; font-size: 0.5rem; }
+        .side-nav { right: 4px; gap: 3px; padding: 4px 2px; }
+        .side-nav .dot .dot-num { width: 20px; height: 20px; font-size: 0.48rem; }
       }
 
       .scroll-hint {
@@ -2163,10 +2253,24 @@ html[dir="rtl"] .nav-pages {
       }
 /* --- Theme Toggle & Light Theme Overrides --- */
 .theme-toggle {
-  background: transparent; border: none; color: rgba(255,255,255,0.7);
-  font-size: 1.1rem; cursor: pointer; padding: 0 12px; transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  width: 38px;
+  height: 38px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s var(--ease);
 }
-.theme-toggle:hover { color: var(--accent2); }
+.theme-toggle:hover {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
 
 .light-theme body {
   --bg: #f8fafc;
@@ -2178,7 +2282,7 @@ html[dir="rtl"] .nav-pages {
 .light-theme .nav-links a { color: #64748b; }
 .light-theme .nav-links a i { color: #94a3b8; }
 .light-theme .hamburger { border-color: rgba(0,0,0,0.15); color: #0f172a; }
-.light-theme .theme-toggle { color: #475569; }
+.light-theme .theme-toggle { color: #0f172a; }
 .light-theme .theme-toggle:hover { color: var(--accent2); }
 .light-theme .mobile-menu { background: rgba(248, 250, 252, 0.95); }
 .light-theme .mobile-menu-link { color: #0f172a; }
@@ -2201,7 +2305,9 @@ html[dir="rtl"] .nav-pages {
 .light-theme .key-takeaways ul { color: #1e293b; }
 /* Light theme image and overlay overrides */
 .light-theme .overlay {
-  background: linear-gradient(transparent 0%, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0.95) 55%);
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6);
 }
 @media (max-width: 768px) {
   .light-theme .overlay {
@@ -2229,7 +2335,7 @@ html[dir="rtl"] .nav-pages {
   box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 0 30px var(--car-glow, rgba(255,77,77,0.15));
 }
 .light-theme .vignette {
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(248, 250, 252, 0.8) 100%);
+  display: none;
 }
 
 .light-theme .overlay .name-row h2 { color: #0f172a; }
@@ -2312,22 +2418,28 @@ html.light-theme .article-hero .label {
 html.light-theme .article-hero .byline {
   color: #475569 !important;
 }
-/* Light theme fixes for side navigation (dot indicators) */
+/* Light theme fixes for side navigation (dock & dot indicators) */
+.light-theme .side-nav {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
 .light-theme .side-nav .dot .dot-num {
-  background: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.15);
   color: #475569;
 }
 .light-theme .side-nav .dot:hover .dot-num {
-  background: rgba(0, 0, 0, 0.12);
-  border-color: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.12);
   color: #0f172a;
 }
 .light-theme .side-nav .dot.active .dot-num {
-  color: #ffffff; /* keep active dot text white since background is the bright accent */
+  color: #ffffff !important;
 }
 .light-theme .side-nav .dot .dot-label {
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 /* Light theme fixes for Recent Posts Section */
 html.light-theme .recent-posts h2 {

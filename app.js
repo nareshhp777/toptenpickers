@@ -259,6 +259,20 @@
         setAngle(section, next, true);
         return;
       }
+
+      const expandBtn = e.target.closest('.expand-btn');
+      if (expandBtn) {
+        e.stopPropagation();
+        const overlay = expandBtn.closest('.overlay');
+        overlay.classList.toggle('expanded');
+        const textSpan = expandBtn.querySelector('.expand-text');
+        if (overlay.classList.contains('expanded')) {
+          textSpan.textContent = 'Show Less';
+        } else {
+          textSpan.textContent = 'Read More';
+        }
+        return;
+      }
     });
 
     // Build page immediately so DOM is fully constructed before preloader fades
@@ -351,27 +365,34 @@
           </div>
           <div class="overlay">
             <div class="top-row">
-              <span class="rank-badge">#${c.rank}</span>
-              <span class="maker-tag">${c.maker}</span>
-            </div>
-            <div class="name-row">
-              <h2>${c.name}</h2>
-              <button class="inline-specs-btn" data-rank="${c.rank}">
+              <div class="top-row-left">
+                <span class="rank-badge">#${c.rank}</span>
+                <span class="maker-tag">${c.maker}</span>
+              </div>
+              <button class="inline-specs-btn" data-rank="${c.rank}" aria-label="View Full Specs">
                 <i class="fas fa-list"></i> <span>Specs</span>
               </button>
             </div>
-            <div class="maker">${c.engine}</div>
+            <div class="name-row">
+              <h2>${c.name}</h2>
+            </div>
             <div class="specs">
               <span><i class="fas fa-engine"></i> ${c.engine}</span>
               <span><i class="fas fa-horse-head"></i> ${convertUnit(c.hp)}</span>
               <span><i class="fas fa-tachometer-alt"></i> ${convertUnit(c.speed)}</span>
             </div>
-            <p class="desc">${c.desc}</p>
-            <div class="price-row">
-              <div class="price">${convertUnit(c.price)}</div>
-              <div class="price-divider"></div>
-              <div class="price-label">Est. Price</div>
+            <div class="expandable-content">
+              <p class="desc">${c.desc}</p>
+              <div class="price-row">
+                <div class="price">${convertUnit(c.price)}</div>
+                <div class="price-divider"></div>
+                <div class="price-label">Est. Price</div>
+              </div>
             </div>
+            <button class="expand-btn" aria-label="Toggle details">
+              <span class="expand-text">Read More</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
             <div class="angle-selector">${angleBtnsHtml}</div>
           </div>`;
 
