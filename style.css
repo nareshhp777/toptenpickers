@@ -2821,41 +2821,202 @@ html[dir="rtl"] .nav-pages {
         }
       }
       .floating-promo-banner {
-        position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 9999;
-        display: flex; align-items: center; gap: 12px;
-        background: rgba(15, 15, 18, 0.75);
-        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        display: inline-flex;
+        align-items: center;
+        height: 48px;
+        padding: 0 16px 0 12px;
+        gap: 10px;
+        box-sizing: border-box;
+        background: rgba(12, 16, 28, 0.82);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-top: 1px solid rgba(255, 255, 255, 0.28);
         border-radius: 50px;
-        padding: 12px 24px;
-        text-decoration: none; color: #fff;
-        font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        text-decoration: none;
+        color: #ffffff;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.92rem;
+        line-height: 1;
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        animation: promoFloatBounce 3.6s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      }
+      .floating-promo-banner::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -130%;
+        width: 70%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.22) 50%, transparent 100%);
+        transform: skewX(-25deg);
+        border-radius: 50px;
+        pointer-events: none;
+        animation: bannerShimmer 4s infinite ease-in-out;
+      }
+      @keyframes bannerShimmer {
+        0%, 35% { left: -130%; opacity: 0; }
+        45% { opacity: 1; }
+        60%, 100% { left: 160%; opacity: 0; }
+      }
+      @keyframes promoFloatBounce {
+        0%, 100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        22% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+        36% {
+          transform: translateX(-50%) translateY(-2px);
+        }
+        48% {
+          transform: translateX(-50%) translateY(-7px);
+        }
+        62% {
+          transform: translateX(-50%) translateY(-1px);
+        }
+        75% {
+          transform: translateX(-50%) translateY(-3px);
+        }
+        88% {
+          transform: translateX(-50%) translateY(0);
+        }
       }
       .floating-promo-banner:hover {
-        transform: translate(-50%, -6px);
-        border-color: rgba(255, 77, 77, 0.4);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 77, 77, 0.25);
+        animation-play-state: paused;
+        transform: translateX(-50%) translateY(-12px) scale(1.04);
+        border-color: rgba(239, 68, 68, 0.55);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 32px rgba(239, 68, 68, 0.4), 0 0 12px rgba(249, 115, 22, 0.3);
       }
-      .promo-icon {
-        color: #ff4d4d;
-        filter: drop-shadow(0 0 8px rgba(255, 77, 77, 0.6));
-        animation: pulseGlow 1.5s infinite alternate;
+      .floating-promo-banner:active {
+        transform: translateX(-50%) translateY(-6px) scale(0.98);
       }
-      .trending-gradient {
-        background: linear-gradient(90deg, #f9cb28, #ff4d4d);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        font-weight: 800; margin-right: 6px;
+      .floating-promo-banner .promo-icon {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.28) 0%, rgba(249, 115, 22, 0.18) 100%);
+        border: 1px solid rgba(239, 68, 68, 0.45);
+        color: #ef4444;
+        font-size: 0.95rem;
+        line-height: 1 !important;
+        text-align: center;
+        box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+        flex-shrink: 0;
+        margin: 0;
+        animation: promoIconPulse 2s infinite ease-in-out;
       }
-      .promo-arrow { transition: transform 0.3s ease; color: rgba(255,255,255,0.5); }
-      .floating-promo-banner:hover .promo-arrow { transform: translateX(6px); color: #fff; }
-      @keyframes pulseGlow {
-        from { opacity: 0.7; }
-        to { opacity: 1; filter: drop-shadow(0 0 12px #ff4d4d); }
+      .floating-promo-banner .promo-icon::before {
+        display: block !important;
+        line-height: 1 !important;
+        vertical-align: middle !important;
+        margin: 0 !important;
+      }
+      @keyframes promoIconPulse {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(239, 68, 68, 0.35);
+        }
+        50% {
+          transform: scale(1.14) rotate(8deg);
+          box-shadow: 0 0 20px rgba(239, 68, 68, 0.7), 0 0 30px rgba(249, 115, 22, 0.4);
+          color: #ff4d4d;
+        }
+      }
+      .floating-promo-banner .promo-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .floating-promo-banner .trending-gradient {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 24px;
+        padding: 0 9px;
+        margin: 0;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(249, 115, 22, 0.18) 100%);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        color: #ff6b6b;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        line-height: 1;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        -webkit-text-fill-color: initial;
+      }
+      .floating-promo-banner .promo-arrow {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 26px !important;
+        height: 26px !important;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.75rem;
+        line-height: 1 !important;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        margin: 0 0 0 2px;
+        flex-shrink: 0;
+      }
+      .floating-promo-banner .promo-arrow::before {
+        display: block !important;
+        line-height: 1 !important;
+        vertical-align: middle !important;
+        margin: 0 !important;
+      }
+      .floating-promo-banner:hover .promo-arrow {
+        background: linear-gradient(135deg, #ef4444, #f97316);
+        border-color: transparent;
+        color: #ffffff;
+        transform: translateX(4px) scale(1.12);
+        box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+      }
+      html[dir="rtl"] .floating-promo-banner {
+        padding: 0 12px 0 16px;
+      }
+      html[dir="rtl"] .floating-promo-banner .promo-arrow {
+        margin: 0 2px 0 0;
+        transform: scaleX(-1);
+      }
+      html[dir="rtl"] .floating-promo-banner:hover .promo-arrow {
+        transform: scaleX(-1) translateX(4px) scale(1.12);
       }
       @media (max-width: 768px) {
-        .floating-promo-banner { bottom: 24px; width: 90%; justify-content: space-between; padding: 12px 18px; font-size: 0.85rem; }
+        .floating-promo-banner {
+          bottom: 20px;
+          max-width: 92%;
+          height: 42px;
+          padding: 0 12px 0 10px;
+          font-size: 0.84rem;
+          gap: 8px;
+        }
+        .floating-promo-banner .trending-gradient {
+          height: 22px;
+          font-size: 0.68rem;
+          padding: 0 7px;
+        }
+        html[dir="rtl"] .floating-promo-banner {
+          padding: 0 10px 0 12px;
+        }
       }
 /* --- Theme Toggle & Light Theme Overrides --- */
 .theme-toggle {
@@ -4218,25 +4379,41 @@ html.light-theme .nav .region-badge {
 }
 /* Light theme fixes for floating promo banner */
 html.light-theme .floating-promo-banner {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(15, 23, 42, 0.12);
+  border-top-color: rgba(255, 255, 255, 1);
   color: #0f172a;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.14), 0 0 20px rgba(239, 68, 68, 0.15), inset 0 1px 0 #ffffff;
+}
+html.light-theme .floating-promo-banner::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.65) 50%, transparent 100%);
 }
 html.light-theme .floating-promo-banner:hover {
-  border-color: rgba(255, 77, 77, 0.4);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 77, 77, 0.15);
+  background: #ffffff;
+  border-color: rgba(220, 38, 38, 0.45);
+  box-shadow: 0 22px 45px rgba(15, 23, 42, 0.18), 0 0 28px rgba(239, 68, 68, 0.25), inset 0 1px 0 #ffffff;
 }
-html.light-theme .promo-arrow {
-  color: #64748b;
+html.light-theme .floating-promo-banner .promo-icon {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(249, 115, 22, 0.1) 100%);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #dc2626;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.25);
+}
+html.light-theme .floating-promo-banner .trending-gradient {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(220, 38, 38, 0.28);
+  color: #dc2626;
+  -webkit-text-fill-color: #dc2626;
+}
+html.light-theme .floating-promo-banner .promo-arrow {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.08);
+  color: #475569;
 }
 html.light-theme .floating-promo-banner:hover .promo-arrow {
-  color: #0f172a;
-}
-html.light-theme .trending-gradient {
-  background: linear-gradient(90deg, #ea580c, #dc2626);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  border-color: transparent;
+  color: #ffffff;
 }
 /* Light theme fix for Key Takeaways inline style */
 html.light-theme .key-takeaways ul {
