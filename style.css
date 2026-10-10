@@ -999,22 +999,35 @@ html[dir="rtl"] .nav-pages {
         .spec-panel {
           width: 95%;
           height: auto !important;
-          max-height: 85vh;
-          padding: 24px 18px;
+          max-height: 88vh;
+          padding: 24px 20px 20px;
           margin: 0 auto;
-          border-radius: 18px;
+          border-radius: 20px;
         }
         .spec-overlay {
           align-items: center;
           justify-content: center;
-          padding: 10px;
+          padding: 12px;
         }
         .spec-overlay.open .spec-panel {
           transform: scale(1);
         }
-        .spec-grid { gap: 10px; grid-template-columns: 1fr; }
-        .spec-item { padding: 12px 16px; }
-        .spec-header h3 { font-size: 1rem; }
+        .spec-panel .spec-spotlight-bar {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          gap: 8px;
+          margin-bottom: 16px;
+        }
+        .spec-panel .spec-spotlight-card {
+          padding: 10px 12px;
+        }
+        .spec-panel .spec-spotlight-val {
+          font-size: 1.05rem;
+        }
+        .spec-panel .spec-car-title {
+          font-size: 1.2rem;
+        }
+        .spec-panel .spec-grid { gap: 8px; grid-template-columns: 1fr !important; }
+        .spec-panel .spec-item { padding: 10px 14px; }
         .overlay h2 { font-size: 1.4rem; }
         .overlay h1 { font-size: 1.5rem; }
         .main-img-wrap { max-height: 38vh; max-width: 92%; }
@@ -2108,7 +2121,7 @@ html[dir="rtl"] .nav-pages {
       .spec-overlay {
         position: fixed;
         inset: 0;
-        z-index: 500;
+        z-index: 10000;
         background: rgba(0,0,0,0.6);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
@@ -2119,98 +2132,421 @@ html[dir="rtl"] .nav-pages {
         pointer-events: none;
         transition: opacity 0.4s ease;
       }
+      body.spec-open .floating-promo-banner {
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
       .spec-overlay.open {
         opacity: 1;
         pointer-events: auto;
       }
       .spec-panel {
-        background: rgba(10, 14, 23, 0.55);
-        backdrop-filter: blur(28px);
-        -webkit-backdrop-filter: blur(28px);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 24px;
-        padding: 40px 44px;
-        max-width: 640px;
-        width: 90%;
-        max-height: 80vh;
+        position: relative;
+        background: rgba(11, 15, 26, 0.78);
+        backdrop-filter: blur(36px);
+        -webkit-backdrop-filter: blur(36px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 28px;
+        padding: 32px 34px 28px;
+        max-width: 760px;
+        width: 92%;
+        max-height: 88vh;
         overflow-y: auto;
-        transform: translateY(40px) scale(0.95);
-        transition: transform 0.5s var(--ease);
-        box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+        transform: translateY(40px) scale(0.96);
+        transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
+        box-shadow: 
+          0 40px 90px rgba(0, 0, 0, 0.75),
+          0 -4px 18px -2px var(--car-accent, var(--accent)),
+          0 -12px 36px -4px var(--car-accent2, var(--accent2)),
+          0 -24px 60px -8px var(--car-glow, var(--car-accent)),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+      .spec-panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3.5px;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          var(--car-accent, var(--accent)) 18%, 
+          var(--car-accent2, var(--accent2)) 82%, 
+          transparent 100%
+        );
+        box-shadow: 
+          0 0 14px 1px var(--car-accent, var(--accent)),
+          0 0 28px 2px var(--car-accent2, var(--accent2)),
+          0 2px 10px rgba(0, 0, 0, 0.25);
+        z-index: 3;
+        pointer-events: none;
+      }
+      .spec-panel::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 180px;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+        background: radial-gradient(ellipse 90% 100% at 50% 0%, 
+          var(--car-accent, rgba(255, 77, 77, 0.35)) 0%, 
+          var(--car-accent2, rgba(255, 154, 60, 0.2)) 45%, 
+          transparent 78%
+        );
+        opacity: 0.2;
+        pointer-events: none;
+        z-index: 0;
       }
       .spec-overlay.open .spec-panel {
         transform: translateY(0) scale(1);
       }
-      .spec-panel::-webkit-scrollbar { width: 4px; }
+      .spec-header,
+      .spec-spotlight-bar,
+      .spec-section-divider,
+      .spec-panel .spec-grid,
+      .spec-panel-footer {
+        position: relative;
+        z-index: 1;
+      }
+      .spec-panel::-webkit-scrollbar { width: 5px; }
       .spec-panel::-webkit-scrollbar-track { background: transparent; }
-      .spec-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+      .spec-panel::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 6px; }
 
-      .spec-panel .spec-header {
+      /* Spec Header HUD */
+      .spec-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .spec-header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .spec-tags-row {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 8px;
       }
-      .spec-panel .spec-header h3 {
+      .spec-rank-badge {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: var(--car-accent, var(--accent));
+        color: #ffffff;
+        box-shadow: 0 2px 10px var(--car-glow, rgba(255, 77, 77, 0.3));
       }
-      .spec-panel .spec-header h3 span {
+      .spec-brand-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 3px 10px 3px 6px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+      .spec-brand-logo {
+        height: 18px;
+        max-width: 32px;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+      }
+      .spec-brand-pill span {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .spec-live-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .spec-live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 8px #22c55e;
+        animation: specPulse 2s infinite ease-in-out;
+      }
+      @keyframes specPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.85); }
+      }
+      .spec-car-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.2;
+        margin: 0;
+      }
+      .spec-title-accent {
         color: var(--car-accent, var(--accent));
+        font-weight: 600;
+        font-size: 1.15rem;
       }
       .spec-close {
-        width: 36px; height: 36px;
-        min-width: 36px; min-height: 36px;
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
         border-radius: 50%;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.65);
-        font-size: 1rem;
-        display: flex; flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.1rem;
+        display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all 0.3s ease;
+        flex-shrink: 0;
+        transition: all 0.3s var(--ease);
       }
       .spec-close:hover {
-        background: rgba(255,255,255,0.1);
-        color: #fff;
-        border-color: rgba(255,255,255,0.3);
+        background: rgba(255, 255, 255, 0.14);
+        color: #ffffff;
+        border-color: var(--car-accent, var(--accent));
+        transform: rotate(90deg) scale(1.08);
+        box-shadow: 0 0 16px var(--car-glow, rgba(255, 77, 77, 0.3));
       }
 
-      .spec-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+      /* Flagship Telemetry Spotlight Bar */
+      .spec-panel .spec-spotlight-bar {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .spec-panel .spec-spotlight-card {
+        position: relative;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 16px;
+        padding: 10px 11px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 6px;
+        min-width: 0;
+        box-sizing: border-box;
+        transition: all 0.3s var(--ease);
+      }
+      .spec-panel .spec-spotlight-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 12px;
+        right: 12px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--car-accent, var(--accent)), transparent);
+        opacity: 0.7;
+      }
+      .spec-panel .spec-spotlight-card:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3), 0 0 20px var(--car-glow, rgba(255, 77, 77, 0.15));
+      }
+      .spec-panel .spec-spotlight-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+      }
+      .spec-panel .spec-spotlight-head i {
+        color: var(--car-accent, var(--accent));
+        font-size: 0.82rem;
+        flex-shrink: 0;
+      }
+      .spec-panel .spec-spotlight-label {
+        font-size: 0.58rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .spec-panel .spec-spotlight-val {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Section Divider */
+      .spec-section-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .spec-section-divider::before,
+      .spec-section-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .spec-section-divider span {
+        font-size: 0.62rem;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Full Telemetry Grid (2 Columns, strictly contained) */
+      .spec-panel .spec-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .spec-panel .spec-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 14px;
+        padding: 12px 14px;
+        min-width: 0;
+        box-sizing: border-box;
+        transition: all 0.25s var(--ease);
+      }
+      .spec-panel .spec-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .spec-panel .spec-icon-box {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--car-accent, var(--accent));
+        font-size: 0.95rem;
+        flex-shrink: 0;
+        transition: transform 0.25s ease;
+      }
+      .spec-panel .spec-item:hover .spec-icon-box {
+        transform: scale(1.08);
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .spec-panel .spec-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+        flex: 1;
+        overflow: hidden;
+      }
+      .spec-panel .spec-item .spec-label {
+        font-size: 0.58rem;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 600;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .spec-panel .spec-item .spec-val {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.94rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Spec Panel Footer */
+      .spec-panel-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 22px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
         gap: 12px;
       }
-      .spec-item {
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: 12px;
-        padding: 14px 18px;
-        transition: all 0.3s ease;
+      .spec-footer-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 500;
       }
-      .spec-item:hover {
-        background: rgba(255,255,255,0.06);
-        border-color: rgba(255,255,255,0.08);
+      .spec-footer-badge i {
+        color: var(--car-accent, var(--accent));
+        font-size: 0.85rem;
       }
-      .spec-item .spec-label {
-        font-size: 0.6rem;
+      .spec-footer-price {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .spec-footer-price-label {
+        font-size: 0.58rem;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.6);
-        margin-bottom: 4px;
+        color: rgba(255, 255, 255, 0.45);
+        font-weight: 600;
       }
-      .spec-item .spec-val {
+      .spec-footer-price-val {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: #e8edf5;
-      }
-      .spec-item .spec-val {
-        color: var(--car-accent, var(--accent));
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: var(--car-accent, #ffffff);
       }
 
       @media (max-width: 480px) {
@@ -2227,13 +2563,14 @@ html[dir="rtl"] .nav-pages {
         .angle-btn { height: 42px; border-radius: 6px; }
         .angle-btn .angle-label { font-size: 0.52rem; padding: 3px 1px 1px; letter-spacing: 0.2px; }
         .angle-selector { gap: 5px; padding: 0; }
-        .car-arrow { width: 44px; height: 44px; font-size: 0.8rem; }
-        .spec-panel { padding: 18px 14px; border-radius: 14px; }
-        .spec-grid { gap: 6px; }
-        .spec-item { padding: 8px 12px; }
-        .spec-header h3 { font-size: 0.85rem; }
-        .spec-header { margin-bottom: 14px; }
-        .mobile-menu-link { font-size: 1.25rem; }
+        .spec-panel { padding: 18px 14px; border-radius: 16px; }
+        .spec-panel .spec-spotlight-bar { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px; }
+        .spec-panel .spec-spotlight-val { font-size: 0.95rem; }
+        .spec-panel .spec-grid { gap: 6px; grid-template-columns: 1fr !important; }
+        .spec-panel .spec-item { padding: 8px 12px; }
+        .spec-panel .spec-header { margin-bottom: 14px; }
+        .spec-panel .spec-car-title { font-size: 1.05rem; }
+        .spec-panel .spec-panel-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
         .side-nav { right: 4px; gap: 3px; padding: 4px 2px; }
         .side-nav .dot .dot-num { width: 20px; height: 20px; font-size: 0.48rem; }
       }
@@ -2750,15 +3087,106 @@ html[dir="rtl"] .nav-pages {
 .light-theme .inline-specs-btn { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.15); color: #475569; }
 .light-theme .inline-specs-btn:hover { background: rgba(0, 0, 0, 0.1); color: #0f172a; border-color: rgba(0, 0, 0, 0.3); }
 
-/* Spec Popup */
-.light-theme .spec-overlay { background: rgba(255, 255, 255, 0.7); }
-.light-theme .spec-panel { background: rgba(248, 250, 252, 0.95); border-color: rgba(0,0,0,0.1); box-shadow: 0 40px 80px rgba(0,0,0,0.15); }
-.light-theme .spec-header h3 { color: #0f172a; }
-.light-theme .spec-close { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #64748b; }
-.light-theme .spec-close:hover { background: rgba(0,0,0,0.1); color: #0f172a; border-color: rgba(0,0,0,0.3); }
-.light-theme .spec-item { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.05); }
-.light-theme .spec-item:hover { background: rgba(255,255,255,1); border-color: rgba(0,0,0,0.1); }
-.light-theme .spec-item .spec-label { color: #64748b; }
+/* Spec Popup Light Theme */
+.light-theme .spec-overlay {
+  background: rgba(15, 23, 42, 0.45);
+}
+.light-theme .spec-panel {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 32px 80px rgba(15, 23, 42, 0.16),
+    0 -4px 18px -2px var(--car-accent, var(--accent)),
+    0 -12px 36px -4px var(--car-accent2, var(--accent2)),
+    0 -24px 55px -8px var(--car-glow, var(--car-accent)),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+.light-theme .spec-panel::after {
+  opacity: 0.12;
+}
+.light-theme .spec-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+}
+.light-theme .spec-brand-pill {
+  background: rgba(241, 245, 249, 0.9);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+.light-theme .spec-brand-pill span {
+  color: #0f172a;
+}
+.light-theme .spec-live-tag {
+  background: rgba(241, 245, 249, 0.7);
+  border-color: rgba(0, 0, 0, 0.06);
+  color: #64748b;
+}
+.light-theme .spec-car-title {
+  color: #0f172a;
+}
+.light-theme .spec-close {
+  background: rgba(241, 245, 249, 0.9);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #64748b;
+}
+.light-theme .spec-close:hover {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: var(--car-accent, var(--accent));
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.light-theme .spec-spotlight-card {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.85) 100%);
+  border-color: rgba(226, 232, 240, 0.9);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+.light-theme .spec-spotlight-card:hover {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+.light-theme .spec-spotlight-label {
+  color: #64748b;
+}
+.light-theme .spec-spotlight-val {
+  color: var(--car-accent, #0f172a);
+}
+.light-theme .spec-section-divider::before,
+.light-theme .spec-section-divider::after {
+  background: rgba(0, 0, 0, 0.08);
+}
+.light-theme .spec-section-divider span {
+  color: #64748b;
+}
+.light-theme .spec-item {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(226, 232, 240, 0.9);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+.light-theme .spec-item:hover {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+.light-theme .spec-icon-box {
+  background: rgba(241, 245, 249, 0.95);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+.light-theme .spec-item .spec-label {
+  color: #64748b;
+}
+.light-theme .spec-item .spec-val {
+  color: #0f172a;
+}
+.light-theme .spec-panel-footer {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+.light-theme .spec-footer-badge {
+  color: #64748b;
+}
+.light-theme .spec-footer-price-label {
+  color: #64748b;
+}
 
 /* ==========================================================================
    SHOWCASE CARDS (Sports Bikes & Superbike Dossiers)
@@ -3020,8 +3448,8 @@ html[dir="rtl"] .nav-pages {
   transform: scale(1);
 }
 
-/* Telemetry Spec Grid */
-.spec-grid {
+/* Telemetry Spec Grid (Showcase Cards) */
+.showcase-card .spec-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
@@ -3183,9 +3611,338 @@ html[dir="rtl"] .nav-pages {
   transform: scale(1.05);
 }
 
+/* ==========================================================================
+   SPORTS BIKES TELEMETRY RANK SIDE DOCK (TFT DASHBOARD HUD)
+   ========================================================================== */
+
+.bike-rank-dock {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 990;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 7px;
+  background: rgba(10, 14, 26, 0.78);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 42px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 24px var(--active-bike-glow, rgba(239, 68, 68, 0.18)), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.bike-dock-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-bottom: 4px;
+  color: var(--active-bike-accent, #ef4444);
+  font-size: 0.95rem;
+  transition: color 0.4s ease;
+}
+
+.bike-dock-shift-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--active-bike-accent, #ef4444);
+  box-shadow: 0 0 10px var(--active-bike-accent, #ef4444);
+  animation: shiftLedPulse 1.6s infinite ease-in-out;
+}
+
+@keyframes shiftLedPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 14px var(--active-bike-accent, #ef4444); }
+}
+
+.bike-dock-track {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.bike-dock-rpm-fill {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--active-bike-accent, #ef4444) 0%, var(--active-bike-accent2, #f97316) 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--active-bike-glow, rgba(239, 68, 68, 0.4));
+  pointer-events: none;
+  z-index: 0;
+  height: 10%;
+  transition: height 0.35s var(--ease), background 0.4s ease;
+}
+
+.bike-dock-nodes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.bike-dock-node {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: all 0.25s var(--ease);
+}
+
+.bike-node-gear {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  transition: color 0.2s ease;
+}
+
+.bike-dock-node:hover {
+  transform: scale(1.15);
+  border-color: var(--bike-accent, #ef4444);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 12px var(--bike-glow, rgba(239, 68, 68, 0.35));
+}
+
+.bike-dock-node:hover .bike-node-gear {
+  color: #ffffff;
+}
+
+.bike-dock-node.active {
+  background: linear-gradient(135deg, var(--bike-accent, #ef4444) 0%, var(--bike-accent2, #f97316) 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 16px var(--bike-glow, rgba(239, 68, 68, 0.5)), 0 0 28px var(--bike-glow, rgba(239, 68, 68, 0.3)) !important;
+  transform: scale(1.18);
+}
+
+.bike-dock-node.active .bike-node-gear {
+  color: #ffffff !important;
+  font-weight: 800;
+  font-size: 0.68rem;
+}
+
+.bike-dock-node.revving {
+  animation: throttleBlip 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes throttleBlip {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.32); filter: brightness(1.3); }
+  100% { transform: scale(1.18); }
+}
+
+/* Superbike Live Telemetry Flyout Card */
+.bike-hud-flyout {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  background: rgba(10, 14, 26, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3px solid var(--bike-accent, #ef4444);
+  border-radius: 12px;
+  padding: 8px 12px;
+  min-width: 170px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.55), 0 0 20px var(--bike-glow, rgba(239, 68, 68, 0.2));
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0.25s;
+  z-index: 100;
+  text-align: left;
+}
+
+.bike-dock-node:hover .bike-hud-flyout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+.bike-hud-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.bike-hud-rank {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--bike-accent, #ef4444);
+}
+
+.bike-hud-maker {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.bike-hud-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.bike-hud-telemetry {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bike-hud-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+.bike-hud-stat i {
+  color: var(--bike-accent, #ef4444);
+  font-size: 0.62rem;
+}
+
+.bike-dock-finish {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.bike-dock-finish:hover {
+  color: #ffffff;
+  transform: scale(1.15) rotate(8deg);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Light Theme Overrides */
+.light-theme .bike-rank-dock {
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(15, 23, 42, 0.09);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12), 0 0 24px var(--active-bike-glow, rgba(239, 68, 68, 0.12)), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.light-theme .bike-dock-node {
+  background: rgba(241, 245, 249, 0.9);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.light-theme .bike-dock-node .bike-node-gear {
+  color: #475569;
+}
+
+.light-theme .bike-dock-node:hover {
+  background: #ffffff;
+  border-color: var(--bike-accent, #ef4444);
+}
+
+.light-theme .bike-dock-node:hover .bike-node-gear {
+  color: #0f172a;
+}
+
+.light-theme .bike-dock-node.active .bike-node-gear {
+  color: #ffffff !important;
+}
+
+.light-theme .bike-hud-flyout {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.15), 0 0 20px var(--bike-glow, rgba(239, 68, 68, 0.12));
+}
+
+.light-theme .bike-hud-maker {
+  color: #64748b;
+}
+
+.light-theme .bike-hud-name {
+  color: #0f172a;
+}
+
+.light-theme .bike-hud-stat {
+  background: rgba(241, 245, 249, 0.9);
+  border-color: rgba(15, 23, 42, 0.08);
+  color: #334155;
+}
+
+.light-theme .bike-dock-finish {
+  color: #64748b;
+}
+
+.light-theme .bike-dock-finish:hover {
+  color: #0f172a;
+}
+
+/* RTL Support */
+html[dir="rtl"] .bike-rank-dock {
+  right: auto;
+  left: 22px;
+}
+
+html[dir="rtl"] .bike-hud-flyout {
+  right: auto;
+  left: calc(100% + 14px);
+  transform: translateY(-50%) translateX(-8px);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-right: 3px solid var(--bike-accent, #ef4444);
+  text-align: right;
+}
+
+html[dir="rtl"] .bike-dock-node:hover .bike-hud-flyout {
+  transform: translateY(-50%) translateX(0);
+}
+
 /* Responsive Showcase */
 @media (max-width: 900px) {
-  .spec-grid {
+  .bike-rank-dock {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .showcase-card .spec-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
@@ -3212,7 +3969,7 @@ html[dir="rtl"] .nav-pages {
     grid-column: span 2;
     grid-row: span 1;
   }
-  .spec-grid {
+  .showcase-card .spec-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }

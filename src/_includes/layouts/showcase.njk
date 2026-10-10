@@ -4,6 +4,21 @@ priority: 0.8
 layout: layouts/base.njk
 ---
 {{ navHtml | safe }}
+
+<nav class="bike-rank-dock" id="bikeRankDock" aria-label="Sports bike rankings">
+  <div class="bike-dock-header" title="Superbike Telemetry Grid">
+    <i class="fa-solid fa-motorcycle"></i>
+    <span class="bike-dock-shift-led"></span>
+  </div>
+  <div class="bike-dock-track">
+    <div class="bike-dock-rpm-fill" id="bikeRpmFill"></div>
+    <div class="bike-dock-nodes" id="bikeDockNodes"></div>
+  </div>
+  <a href="#conclusion" class="bike-dock-finish" id="bikeDockFinish" title="Checkered Flag / Final Verdict" aria-label="Go to conclusion">
+    <i class="fa-solid fa-flag-checkered"></i>
+  </a>
+</nav>
+
   <div class="page-wrap">
     <div class="content">
 {{ content | safe }}
@@ -15,3 +30,148 @@ layout: layouts/base.njk
 {{ lightboxHtml | safe }}
 {{ pageScriptHtml | safe }}
 {{ mobileMenuHtml | safe }}
+
+<script>
+  (function() {
+    function initBikeRankDock() {
+      var dock = document.getElementById('bikeRankDock');
+      var nodesContainer = document.getElementById('bikeDockNodes');
+      var rpmFill = document.getElementById('bikeRpmFill');
+      var cards = document.querySelectorAll('.showcase-card');
+      if (!dock || !nodesContainer || cards.length === 0) return;
+
+      var bikeColors = {
+        1:  { accent: '#dc2626', accent2: '#f87171', glow: 'rgba(220, 38, 38, 0.45)', maker: 'DUCATI' },
+        2:  { accent: '#2563eb', accent2: '#06b6d4', glow: 'rgba(37, 99, 235, 0.45)', maker: 'BMW' },
+        3:  { accent: '#ef4444', accent2: '#a855f7', glow: 'rgba(239, 68, 68, 0.45)', maker: 'APRILIA' },
+        4:  { accent: '#16a34a', accent2: '#4ade80', glow: 'rgba(22, 163, 74, 0.45)', maker: 'KAWASAKI' },
+        5:  { accent: '#1d4ed8', accent2: '#38bdf8', glow: 'rgba(29, 78, 216, 0.45)', maker: 'YAMAHA' },
+        6:  { accent: '#0284c7', accent2: '#eab308', glow: 'rgba(2, 132, 199, 0.45)', maker: 'SUZUKI' },
+        7:  { accent: '#dc2626', accent2: '#ffffff', glow: 'rgba(220, 38, 38, 0.45)', maker: 'HONDA' },
+        8:  { accent: '#b91c1c', accent2: '#f59e0b', glow: 'rgba(185, 28, 28, 0.45)', maker: 'MV AGUSTA' },
+        9:  { accent: '#ea580c', accent2: '#fb923c', glow: 'rgba(234, 88, 12, 0.45)', maker: 'KTM' },
+        10: { accent: '#0891b2', accent2: '#06b6d4', glow: 'rgba(8, 145, 178, 0.45)', maker: 'ENERGICA' }
+      };
+
+      nodesContainer.innerHTML = '';
+      var bikeNodes = [];
+
+      cards.forEach(function(card, idx) {
+        var rankNum = idx + 1;
+        card.id = 'bike-' + rankNum;
+        card.style.scrollMarginTop = '88px';
+
+        var h2 = card.querySelector('h2');
+        var fullName = h2 ? h2.textContent.trim() : ('Bike #' + rankNum);
+
+        // Extract power & speed specs from card pills
+        var powerVal = '';
+        var speedVal = '';
+        card.querySelectorAll('.spec-pill').forEach(function(pill) {
+          var lbl = pill.querySelector('.label');
+          var val = pill.querySelector('.val');
+          if (lbl && val) {
+            var text = lbl.textContent.toUpperCase();
+            if (text.includes('POWER') || text.includes('LEISTUNG') || text.includes('PUISSANCE') || text.includes('POTENCIA') || text.includes('POTENZA') || text.includes('パワー') || text.includes('출력') || text.includes('शक्ति') || text.includes('قوة')) {
+              powerVal = val.textContent.trim();
+            }
+            if (text.includes('SPEED') || text.includes('VMAX') || text.includes('VITESSE') || text.includes('VELOCIDAD') || text.includes('VELOCITÀ') || text.includes('スピード') || text.includes('속도') || text.includes('गति') || text.includes('سرعة')) {
+              speedVal = val.textContent.trim();
+            }
+          }
+        });
+
+        var theme = bikeColors[rankNum] || { accent: '#ef4444', accent2: '#f97316', glow: 'rgba(239, 68, 68, 0.4)', maker: 'BIKE' };
+
+        var node = document.createElement('button');
+        node.className = 'bike-dock-node' + (rankNum === 1 ? ' active' : '');
+        node.setAttribute('aria-label', fullName + ' rank ' + rankNum);
+        node.dataset.rank = rankNum;
+        node.style.setProperty('--bike-accent', theme.accent);
+        node.style.setProperty('--bike-accent2', theme.accent2);
+        node.style.setProperty('--bike-glow', theme.glow);
+
+        var padRank = rankNum < 10 ? '0' + rankNum : rankNum;
+
+        node.innerHTML = `
+          <span class="bike-node-gear">${padRank}</span>
+          <div class="bike-hud-flyout">
+            <div class="bike-hud-header">
+              <span class="bike-hud-rank">#${padRank}</span>
+              <span class="bike-hud-maker">${theme.maker}</span>
+            </div>
+            <div class="bike-hud-name">${fullName}</div>
+            ${(powerVal || speedVal) ? `
+            <div class="bike-hud-telemetry">
+              ${powerVal ? `<span class="bike-hud-stat hp"><i class="fa-solid fa-bolt"></i> ${powerVal}</span>` : ''}
+              ${speedVal ? `<span class="bike-hud-stat speed"><i class="fa-solid fa-gauge-high"></i> ${speedVal}</span>` : ''}
+            </div>` : ''}
+          </div>
+        `;
+
+        node.addEventListener('click', function(e) {
+          e.preventDefault();
+          node.classList.add('revving');
+          setTimeout(function() { node.classList.remove('revving'); }, 350);
+          card.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        nodesContainer.appendChild(node);
+        bikeNodes.push({ node: node, card: card, rankNum: rankNum, theme: theme });
+      });
+
+      var finishBtn = document.getElementById('bikeDockFinish');
+      if (finishBtn) {
+        finishBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var conclusion = document.querySelector('.content > h2:last-of-type') || document.querySelector('h2:last-of-type');
+          if (conclusion) conclusion.scrollIntoView({ behavior: 'smooth' });
+          else window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+      }
+
+      var activeRank = 1;
+      function updateActiveRank(rank) {
+        if (activeRank === rank && document.querySelector('.bike-dock-node.active')) return;
+        activeRank = rank;
+
+        bikeNodes.forEach(function(item) {
+          if (item.rankNum === rank) {
+            item.node.classList.add('active');
+            dock.style.setProperty('--active-bike-accent', item.theme.accent);
+            dock.style.setProperty('--active-bike-accent2', item.theme.accent2);
+            dock.style.setProperty('--active-bike-glow', item.theme.glow);
+          } else {
+            item.node.classList.remove('active');
+          }
+        });
+
+        if (rpmFill) {
+          var pct = Math.min(100, Math.max(8, ((rank) / cards.length) * 100));
+          rpmFill.style.height = pct + '%';
+        }
+      }
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              var rank = parseInt(entry.target.id.replace('bike-', ''));
+              if (!isNaN(rank)) updateActiveRank(rank);
+            }
+          });
+        }, { rootMargin: '-20% 0px -55% 0px', threshold: 0.05 });
+
+        cards.forEach(function(card) { observer.observe(card); });
+      }
+
+      updateActiveRank(1);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBikeRankDock);
+    } else {
+      initBikeRankDock();
+    }
+  })();
+</script>

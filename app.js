@@ -562,20 +562,102 @@
     const specOverlay = document.getElementById('specOverlay');
     const specPanel = document.getElementById('specPanel');
 
+    function getSpecIcon(label) {
+      const l = (label || '').toLowerCase();
+      if (l.includes('0-60') || l.includes('0-100') || l.includes('0-124') || l.includes('0-200')) return 'fa-stopwatch';
+      if (l.includes('speed')) return 'fa-gauge-high';
+      if (l.includes('horse') || l.includes('hp') || l.includes('power')) return 'fa-bolt';
+      if (l.includes('engine') || l.includes('motor')) return 'fa-microchip';
+      if (l.includes('torque')) return 'fa-rotate';
+      if (l.includes('transmission') || l.includes('gear')) return 'fa-sliders';
+      if (l.includes('drivetrain') || l.includes('drive')) return 'fa-arrows-up-down-left-right';
+      if (l.includes('weight')) return 'fa-weight-hanging';
+      if (l.includes('production')) return 'fa-calendar-check';
+      if (l.includes('quarter') || l.includes('nurburgring')) return 'fa-flag-checkered';
+      if (l.includes('battery')) return 'fa-battery-full';
+      if (l.includes('charg')) return 'fa-charging-station';
+      if (l.includes('range')) return 'fa-road';
+      if (l.includes('fuel') || l.includes('mpg')) return 'fa-gas-pump';
+      return 'fa-circle-info';
+    }
+
     function openSpecOverlay() {
       const rank = currentCarRank;
       const c = cars.find(x => x.rank === rank);
       if (!c) return;
-      const theme = carThemes[rank];
+      const theme = carThemes[rank] || {};
+      const brand = (typeof cursorBrands !== 'undefined' && cursorBrands[rank]) ? cursorBrands[rank] : null;
+
+      const spotlightLabels = ['0-60 mph', '0-100 km/h', 'Top Speed', 'Horsepower', 'Engine', 'Combined Power'];
+      const heroSpecs = c.details.filter(d => spotlightLabels.includes(d.label)).slice(0, 4);
+      const remainingSpecs = c.details.filter(d => !heroSpecs.includes(d));
+
       specPanel.innerHTML = `
         <div class="spec-header">
-          <h3>${c.name} <span>Specifications</span></h3>
-          <button class="spec-close" id="specClose" aria-label="Close specifications"><i class="fas fa-times"></i></button>
+          <div class="spec-header-left">
+            <div class="spec-tags-row">
+              <span class="spec-rank-badge">#${c.rank}</span>
+              ${brand ? `
+              <div class="spec-brand-pill">
+                <img src="${brand.img}" alt="${c.maker} logo" class="spec-brand-logo">
+                <span>${c.maker}</span>
+              </div>` : ''}
+              <span class="spec-live-tag"><span class="spec-live-dot"></span> Official Dossier</span>
+            </div>
+            <h3 class="spec-car-title">${c.name} <span class="spec-title-accent">Telemetry</span></h3>
+          </div>
+          <button class="spec-close" id="specClose" aria-label="Close specifications">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
+
+        <div class="spec-spotlight-bar">
+          ${heroSpecs.map(d => `
+            <div class="spec-spotlight-card">
+              <div class="spec-spotlight-head">
+                <i class="fa-solid ${getSpecIcon(d.label)}"></i>
+                <span class="spec-spotlight-label">${convertLabel(d.label)}</span>
+              </div>
+              <div class="spec-spotlight-val">${convertUnit(d.val)}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="spec-section-divider">
+          <span><i class="fa-solid fa-sliders"></i> Complete Engineering Telemetry</span>
+        </div>
+
         <div class="spec-grid">
-          ${c.details.map(d => `<div class="spec-item"><div class="spec-label">${convertLabel(d.label)}</div><div class="spec-val">${convertUnit(d.val)}</div></div>`).join('')}
+          ${remainingSpecs.map(d => `
+            <div class="spec-item">
+              <div class="spec-icon-box">
+                <i class="fa-solid ${getSpecIcon(d.label)}"></i>
+              </div>
+              <div class="spec-meta">
+                <span class="spec-label">${convertLabel(d.label)}</span>
+                <span class="spec-val">${convertUnit(d.val)}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="spec-panel-footer">
+          <div class="spec-footer-badge">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Manufacturer Benchmarked Data</span>
+          </div>
+          <div class="spec-footer-price">
+            <span class="spec-footer-price-label">EST. PRICE</span>
+            <span class="spec-footer-price-val">${convertUnit(c.price)}</span>
+          </div>
         </div>`;
-      specPanel.style.setProperty('--car-accent', theme.accent);
+
+      specPanel.style.setProperty('--car-accent', theme.accent || 'var(--accent)');
+      specPanel.style.setProperty('--car-accent2', theme.accent2 || 'var(--accent2)');
+      specPanel.style.setProperty('--car-glow', theme.glow || 'rgba(255,77,77,0.15)');
+      if (brand && brand.color) {
+        specPanel.style.setProperty('--brand-color', brand.color);
+      }
       specOverlay.classList.add('open');
       document.body.classList.add('spec-open');
     }
