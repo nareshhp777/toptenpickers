@@ -1232,6 +1232,41 @@ html[dir="rtl"] .nav-pages {
         .recent-posts { scroll-snap-align: start !important; }
         .site-footer { scroll-snap-align: start !important; }
 
+        .brand-watermark {
+          position: absolute;
+          top: calc(96px + (100vw * 9 / 16) - 48px);
+          bottom: auto;
+          right: 12px;
+          z-index: 5;
+        }
+        .brand-watermark-inner {
+          padding: 4px 10px 4px 5px;
+          gap: 8px;
+          border-radius: 24px;
+        }
+        .brand-logo-wrap {
+          width: 44px;
+          height: 26px;
+          padding: 2px 6px;
+          border-radius: 14px;
+        }
+        .brand-watermark-maker {
+          font-size: 0.62rem;
+          letter-spacing: 1.5px;
+        }
+        .brand-watermark-sub {
+          font-size: 0.44rem;
+          letter-spacing: 1px;
+        }
+        .brand-watermark-dot {
+          width: 5px;
+          height: 5px;
+        }
+        html[dir="rtl"] .brand-watermark {
+          right: auto;
+          left: 12px;
+        }
+
         /* RTL Mobile Overrides */
         html[dir="rtl"] .overlay {
           padding-right: 20px !important;
@@ -1384,6 +1419,121 @@ html[dir="rtl"] .nav-pages {
       }
       .car-arrow.next:hover {
         transform: translateY(-50%) scale(1.12) translateX(4px);
+      }
+
+      /* Car Company Brand Plaque Watermark */
+      .brand-watermark {
+        position: absolute;
+        bottom: 34px;
+        right: 78px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        pointer-events: auto;
+        opacity: 0;
+        transform: translateY(16px) scale(0.96);
+        transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+      }
+      .car-section.revealed .brand-watermark {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        transition-delay: 0.35s;
+      }
+      .brand-watermark-inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 6px 14px 6px 7px;
+        background: rgba(12, 16, 28, 0.65);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 40px;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        transition: transform 0.35s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+      }
+      .brand-watermark-glow {
+        position: absolute;
+        inset: -2px;
+        border-radius: 42px;
+        background: radial-gradient(circle at 35% 50%, var(--brand-color, var(--car-glow, rgba(255, 77, 77, 0.35))), transparent 70%);
+        opacity: 0.45;
+        pointer-events: none;
+        z-index: -1;
+        filter: blur(10px);
+        transition: opacity 0.4s ease;
+      }
+      .brand-watermark:hover .brand-watermark-inner {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.28);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55), 0 0 24px var(--brand-color, rgba(255, 77, 77, 0.25)), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      }
+      .brand-watermark:hover .brand-watermark-glow {
+        opacity: 0.9;
+      }
+      .brand-logo-wrap {
+        width: 58px;
+        height: 34px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.96);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 1);
+        flex-shrink: 0;
+        transition: transform 0.35s var(--ease);
+      }
+      .brand-watermark:hover .brand-logo-wrap {
+        transform: scale(1.06);
+      }
+      .brand-logo-img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+      }
+      .brand-text-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        line-height: 1.1;
+      }
+      .brand-watermark-maker {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #ffffff;
+        white-space: nowrap;
+      }
+      .brand-watermark-sub {
+        font-size: 0.52rem;
+        font-weight: 600;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        color: var(--brand-color, var(--car-accent, #94a3b8));
+        white-space: nowrap;
+        opacity: 0.92;
+      }
+      .brand-watermark-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--brand-color, var(--car-accent, #ff4d4d));
+        box-shadow: 0 0 8px var(--brand-color, var(--car-accent, #ff4d4d));
+        margin-left: 2px;
+        flex-shrink: 0;
+      }
+      body.spec-open .brand-watermark,
+      body.recent-visible .brand-watermark {
+        opacity: 0 !important;
+        pointer-events: none !important;
       }
 
       .overlay {
@@ -2492,6 +2642,25 @@ html[dir="rtl"] .nav-pages {
 }
 .light-theme .vignette {
   display: none;
+}
+
+.light-theme .brand-watermark-inner {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+.light-theme .brand-watermark-maker {
+  color: #0f172a;
+}
+.light-theme .brand-logo-wrap {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.light-theme .brand-watermark:hover .brand-watermark-inner {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
 }
 
 .light-theme .overlay .name-row h2 { color: #0f172a; }

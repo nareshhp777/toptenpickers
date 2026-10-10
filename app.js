@@ -319,6 +319,7 @@
       loadOrder.forEach((rank, i) => {
         const c = cars.find(x => x.rank === rank);
         const theme = carThemes[rank];
+        const brand = (typeof cursorBrands !== 'undefined' && cursorBrands[rank]) ? cursorBrands[rank] : null;
 
         const dot = document.createElement('div');
         dot.className = 'dot';
@@ -341,6 +342,9 @@
         s.style.setProperty('--car-accent2', theme.accent2);
         s.style.setProperty('--car-glow', theme.glow);
         s.style.setProperty('--car-glow-border', theme.glowBorder);
+        if (brand && brand.color) {
+          s.style.setProperty('--brand-color', brand.color);
+        }
 
         let angleBtnsHtml = '';
         angleNames.forEach((an, ai) => {
@@ -363,6 +367,20 @@
             <button class="car-arrow prev" data-dir="-1" aria-label="Previous angle"><i class="fas fa-chevron-left"></i></button>
             <button class="car-arrow next" data-dir="1" aria-label="Next angle"><i class="fas fa-chevron-right"></i></button>
           </div>
+          ${brand ? `
+          <div class="brand-watermark" aria-label="${c.maker} official crest">
+            <div class="brand-watermark-glow"></div>
+            <div class="brand-watermark-inner">
+              <div class="brand-logo-wrap">
+                <img src="${brand.img}" alt="${c.maker} logo" class="brand-logo-img" width="60" height="34" loading="lazy" decoding="async">
+              </div>
+              <div class="brand-text-wrap">
+                <span class="brand-watermark-maker">${c.maker}</span>
+                <span class="brand-watermark-sub">Official Crest</span>
+              </div>
+              <span class="brand-watermark-dot"></span>
+            </div>
+          </div>` : ''}
           <div class="overlay">
             <div class="top-row">
               <div class="top-row-left">
