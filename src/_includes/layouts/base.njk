@@ -33,7 +33,16 @@
     }
     (self.requestIdleCallback || function(fn){setTimeout(fn, 1)})(function(){
       gtag('js', new Date());
-      gtag('config', 'G-HPLGYD20BG');
+      var activeTheme = document.documentElement.classList.contains('light-theme') ? 'light' : 'dark';
+      gtag('set', 'user_properties', { 'theme_mode': activeTheme });
+      gtag('config', 'G-HPLGYD20BG', {
+        'theme_mode': activeTheme
+      });
+      gtag('event', 'theme_usage', {
+        'theme_mode': activeTheme,
+        'event_category': 'user_preference',
+        'event_label': activeTheme
+      });
     });
   </script>
 

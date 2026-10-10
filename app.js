@@ -962,7 +962,8 @@
     };
 
     articleCards.forEach(card => {
-      const metaText = card.querySelector('.meta').textContent.trim();
+      const metaEl = card.querySelector('.meta');
+      const metaText = metaEl ? metaEl.textContent.trim() : '';
       card.dataset.category = categoryMapping[metaText] || 'other';
     });
 
@@ -1017,19 +1018,7 @@ document.addEventListener('click', e => {
 });
 setTimeout(() => {
   const isLight = document.documentElement.classList.contains('light-theme');
-  const activeTheme = isLight ? 'light' : 'dark';
   document.querySelectorAll('.theme-toggle i').forEach(icon => {
     icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
   });
-  // Track active theme usage in Google Analytics on page load
-  if (typeof gtag === 'function') {
-    gtag('set', 'user_properties', {
-      'theme_mode': activeTheme
-    });
-    gtag('event', 'theme_usage', {
-      'theme_mode': activeTheme,
-      'event_category': 'user_preference',
-      'event_label': activeTheme
-    });
-  }
 }, 0);
