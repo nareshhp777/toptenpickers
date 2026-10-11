@@ -4353,12 +4353,208 @@ html[dir="rtl"] .bike-dock-node:hover .bike-hud-flyout {
   transform: translateY(-50%) translateX(0);
 }
 
-/* Responsive Showcase */
+/* ==========================================================================
+   RESPONSIVE SPORTS BIKES TELEMETRY RANK SIDE DOCK (TABLET & MOBILE)
+   ========================================================================== */
 @media (max-width: 900px) {
   .bike-rank-dock {
-    display: none;
+    right: 8px;
+    padding: 8px 4px;
+    gap: 4px;
+    border-radius: 28px;
+  }
+
+  html[dir="rtl"] .bike-rank-dock {
+    right: auto;
+    left: 8px;
+  }
+
+  .bike-hud-flyout {
+    display: none !important;
+  }
+
+  .bike-dock-node {
+    width: 24px;
+    height: 24px;
+  }
+
+  .bike-node-gear {
+    font-size: 0.52rem;
+  }
+
+  .bike-dock-node.active {
+    transform: scale(1.12);
+  }
+
+  .bike-dock-node.active .bike-node-gear {
+    font-size: 0.56rem;
+  }
+
+  .bike-dock-finish {
+    width: 22px;
+    height: 22px;
+    font-size: 0.72rem;
+  }
+
+  .bike-rank-dock ~ .page-wrap .content {
+    padding-right: 48px;
+  }
+
+  html[dir="rtl"] .bike-rank-dock ~ .page-wrap .content {
+    padding-right: 24px;
+    padding-left: 48px;
   }
 }
+
+@media (max-width: 768px) {
+  .bike-rank-dock {
+    display: flex !important;
+    position: fixed !important;
+    right: 5px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 100 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2.5px !important;
+    padding: 5px 2px !important;
+    width: 22px !important;
+    box-sizing: border-box !important;
+    background: rgba(10, 14, 26, 0.58) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 12px var(--active-bike-glow, rgba(239, 68, 68, 0.2)), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  }
+
+  .bike-dock-header {
+    gap: 2px !important;
+    padding-bottom: 2px !important;
+    font-size: 0.62rem !important;
+  }
+
+  .bike-dock-shift-led {
+    width: 3.5px !important;
+    height: 3.5px !important;
+  }
+
+  .bike-dock-track {
+    gap: 2.5px !important;
+  }
+
+  .bike-dock-rpm-fill {
+    width: 2px !important;
+    top: 4px !important;
+    bottom: 4px !important;
+  }
+
+  .bike-dock-nodes {
+    gap: 2.5px !important;
+  }
+
+  .bike-dock-node {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    position: relative !important;
+    -webkit-tap-highlight-color: transparent !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    transform: scale(0.9) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .bike-node-gear {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 0.46rem !important;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    background: transparent !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+  }
+
+  .bike-dock-node.active {
+    width: 18px !important;
+    height: 18px !important;
+    background: linear-gradient(135deg, var(--bike-accent, #ef4444) 0%, var(--bike-accent2, #f97316) 100%) !important;
+    border-color: transparent !important;
+    box-shadow: 0 0 10px var(--bike-glow, rgba(239, 68, 68, 0.6)) !important;
+    transform: scale(1.15) !important;
+  }
+
+  .bike-dock-node.active .bike-node-gear {
+    font-size: 0.50rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+  }
+
+  .bike-dock-finish {
+    width: 18px !important;
+    height: 18px !important;
+    margin-top: 2px !important;
+    font-size: 0.60rem !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  /* RTL Support for Mobile */
+  html[dir="rtl"] .bike-rank-dock {
+    right: auto !important;
+    left: 5px !important;
+  }
+
+  /* Content Clearance to Prevent Overlap with Dock */
+  .bike-rank-dock ~ .page-wrap .content {
+    padding-right: 34px !important;
+    padding-left: 12px !important;
+  }
+
+  html[dir="rtl"] .bike-rank-dock ~ .page-wrap .content {
+    padding-right: 12px !important;
+    padding-left: 34px !important;
+  }
+}
+
+/* Light Theme Overrides on Mobile & Tablet */
+html.light-theme .bike-rank-dock,
+.light-theme .bike-rank-dock {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), 0 0 12px var(--active-bike-glow, rgba(239, 68, 68, 0.1)), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+@media (max-width: 768px) {
+  html.light-theme .bike-dock-node,
+  .light-theme .bike-dock-node {
+    background: rgba(241, 245, 249, 0.85) !important;
+    border-color: rgba(15, 23, 42, 0.12) !important;
+  }
+
+  html.light-theme .bike-node-gear,
+  .light-theme .bike-node-gear {
+    color: #64748b !important;
+  }
+
+  html.light-theme .bike-dock-node.active .bike-node-gear,
+  .light-theme .bike-dock-node.active .bike-node-gear {
+    color: #ffffff !important;
+  }
+
+  html.light-theme .bike-dock-finish,
+  .light-theme .bike-dock-finish {
+    color: #64748b !important;
+  }
+}
+
 
 @media (max-width: 900px) {
   .showcase-card .spec-grid {
