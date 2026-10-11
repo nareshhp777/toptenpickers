@@ -1099,9 +1099,88 @@ html[dir="rtl"] .nav-pages {
         body.search-expanded .lang-selector { display: none; }
         body.search-expanded .nav-center { display: none; }
 
-        /* Hide desktop side-nav dock on mobile to maximize content canvas */
+        /* Luxury Micro-Glassmorphic Side Rank Menu for Mobile */
         .side-nav {
+          display: flex !important;
+          position: fixed !important;
+          right: 5px !important;
+          top: 50% !important;
+          transform: translateY(-50%) !important;
+          z-index: 100 !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          gap: 3px !important;
+          padding: 6px 3px !important;
+          width: 25px !important;
+          box-sizing: border-box !important;
+          background: rgba(10, 14, 26, 0.55) !important;
+          backdrop-filter: blur(20px) !important;
+          -webkit-backdrop-filter: blur(20px) !important;
+          border: 1px solid rgba(255, 255, 255, 0.12) !important;
+          border-radius: 30px !important;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+          touch-action: manipulation !important;
+        }
+        html[dir="rtl"] .side-nav {
+          right: auto !important;
+          left: 5px !important;
+        }
+        .side-nav .dot {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          width: 19px !important;
+          height: 19px !important;
+          cursor: pointer !important;
+          position: relative !important;
+          -webkit-tap-highlight-color: transparent !important;
+        }
+        /* Suppress wide desktop hover labels on mobile */
+        .side-nav .dot .dot-left {
           display: none !important;
+        }
+        .side-nav .dot .dot-num {
+          width: 17px !important;
+          height: 17px !important;
+          border-radius: 50% !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.52rem !important;
+          font-weight: 700 !important;
+          color: rgba(255, 255, 255, 0.45) !important;
+          background: transparent !important;
+          border: 1px solid transparent !important;
+          transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+          margin: 0 !important;
+        }
+        .side-nav .dot:active .dot-num {
+          transform: scale(0.9) !important;
+        }
+        .side-nav .dot.active .dot-num {
+          width: 19px !important;
+          height: 19px !important;
+          font-size: 0.52rem !important;
+          font-weight: 800 !important;
+          color: #ffffff !important;
+          background: linear-gradient(135deg, var(--car-accent, #ff4b2b), var(--car-accent2, #ff416c)) !important;
+          border: none !important;
+          box-shadow: 0 2px 10px var(--car-glow, rgba(255, 75, 43, 0.5)), 0 0 8px var(--car-glow, rgba(255, 75, 43, 0.35)) !important;
+          transform: scale(1.15) !important;
+        }
+
+        /* Light theme mobile side-nav styling */
+        html.light-theme .side-nav {
+          background: rgba(255, 255, 255, 0.75) !important;
+          border-color: rgba(15, 23, 42, 0.1) !important;
+          box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        }
+        html.light-theme .side-nav .dot .dot-num {
+          color: rgba(15, 23, 42, 0.5) !important;
+        }
+        html.light-theme .side-nav .dot.active .dot-num {
+          color: #ffffff !important;
         }
 
         /* Floating Over-Image Navigation Arrows */
@@ -1343,7 +1422,7 @@ html[dir="rtl"] .nav-pages {
         .overlay {
           position: relative !important;
           margin-top: -32px !important;
-          padding: 32px 18px 24px 18px !important;
+          padding: 32px 34px 24px 16px !important;
           background: linear-gradient(to bottom, transparent 0%, rgba(6, 8, 15, 0.92) 44px, rgba(6, 8, 15, 1) 100%) !important;
           box-sizing: border-box !important;
           width: 100vw !important;
@@ -1378,10 +1457,17 @@ html[dir="rtl"] .nav-pages {
           position: absolute !important;
           top: calc(96px + (100vw * 9 / 16) - 40px) !important;
           bottom: auto !important;
-          right: 14px !important;
+          right: 34px !important;
           z-index: 5 !important;
           margin: 0 !important;
           pointer-events: none !important;
+        }
+        html[dir="rtl"] .brand-watermark {
+          right: auto !important;
+          left: 34px !important;
+        }
+        html[dir="rtl"] .overlay {
+          padding: 32px 16px 24px 34px !important;
         }
         .brand-watermark-inner {
           padding: 3px 10px 3px 4px !important;
@@ -1450,7 +1536,7 @@ html[dir="rtl"] .nav-pages {
         }
       }
       body.spec-open .side-nav,
-      body.recent-visible .side-nav { display: none; }
+      body.recent-visible .side-nav { display: none !important; }
       body.spec-open .nav,
       body.recent-visible .nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
       .car-section.revealed .bg {
