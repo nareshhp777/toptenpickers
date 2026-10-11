@@ -1109,11 +1109,11 @@ html[dir="rtl"] .nav-pages {
           z-index: 100 !important;
           flex-direction: column !important;
           align-items: center !important;
-          gap: 3px !important;
-          padding: 6px 3px !important;
-          width: 25px !important;
+          gap: 2.5px !important;
+          padding: 5px 2px !important;
+          width: 22px !important;
           box-sizing: border-box !important;
-          background: rgba(10, 14, 26, 0.55) !important;
+          background: rgba(10, 14, 26, 0.58) !important;
           backdrop-filter: blur(20px) !important;
           -webkit-backdrop-filter: blur(20px) !important;
           border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -1129,8 +1129,8 @@ html[dir="rtl"] .nav-pages {
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
-          width: 19px !important;
-          height: 19px !important;
+          width: 18px !important;
+          height: 18px !important;
           cursor: pointer !important;
           position: relative !important;
           -webkit-tap-highlight-color: transparent !important;
@@ -1140,14 +1140,14 @@ html[dir="rtl"] .nav-pages {
           display: none !important;
         }
         .side-nav .dot .dot-num {
-          width: 17px !important;
-          height: 17px !important;
+          width: 16px !important;
+          height: 16px !important;
           border-radius: 50% !important;
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
           font-family: 'Space Grotesk', sans-serif !important;
-          font-size: 0.52rem !important;
+          font-size: 0.48rem !important;
           font-weight: 700 !important;
           color: rgba(255, 255, 255, 0.45) !important;
           background: transparent !important;
@@ -1159,8 +1159,8 @@ html[dir="rtl"] .nav-pages {
           transform: scale(0.9) !important;
         }
         .side-nav .dot.active .dot-num {
-          width: 19px !important;
-          height: 19px !important;
+          width: 18px !important;
+          height: 18px !important;
           font-size: 0.52rem !important;
           font-weight: 800 !important;
           color: #ffffff !important;
@@ -1172,7 +1172,7 @@ html[dir="rtl"] .nav-pages {
 
         /* Light theme mobile side-nav styling */
         html.light-theme .side-nav {
-          background: rgba(255, 255, 255, 0.75) !important;
+          background: rgba(255, 255, 255, 0.78) !important;
           border-color: rgba(15, 23, 42, 0.1) !important;
           box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
         }
@@ -1261,7 +1261,7 @@ html[dir="rtl"] .nav-pages {
           gap: 8px !important;
         }
         .inline-specs-btn {
-          margin-right: 0 !important;
+          margin-right: 4px !important;
           flex-shrink: 0 !important;
           padding: 0 14px !important;
           height: 32px !important;
@@ -1321,17 +1321,18 @@ html[dir="rtl"] .nav-pages {
         /* Angle Selector & Responsive Thumbnails */
         .angle-selector {
           display: flex !important;
-          gap: 8px !important;
+          gap: 7px !important;
           width: 100% !important;
           overflow-x: auto !important;
           -webkit-overflow-scrolling: touch !important;
           scrollbar-width: none !important;
           margin-top: 4px !important;
+          padding-right: 4px !important;
         }
         .angle-selector::-webkit-scrollbar { display: none !important; }
         .angle-btn {
           flex: 1 1 0 !important;
-          min-width: 58px !important;
+          min-width: 52px !important;
           height: 48px !important;
           border-radius: 12px !important;
           overflow: hidden !important;
@@ -1418,11 +1419,11 @@ html[dir="rtl"] .nav-pages {
           z-index: 1;
         }
 
-        /* Overlay Full-width with modern spacing */
+        /* Overlay Full-width with modern spacing & side-dock clearance */
         .overlay {
           position: relative !important;
           margin-top: -32px !important;
-          padding: 32px 34px 24px 16px !important;
+          padding: 32px 48px 24px 16px !important;
           background: linear-gradient(to bottom, transparent 0%, rgba(6, 8, 15, 0.92) 44px, rgba(6, 8, 15, 1) 100%) !important;
           box-sizing: border-box !important;
           width: 100vw !important;
@@ -1457,17 +1458,21 @@ html[dir="rtl"] .nav-pages {
           position: absolute !important;
           top: calc(96px + (100vw * 9 / 16) - 40px) !important;
           bottom: auto !important;
-          right: 34px !important;
+          right: 36px !important;
           z-index: 5 !important;
           margin: 0 !important;
           pointer-events: none !important;
         }
         html[dir="rtl"] .brand-watermark {
           right: auto !important;
-          left: 34px !important;
+          left: 36px !important;
         }
         html[dir="rtl"] .overlay {
-          padding: 32px 16px 24px 34px !important;
+          padding: 32px 16px 24px 48px !important;
+        }
+        html[dir="rtl"] .inline-specs-btn {
+          margin-right: 0 !important;
+          margin-left: 4px !important;
         }
         .brand-watermark-inner {
           padding: 3px 10px 3px 4px !important;
