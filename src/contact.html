@@ -15,7 +15,7 @@ headTailHtml: |-
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="/style.css">
 navHtml: |-
   <nav class="nav">
@@ -45,6 +45,8 @@ mobileMenuHtml: |-
       <p>Fill out the form below or reach us directly at <a href="mailto:nareshhp777@gmail.com" style="color:var(--accent2);">nareshhp777@gmail.com</a>.</p>
       <p style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-top:-8px;"><strong>Response time:</strong> We aim to respond to all genuine inquiries within 2–3 business days (IST). Editorial corrections are prioritized and typically actioned within 24–48 hours once verified.</p>
       <form action="https://formspree.io/f/xjgnpegw" method="POST" style="margin-top: 30px;" id="contactForm" novalidate>
+        <!-- Anti-bot honeypot field (hidden from real users, caught if submitted by automated bots) -->
+        <input type="text" name="_gotcha" style="display:none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form-group">
           <label for="name">Your Name <span style="color:var(--accent);">*</span></label>
           <input type="text" id="name" name="name" placeholder="John Doe" required>

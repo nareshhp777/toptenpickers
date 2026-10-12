@@ -53,7 +53,13 @@
       const badge = document.getElementById('regionBadge');
       if (badge) badge.textContent = countryName || 'Ã°Å¸Å’Â';
     } catch(e) { const badge = document.getElementById('regionBadge'); if (badge) badge.textContent = 'Ã°Å¸Å’Â'; }
-    console.log('Detected region:', detectedCode, 'from tz/timezone/language');
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+
     function convertUnit(str) {
       if (region === 'US' || !str) return str;
       const m = str.match(/^([\d,.+]+)\s*([\w/Ã‚Â°]+)$/);
@@ -327,7 +333,7 @@
         dot.setAttribute('role', 'button');
         dot.setAttribute('tabindex', '0');
         dot.setAttribute('aria-label', 'Go to ' + c.name);
-        dot.innerHTML = '<div class="dot-left"><span class="dot-label">' + c.name + '</span><span class="dot-line"></span></div><span class="dot-num">' + c.rank + '</span>';
+        dot.innerHTML = '<div class="dot-left"><span class="dot-label">' + escapeHtml(c.name) + '</span><span class="dot-line"></span></div><span class="dot-num">' + c.rank + '</span>';
         dot.addEventListener('click', () => {
           const section = document.getElementById('car-' + c.rank);
           if (section) section.scrollIntoView({ behavior: 'smooth' });
@@ -350,7 +356,7 @@
         angleNames.forEach((an, ai) => {
           const activeClass = ai === 0 ? ' active' : '';
           angleBtnsHtml += `<button class="angle-btn${activeClass}" data-angle="${ai}">
-            <img src="/cars/${c.folder}/${an}.webp" alt="${c.name} - ${angleLabels[ai]} view" width="120" height="80" loading="lazy" decoding="async">
+            <img src="/cars/${c.folder}/${an}.webp" alt="${escapeHtml(c.name)} - ${angleLabels[ai]} view" width="120" height="80" loading="lazy" decoding="async">
             <span class="angle-label">${angleLabels[ai]}</span>
           </button>`;
         });
@@ -358,7 +364,7 @@
         s.innerHTML = `
           <div class="bg" data-bg="/cars/${c.folder}/front.webp"></div>
           <!-- SEO Image Tag: Hidden from UI, visible to Google Images -->
-          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${c.name} - ${c.maker} Supercar, ${c.engine}, ${c.hp}" width="1200" height="675" style="display: none;">
+          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${escapeHtml(c.name)} - ${escapeHtml(c.maker)} Supercar, ${escapeHtml(c.engine)}, ${escapeHtml(c.hp)}" width="1200" height="675" style="display: none;">
           <div class="noise"></div>
           <div class="vignette"></div>
           <div class="grid-lines"></div>
@@ -368,14 +374,14 @@
             <button class="car-arrow next" data-dir="1" aria-label="Next angle"><i class="fas fa-chevron-right"></i></button>
           </div>
           ${brand ? `
-          <div class="brand-watermark" aria-label="${c.maker} official crest">
+          <div class="brand-watermark" aria-label="${escapeHtml(c.maker)} official crest">
             <div class="brand-watermark-glow"></div>
             <div class="brand-watermark-inner">
               <div class="brand-logo-wrap">
-                <img src="${brand.img}" alt="${c.maker} logo" class="brand-logo-img" width="60" height="34" loading="lazy" decoding="async">
+                <img src="${brand.img}" alt="${escapeHtml(c.maker)} logo" class="brand-logo-img" width="60" height="34" loading="lazy" decoding="async">
               </div>
               <div class="brand-text-wrap">
-                <span class="brand-watermark-maker">${c.maker}</span>
+                <span class="brand-watermark-maker">${escapeHtml(c.maker)}</span>
                 <span class="brand-watermark-sub">Official Crest</span>
               </div>
               <span class="brand-watermark-dot"></span>
@@ -385,22 +391,22 @@
             <div class="top-row">
               <div class="top-row-left">
                 <span class="rank-badge">#${c.rank}</span>
-                <span class="maker-tag">${c.maker}</span>
+                <span class="maker-tag">${escapeHtml(c.maker)}</span>
               </div>
               <button class="inline-specs-btn" data-rank="${c.rank}" aria-label="View Full Specs">
                 <i class="fas fa-list"></i> <span>Specs</span>
               </button>
             </div>
             <div class="name-row">
-              <h2>${c.name}</h2>
+              <h2>${escapeHtml(c.name)}</h2>
             </div>
             <div class="specs">
-              <span><i class="fas fa-engine"></i> ${c.engine}</span>
+              <span><i class="fas fa-engine"></i> ${escapeHtml(c.engine)}</span>
               <span><i class="fas fa-horse-head"></i> ${convertUnit(c.hp)}</span>
               <span><i class="fas fa-tachometer-alt"></i> ${convertUnit(c.speed)}</span>
             </div>
             <div class="expandable-content">
-              <p class="desc">${c.desc}</p>
+              <p class="desc">${escapeHtml(c.desc)}</p>
               <div class="price-row">
                 <div class="price">${convertUnit(c.price)}</div>
                 <div class="price-divider"></div>
@@ -600,11 +606,11 @@
               ${brand ? `
               <div class="spec-brand-pill">
                 <img src="${brand.img}" alt="${c.maker} logo" class="spec-brand-logo">
-                <span>${c.maker}</span>
+                <span>${escapeHtml(c.maker)}</span>
               </div>` : ''}
               <span class="spec-live-tag"><span class="spec-live-dot"></span> Official Dossier</span>
             </div>
-            <h3 class="spec-car-title">${c.name} <span class="spec-title-accent">Telemetry</span></h3>
+            <h3 class="spec-car-title">${escapeHtml(c.name)} <span class="spec-title-accent">Telemetry</span></h3>
           </div>
           <button class="spec-close" id="specClose" aria-label="Close specifications">
             <i class="fa-solid fa-xmark"></i>

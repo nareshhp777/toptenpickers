@@ -56,6 +56,13 @@ layout: layouts/base.njk
       nodesContainer.innerHTML = '';
       var bikeNodes = [];
 
+      function sanitize(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>"']/g, function(m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+      }
+
       cards.forEach(function(card, idx) {
         var rankNum = idx + 1;
         card.id = 'bike-' + rankNum;
@@ -98,13 +105,13 @@ layout: layouts/base.njk
           <div class="bike-hud-flyout">
             <div class="bike-hud-header">
               <span class="bike-hud-rank">#${padRank}</span>
-              <span class="bike-hud-maker">${theme.maker}</span>
+              <span class="bike-hud-maker">${sanitize(theme.maker)}</span>
             </div>
-            <div class="bike-hud-name">${fullName}</div>
+            <div class="bike-hud-name">${sanitize(fullName)}</div>
             ${(powerVal || speedVal) ? `
             <div class="bike-hud-telemetry">
-              ${powerVal ? `<span class="bike-hud-stat hp"><i class="fa-solid fa-bolt"></i> ${powerVal}</span>` : ''}
-              ${speedVal ? `<span class="bike-hud-stat speed"><i class="fa-solid fa-gauge-high"></i> ${speedVal}</span>` : ''}
+              ${powerVal ? `<span class="bike-hud-stat hp"><i class="fa-solid fa-bolt"></i> ${sanitize(powerVal)}</span>` : ''}
+              ${speedVal ? `<span class="bike-hud-stat speed"><i class="fa-solid fa-gauge-high"></i> ${sanitize(speedVal)}</span>` : ''}
             </div>` : ''}
           </div>
         `;
