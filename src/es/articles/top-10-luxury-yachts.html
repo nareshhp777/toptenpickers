@@ -1,8 +1,10 @@
 ---
 changefreq: monthly
 priority: 0.8
-layout: layouts/article.njk
-family: article
+layout: layouts/showcase.njk
+family: showcase
+showcaseType: yachts
+
 title: Top 10 Yates de Lujo de 2026 | Top 10 Picker
 description: Diseño, amenidades y capacidad de crucero global. Desde el REV Ocean hasta el Sunreef 80 Eco.
 robots: index, follow
@@ -43,14 +45,7 @@ headTailHtml: |-
       .article-hero { text-align: center; padding: 40px 0 20px; }
       .article-hero h1 { font-size: 2rem; }
       .article-hero .byline { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; margin-top: 8px; }
-      .rank-list { counter-reset: rank; list-style: none; margin: 30px 0 0; padding: 0; }
-      .rank-list li { counter-increment: rank; margin-bottom: 40px; padding: 24px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; }
-      .rank-list li::before { content: "#" counter(rank); display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
-      .rank-list h2 { margin: 4px 0 8px; font-size: 1.15rem; }
-      .rank-list .spec-row { display: flex; flex-wrap: wrap; gap: 16px; margin: 10px 0; font-size: 0.8rem; }
-      .rank-list .spec-row span { color: #7a849c; }
-      .rank-list .spec-row strong { color: #e8edf5; }
-      @media (max-width: 640px) { .article-hero h1 { font-size: 1.4rem; } .rank-list li { padding: 16px; } }
+      @media (max-width: 768px) {\n        .article-hero h1 { font-size: 1.4rem; }\n      } .rank-list li { padding: 16px; } }
     </style>
 navHtml: |-
   <nav class="nav">
@@ -88,6 +83,73 @@ mobileMenuHtml: |-
       <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
       <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
     </div>
+lightboxHtml: |-
+  <div id="imageLightbox" class="lightbox-overlay">
+      <button class="lightbox-close" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+      <img src="" alt="Fullscreen View" class="lightbox-img">
+    </div>
+pageScriptHtml: |-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var galleries = document.querySelectorAll('.bento-gallery');
+      galleries.forEach(function(gallery) {
+        var heroItem = gallery.querySelector('.bento-item.hero img');
+        var subItems = gallery.querySelectorAll('.bento-item:not(.hero) img');
+        subItems.forEach(function(subItem) {
+          subItem.addEventListener('click', function() {
+            heroItem.parentElement.classList.add('swapping');
+            subItem.parentElement.classList.add('swapping');
+            setTimeout(function() {
+              var tempSrc = heroItem.src;
+              var tempAlt = heroItem.alt;
+              heroItem.src = subItem.src;
+              heroItem.alt = subItem.alt;
+              subItem.src = tempSrc;
+              subItem.alt = tempAlt;
+              heroItem.parentElement.classList.remove('swapping');
+              subItem.parentElement.classList.remove('swapping');
+            }, 300);
+          });
+        });
+      });
+
+      var observerOptions = { root: null, rootMargin: '0px 0px -100px 0px', threshold: 0.1 };
+      var galleryObserver = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      galleries.forEach(function(g) { galleryObserver.observe(g); });
+
+      var lightbox = document.getElementById('imageLightbox');
+      var lightboxImg = lightbox.querySelector('.lightbox-img');
+      var lightboxClose = lightbox.querySelector('.lightbox-close');
+      var heroImages = document.querySelectorAll('.bento-item.hero img');
+      heroImages.forEach(function(img) {
+        img.addEventListener('click', function() {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add('active');
+        });
+      });
+      lightboxClose.addEventListener('click', function() {
+        lightbox.classList.remove('active');
+      });
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+          lightbox.classList.remove('active');
+        }
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          lightbox.classList.remove('active');
+        }
+      });
+    });
+    </script>
 ---
 <div class="article-hero">
         <span class="label">Yates de Lujo</span>
@@ -96,58 +158,198 @@ mobileMenuHtml: |-
       </div>
       <p>Top 10 Yates de Lujo de 2026 merece mas que una lista rapida de nombres y cifras. En esta version localizada analizamos la categoria desde el punto de vista de rendimiento, legado, utilidad real e impacto cultural. Diseño, amenidades y capacidad de crucero global. Desde el REV Ocean hasta el Sunreef 80 Eco. La idea es explicar por que cada entrada pertenece al ranking, no solo repetir especificaciones.</p>
 
-      <ol class="rank-list">
-        <li>
-          <h2>REV Ocean</h2>
-          <div class="spec-row"><span>Length: <strong>600 ft</strong></span> <span>Builder: <strong>Fincantieri</strong></span> <span>Guests: <strong>60</strong></span> <span>Range: <strong>21,000 NM</strong></span></div>
+      <section class="showcase-feed" data-category="yachts">
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#1</span>
+            <h2>REV Ocean</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/rev-ocean/angle1.webp" alt="REV Ocean - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/rev-ocean/angle2.webp" alt="REV Ocean - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/rev-ocean/angle3.webp" alt="REV Ocean - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">600 ft (183 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Fincantieri / Vard</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">60 huéspedes (30 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">21,000 NM</span></div>
+          </div>
           <p>REV Ocean ocupa el puesto #1 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Feadship's Project 1010</h2>
-          <div class="spec-row"><span>Length: <strong>390 ft</strong></span> <span>Builder: <strong>Feadship</strong></span> <span>Guests: <strong>24</strong></span> <span>Range: <strong>6,500 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#2</span>
+            <h2>Feadship's Project 1010</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/feadship-project-1010/angle1.webp" alt="Feadship's Project 1010 - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/feadship-project-1010/angle2.webp" alt="Feadship's Project 1010 - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/feadship-project-1010/angle3.webp" alt="Feadship's Project 1010 - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">390 ft (118 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Feadship</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">24 huéspedes (12 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">6,500 NM</span></div>
+          </div>
           <p>Feadship's Project 1010 ocupa el puesto #2 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Lürssen's Opera</h2>
-          <div class="spec-row"><span>Length: <strong>380 ft</strong></span> <span>Builder: <strong>Lürssen</strong></span> <span>Guests: <strong>28</strong></span> <span>Range: <strong>7,500 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#3</span>
+            <h2>Lürssen's Opera</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/lurssen-opera/angle1.webp" alt="Lürssen's Opera - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/lurssen-opera/angle2.webp" alt="Lürssen's Opera - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/lurssen-opera/angle3.webp" alt="Lürssen's Opera - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">380 ft (146 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Lürssen</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">28 huéspedes (14 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">7,500 NM</span></div>
+          </div>
           <p>Lürssen's Opera ocupa el puesto #3 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Benetti's B.YOND 48M</h2>
-          <div class="spec-row"><span>Length: <strong>157 ft</strong></span> <span>Builder: <strong>Benetti</strong></span> <span>Guests: <strong>14</strong></span> <span>Range: <strong>5,500 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#4</span>
+            <h2>Benetti's B.YOND 48M</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/benetti-byond-48m/angle1.webp" alt="Benetti's B.YOND 48M - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/benetti-byond-48m/angle2.webp" alt="Benetti's B.YOND 48M - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/benetti-byond-48m/angle3.webp" alt="Benetti's B.YOND 48M - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">157 ft (48 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Benetti</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">14 huéspedes (7 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">5,500 NM</span></div>
+          </div>
           <p>Benetti's B.YOND 48M ocupa el puesto #4 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Heesen's Project Oslo 24</h2>
-          <div class="spec-row"><span>Length: <strong>213 ft</strong></span> <span>Builder: <strong>Heesen Yachts</strong></span> <span>Guests: <strong>12</strong></span> <span>Range: <strong>4,800 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#5</span>
+            <h2>Heesen's Project Oslo 24</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/heesen-project-oslo-24/angle1.webp" alt="Heesen's Project Oslo 24 - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/heesen-project-oslo-24/angle2.webp" alt="Heesen's Project Oslo 24 - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/heesen-project-oslo-24/angle3.webp" alt="Heesen's Project Oslo 24 - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">213 ft (50 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Heesen Yachts</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">12 huéspedes (6 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">4,800 NM</span></div>
+          </div>
           <p>Heesen's Project Oslo 24 ocupa el puesto #5 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Amels 80M Limited Editions</h2>
-          <div class="spec-row"><span>Length: <strong>262 ft</strong></span> <span>Builder: <strong>Amels / Damen</strong></span> <span>Guests: <strong>16</strong></span> <span>Range: <strong>5,000 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#6</span>
+            <h2>Amels 80M Limited Editions</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/amels-80m-limited-editions/angle1.webp" alt="Amels 80M Limited Editions - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/amels-80m-limited-editions/angle2.webp" alt="Amels 80M Limited Editions - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/amels-80m-limited-editions/angle3.webp" alt="Amels 80M Limited Editions - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">262 ft (80 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Amels / Damen Yachting</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">16 huéspedes (8 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">5,000 NM</span></div>
+          </div>
           <p>Amels 80M Limited Editions ocupa el puesto #6 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Sanlorenzo 62Steel</h2>
-          <div class="spec-row"><span>Length: <strong>203 ft</strong></span> <span>Builder: <strong>Sanlorenzo</strong></span> <span>Guests: <strong>14</strong></span> <span>Range: <strong>4,500 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#7</span>
+            <h2>Sanlorenzo 62Steel</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/sanlorenzo-62steel/angle1.webp" alt="Sanlorenzo 62Steel - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/sanlorenzo-62steel/angle2.webp" alt="Sanlorenzo 62Steel - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/sanlorenzo-62steel/angle3.webp" alt="Sanlorenzo 62Steel - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">203 ft (62 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Sanlorenzo</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">14 huéspedes (7 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">4,500 NM</span></div>
+          </div>
           <p>Sanlorenzo 62Steel ocupa el puesto #7 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Holland Jachtbouw's Sybaris</h2>
-          <div class="spec-row"><span>Length: <strong>233 ft</strong></span> <span>Builder: <strong>Holland Jachtbouw</strong></span> <span>Guests: <strong>12</strong></span> <span>Range: <strong>6,000 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#8</span>
+            <h2>Holland Jachtbouw's Sybaris</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/holland-jachtbouw-sybaris/angle1.webp" alt="Holland Jachtbouw's Sybaris - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/holland-jachtbouw-sybaris/angle2.webp" alt="Holland Jachtbouw's Sybaris - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/holland-jachtbouw-sybaris/angle3.webp" alt="Holland Jachtbouw's Sybaris - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">233 ft (70 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Holland Jachtbouw / Perini</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">12 huéspedes (6 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">6,000 NM</span></div>
+          </div>
           <p>Holland Jachtbouw's Sybaris ocupa el puesto #8 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Riva 130 Bellissima</h2>
-          <div class="spec-row"><span>Length: <strong>130 ft</strong></span> <span>Builder: <strong>Riva / Ferretti Group</strong></span> <span>Guests: <strong>10</strong></span> <span>Range: <strong>2,800 NM</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#9</span>
+            <h2>Riva 130 Bellissima</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/riva-130-bellissima/angle1.webp" alt="Riva 130 Bellissima - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/riva-130-bellissima/angle2.webp" alt="Riva 130 Bellissima - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/riva-130-bellissima/angle3.webp" alt="Riva 130 Bellissima - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">130 ft (40 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Riva / Ferretti Group</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">10 huéspedes (5 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">2,800 NM</span></div>
+          </div>
           <p>Riva 130 Bellissima ocupa el puesto #9 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Sunreef 80 Eco</h2>
-          <div class="spec-row"><span>Length: <strong>80 ft</strong></span> <span>Builder: <strong>Sunreef Yachts</strong></span> <span>Guests: <strong>10</strong></span> <span>Range: <strong>Unlimited (solar)</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#10</span>
+            <h2>Sunreef 80 Eco</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/yachts/sunreef-80-eco/angle1.webp" alt="Sunreef 80 Eco - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/yachts/sunreef-80-eco/angle2.webp" alt="Sunreef 80 Eco - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/yachts/sunreef-80-eco/angle3.webp" alt="Sunreef 80 Eco - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">ESLORA</span><span class="val">80 ft (24 m)</span></div>
+            <div class="spec-pill"><span class="label">ASTILLERO</span><span class="val">Sunreef Yachts</span></div>
+            <div class="spec-pill"><span class="label">HUÉSPEDES</span><span class="val">10 huéspedes (5 suites)</span></div>
+            <div class="spec-pill"><span class="label">AUTONOMÍA</span><span class="val">Ilimitado (solar eléctrico)</span></div>
+          </div>
           <p>Sunreef 80 Eco ocupa el puesto #10 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-      </ol>
+        </article>
+      </section>
 
       <h2>Reflexiones finales</h2>
       <p>Este ranking de Top 10 Yates de Lujo de 2026 esta pensado como una guia editorial, no como una ficha tecnica aislada. Las posiciones pueden cambiar con nuevos lanzamientos, pruebas y cambios del mercado, pero estas diez entradas representan hoy una seleccion solida por calidad, influencia y capacidad de destacar.</p>
