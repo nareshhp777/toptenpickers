@@ -5,17 +5,17 @@ layout: layouts/base.njk
 ---
 {{ navHtml | safe }}
 
-<nav class="bike-rank-dock" id="bikeRankDock" aria-label="{% if showcaseType == 'yachts' %}Luxury yacht fleet rankings{% else %}Sports bike rankings{% endif %}" data-showcase="{% if showcaseType == 'yachts' %}yachts{% else %}bikes{% endif %}">
-  <div class="bike-dock-header" title="{% if showcaseType == 'yachts' %}Superyacht Fleet Telemetry{% else %}Superbike Telemetry Grid{% endif %}">
-    <i class="fa-solid {% if showcaseType == 'yachts' %}fa-anchor{% else %}fa-motorcycle{% endif %}"></i>
+<nav class="bike-rank-dock" id="bikeRankDock" aria-label="{% if showcaseType == 'yachts' %}Luxury yacht fleet rankings{% elif showcaseType == 'airplanes' %}Airplanes &amp; aerospace rankings{% else %}Sports bike rankings{% endif %}" data-showcase="{% if showcaseType == 'yachts' %}yachts{% elif showcaseType == 'airplanes' %}airplanes{% else %}bikes{% endif %}">
+  <div class="bike-dock-header" title="{% if showcaseType == 'yachts' %}Superyacht Fleet Telemetry{% elif showcaseType == 'airplanes' %}Avionics Fleet Telemetry{% else %}Superbike Telemetry Grid{% endif %}">
+    <i class="fa-solid {% if showcaseType == 'yachts' %}fa-anchor{% elif showcaseType == 'airplanes' %}fa-plane{% else %}fa-motorcycle{% endif %}"></i>
     <span class="bike-dock-shift-led"></span>
   </div>
   <div class="bike-dock-track">
     <div class="bike-dock-rpm-fill" id="bikeRpmFill"></div>
     <div class="bike-dock-nodes" id="bikeDockNodes"></div>
   </div>
-  <a href="#conclusion" class="bike-dock-finish" id="bikeDockFinish" title="{% if showcaseType == 'yachts' %}Anchorage / Final Verdict{% else %}Checkered Flag / Final Verdict{% endif %}" aria-label="Go to conclusion">
-    <i class="fa-solid {% if showcaseType == 'yachts' %}fa-compass{% else %}fa-flag-checkered{% endif %}"></i>
+  <a href="#conclusion" class="bike-dock-finish" id="bikeDockFinish" title="{% if showcaseType == 'yachts' %}Anchorage / Final Verdict{% elif showcaseType == 'airplanes' %}Touchdown / Final Verdict{% else %}Checkered Flag / Final Verdict{% endif %}" aria-label="Go to conclusion">
+    <i class="fa-solid {% if showcaseType == 'yachts' %}fa-compass{% elif showcaseType == 'airplanes' %}fa-plane-arrival{% else %}fa-flag-checkered{% endif %}"></i>
   </a>
 </nav>
 
@@ -41,12 +41,13 @@ layout: layouts/base.njk
       if (!dock || !nodesContainer || cards.length === 0) return;
 
       var isYachts = dock.dataset.showcase === 'yachts' || window.location.pathname.includes('luxury-yachts');
+      var isAirplanes = dock.dataset.showcase === 'airplanes' || window.location.pathname.includes('top-10-airplanes');
 
       var bikeColors = {
         1:  { accent: '#dc2626', accent2: '#f87171', glow: 'rgba(220, 38, 38, 0.45)', maker: 'DUCATI' },
         2:  { accent: '#2563eb', accent2: '#06b6d4', glow: 'rgba(37, 99, 235, 0.45)', maker: 'BMW' },
         3:  { accent: '#ef4444', accent2: '#a855f7', glow: 'rgba(239, 68, 68, 0.45)', maker: 'APRILIA' },
-        4:  { accent: '#16a34a', accent2: '#4ade80', glow: 'rgba(22, 163, 74, 0.45)', maker: 'KAWASAKI' },
+        4:  { accent: '#16a34a', accent2: '#4ade80', glow: 'rgba(220, 38, 38, 0.45)', maker: 'KAWASAKI' },
         5:  { accent: '#1d4ed8', accent2: '#38bdf8', glow: 'rgba(29, 78, 216, 0.45)', maker: 'YAMAHA' },
         6:  { accent: '#0284c7', accent2: '#eab308', glow: 'rgba(2, 132, 199, 0.45)', maker: 'SUZUKI' },
         7:  { accent: '#dc2626', accent2: '#ffffff', glow: 'rgba(220, 38, 38, 0.45)', maker: 'HONDA' },
@@ -68,7 +69,20 @@ layout: layouts/base.njk
         10: { accent: '#84cc16', accent2: '#bef264', glow: 'rgba(132, 204, 22, 0.45)', maker: 'SUNREEF' }
       };
 
-      var colorMap = isYachts ? yachtColors : bikeColors;
+      var planeColors = {
+        1:  { accent: '#d97706', accent2: '#fbbf24', glow: 'rgba(217, 119, 6, 0.45)', maker: 'BOMBARDIER' },
+        2:  { accent: '#2563eb', accent2: '#60a5fa', glow: 'rgba(37, 99, 235, 0.45)', maker: 'GULFSTREAM' },
+        3:  { accent: '#059669', accent2: '#34d399', glow: 'rgba(5, 150, 105, 0.45)', maker: 'DASSAULT' },
+        4:  { accent: '#dc2626', accent2: '#f87171', glow: 'rgba(220, 38, 38, 0.45)', maker: 'BOOM AERO' },
+        5:  { accent: '#0284c7', accent2: '#38bdf8', glow: 'rgba(2, 132, 199, 0.45)', maker: 'EMBRAER' },
+        6:  { accent: '#7c3aed', accent2: '#a78bfa', glow: 'rgba(124, 58, 237, 0.45)', maker: 'CESSNA' },
+        7:  { accent: '#0369a1', accent2: '#7dd3fc', glow: 'rgba(3, 105, 161, 0.45)', maker: 'AIRBUS' },
+        8:  { accent: '#16a34a', accent2: '#4ade80', glow: 'rgba(22, 163, 74, 0.45)', maker: 'EVE MOBILITY' },
+        9:  { accent: '#ea580c', accent2: '#fb923c', glow: 'rgba(234, 88, 12, 0.45)', maker: 'CIRRUS' },
+        10: { accent: '#0891b2', accent2: '#22d3ee', glow: 'rgba(8, 145, 178, 0.45)', maker: 'ZEROAVIA' }
+      };
+
+      var colorMap = isAirplanes ? planeColors : (isYachts ? yachtColors : bikeColors);
 
       nodesContainer.innerHTML = '';
       var dockNodes = [];
@@ -82,23 +96,30 @@ layout: layouts/base.njk
 
       cards.forEach(function(card, idx) {
         var rankNum = idx + 1;
-        card.id = (isYachts ? 'yacht-' : 'bike-') + rankNum;
+        card.id = (isAirplanes ? 'plane-' : (isYachts ? 'yacht-' : 'bike-')) + rankNum;
         card.style.scrollMarginTop = '88px';
 
         var h2 = card.querySelector('h2');
-        var fullName = h2 ? h2.textContent.trim() : ((isYachts ? 'Yacht #' : 'Bike #') + rankNum);
+        var fullName = h2 ? h2.textContent.trim() : ((isAirplanes ? 'Plane #' : (isYachts ? 'Yacht #' : 'Bike #')) + rankNum);
 
         var stat1 = '';
         var stat2 = '';
-        var stat1Icon = isYachts ? 'fa-ruler-horizontal' : 'fa-bolt';
-        var stat2Icon = isYachts ? 'fa-water' : 'fa-gauge-high';
+        var stat1Icon = isAirplanes ? 'fa-gauge-high' : (isYachts ? 'fa-ruler-horizontal' : 'fa-bolt');
+        var stat2Icon = isAirplanes ? 'fa-route' : (isYachts ? 'fa-water' : 'fa-gauge-high');
 
         card.querySelectorAll('.spec-pill').forEach(function(pill) {
           var lbl = pill.querySelector('.label');
           var val = pill.querySelector('.val');
           if (lbl && val) {
             var text = lbl.textContent.toUpperCase();
-            if (isYachts) {
+            if (isAirplanes) {
+              if (text.includes('SPEED') || text.includes('VMAX') || text.includes('VITESSE') || text.includes('VELOCIDAD') || text.includes('VELOCITÀ') || text.includes('スピード') || text.includes('속도') || text.includes('गति') || text.includes('سرعة')) {
+                stat1 = val.textContent.trim();
+              }
+              if (text.includes('RANGE') || text.includes('REICHWEITE') || text.includes('RAYON') || text.includes('ALCANCE') || text.includes('AUTONOMIA') || text.includes('航続') || text.includes('항속') || text.includes('रेंज') || text.includes('مدى')) {
+                stat2 = val.textContent.trim();
+              }
+            } else if (isYachts) {
               if (text.includes('LENGTH') || text.includes('LÄNGE') || text.includes('LONGUEUR') || text.includes('ESLORA') || text.includes('LUNGHEZZA') || text.includes('全長') || text.includes('길이') || text.includes('लंबाई') || text.includes('طول') || text.includes('COMPRIMENTO')) {
                 stat1 = val.textContent.trim();
               }

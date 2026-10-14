@@ -1,8 +1,9 @@
 ---
 changefreq: monthly
 priority: 0.8
-layout: layouts/article.njk
-family: article
+layout: layouts/showcase.njk
+family: showcase
+showcaseType: airplanes
 title: Top 10 Aviones y Jets Privados | Top 10 Picker
 description: Jets privados y maravillas de la ingeniería aeroespacial. Desde el Global 8000 hasta el Boom Overture.
 robots: index, follow
@@ -87,6 +88,73 @@ mobileMenuHtml: |-
       <a href="/privacy-policy.html" class="mobile-menu-link"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
       <a href="/disclaimer.html" class="mobile-menu-link"><i class="fa-solid fa-scale-balanced"></i> Disclaimer</a>
     </div>
+lightboxHtml: |-
+  <div id="imageLightbox" class="lightbox-overlay">
+      <button class="lightbox-close" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+      <img src="" alt="Fullscreen View" class="lightbox-img">
+    </div>
+pageScriptHtml: |-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var galleries = document.querySelectorAll('.bento-gallery');
+      galleries.forEach(function(gallery) {
+        var heroItem = gallery.querySelector('.bento-item.hero img');
+        var subItems = gallery.querySelectorAll('.bento-item:not(.hero) img');
+        subItems.forEach(function(subItem) {
+          subItem.addEventListener('click', function() {
+            heroItem.parentElement.classList.add('swapping');
+            subItem.parentElement.classList.add('swapping');
+            setTimeout(function() {
+              var tempSrc = heroItem.src;
+              var tempAlt = heroItem.alt;
+              heroItem.src = subItem.src;
+              heroItem.alt = subItem.alt;
+              subItem.src = tempSrc;
+              subItem.alt = tempAlt;
+              heroItem.parentElement.classList.remove('swapping');
+              subItem.parentElement.classList.remove('swapping');
+            }, 300);
+          });
+        });
+      });
+
+      var observerOptions = { root: null, rootMargin: '0px 0px -100px 0px', threshold: 0.1 };
+      var galleryObserver = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      galleries.forEach(function(g) { galleryObserver.observe(g); });
+
+      var lightbox = document.getElementById('imageLightbox');
+      var lightboxImg = lightbox.querySelector('.lightbox-img');
+      var lightboxClose = lightbox.querySelector('.lightbox-close');
+      var heroImages = document.querySelectorAll('.bento-item.hero img');
+      heroImages.forEach(function(img) {
+        img.addEventListener('click', function() {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add('active');
+        });
+      });
+      lightboxClose.addEventListener('click', function() {
+        lightbox.classList.remove('active');
+      });
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+          lightbox.classList.remove('active');
+        }
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          lightbox.classList.remove('active');
+        }
+      });
+    });
+    </script>
 ---
 <div class="article-hero">
         <span class="label">Aviación</span>
@@ -95,58 +163,199 @@ mobileMenuHtml: |-
       </div>
       <p>Top 10 Aviones y Jets Privados merece mas que una lista rapida de nombres y cifras. En esta version localizada analizamos la categoria desde el punto de vista de rendimiento, legado, utilidad real e impacto cultural. Jets privados y maravillas de la ingeniería aeroespacial. Desde el Global 8000 hasta el Boom Overture. La idea es explicar por que cada entrada pertenece al ranking, no solo repetir especificaciones.</p>
 
-      <ol class="rank-list">
-        <li>
-          <h2>Bombardier Global 8000</h2>
-          <div class="spec-row"><span>Range: <strong>8,000 NM</strong></span> <span>Speed: <strong>Mach 0.94</strong></span> <span>Passengers: <strong>19</strong></span> <span>Price: <strong>$78M</strong></span></div>
+      <section class="showcase-feed" data-category="airplanes">
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#1</span>
+            <h2>Bombardier Global 8000</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/bombardier-global-8000/angle1.webp" alt="Bombardier Global 8000 - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/bombardier-global-8000/angle2.webp" alt="Bombardier Global 8000 - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/bombardier-global-8000/angle3.webp" alt="Bombardier Global 8000 - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">8,000 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">Mach 0.94</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">19</span></div>
+            <div class="spec-pill"><span class="label">PRICE</span><span class="val">$78M</span></div>
+          </div>
           <p>Bombardier Global 8000 ocupa el puesto #1 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Gulfstream G800</h2>
-          <div class="spec-row"><span>Range: <strong>8,000 NM</strong></span> <span>Speed: <strong>Mach 0.925</strong></span> <span>Passengers: <strong>19</strong></span> <span>Price: <strong>$72M</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#2</span>
+            <h2>Gulfstream G800</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/gulfstream-g800/angle1.webp" alt="Gulfstream G800 - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/gulfstream-g800/angle2.webp" alt="Gulfstream G800 - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/gulfstream-g800/angle3.webp" alt="Gulfstream G800 - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">8,000 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">Mach 0.925</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">19</span></div>
+            <div class="spec-pill"><span class="label">PRICE</span><span class="val">$72M</span></div>
+          </div>
           <p>Gulfstream G800 ocupa el puesto #2 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Dassault Falcon 10X</h2>
-          <div class="spec-row"><span>Range: <strong>7,500 NM</strong></span> <span>Speed: <strong>Mach 0.925</strong></span> <span>Passengers: <strong>19</strong></span> <span>Price: <strong>$70M</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#3</span>
+            <h2>Dassault Falcon 10X</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/dassault-falcon-10x/angle1.webp" alt="Dassault Falcon 10X - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/dassault-falcon-10x/angle2.webp" alt="Dassault Falcon 10X - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/dassault-falcon-10x/angle3.webp" alt="Dassault Falcon 10X - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">7,500 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">Mach 0.925</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">19</span></div>
+            <div class="spec-pill"><span class="label">PRICE</span><span class="val">$70M</span></div>
+          </div>
           <p>Dassault Falcon 10X ocupa el puesto #3 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Boom Supersonic Overture</h2>
-          <div class="spec-row"><span>Range: <strong>4,250 NM</strong></span> <span>Speed: <strong>Mach 1.7</strong></span> <span>Passengers: <strong>80</strong></span> <span>Status: <strong>In development</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#4</span>
+            <h2>Boom Supersonic Overture</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/boom-supersonic-overture/angle1.webp" alt="Boom Supersonic Overture - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/boom-supersonic-overture/angle2.webp" alt="Boom Supersonic Overture - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/boom-supersonic-overture/angle3.webp" alt="Boom Supersonic Overture - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">4,250 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">Mach 1.7</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">80</span></div>
+            <div class="spec-pill"><span class="label">STATUS</span><span class="val">In development</span></div>
+          </div>
           <p>Boom Supersonic Overture ocupa el puesto #4 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Embraer Praetor 600</h2>
-          <div class="spec-row"><span>Range: <strong>4,018 NM</strong></span> <span>Speed: <strong>Mach 0.83</strong></span> <span>Passengers: <strong>12</strong></span> <span>Price: <strong>$21M</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#5</span>
+            <h2>Embraer Praetor 600</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/embraer-praetor-600/angle1.webp" alt="Embraer Praetor 600 - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/embraer-praetor-600/angle2.webp" alt="Embraer Praetor 600 - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/embraer-praetor-600/angle3.webp" alt="Embraer Praetor 600 - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">4,018 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">Mach 0.83</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">12</span></div>
+            <div class="spec-pill"><span class="label">PRICE</span><span class="val">$21M</span></div>
+          </div>
           <p>Embraer Praetor 600 ocupa el puesto #5 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Cessna Citation Longitude</h2>
-          <div class="spec-row"><span>Range: <strong>3,500 NM</strong></span> <span>Speed: <strong>Mach 0.84</strong></span> <span>Passengers: <strong>12</strong></span> <span>Price: <strong>$29M</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#6</span>
+            <h2>Cessna Citation Longitude</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/cessna-citation-longitude/angle1.webp" alt="Cessna Citation Longitude - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/cessna-citation-longitude/angle2.webp" alt="Cessna Citation Longitude - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/cessna-citation-longitude/angle3.webp" alt="Cessna Citation Longitude - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">3,500 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">Mach 0.84</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">12</span></div>
+            <div class="spec-pill"><span class="label">PRICE</span><span class="val">$29M</span></div>
+          </div>
           <p>Cessna Citation Longitude ocupa el puesto #6 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Airbus A350-1000ULR</h2>
-          <div class="spec-row"><span>Range: <strong>9,700 NM</strong></span> <span>Speed: <strong>Mach 0.85</strong></span> <span>Passengers: <strong>350</strong></span> <span>Price: <strong>$366M</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#7</span>
+            <h2>Airbus A350-1000ULR</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/airbus-a350-1000ulr/angle1.webp" alt="Airbus A350-1000ULR - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/airbus-a350-1000ulr/angle2.webp" alt="Airbus A350-1000ULR - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/airbus-a350-1000ulr/angle3.webp" alt="Airbus A350-1000ULR - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">9,700 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">Mach 0.85</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">350</span></div>
+            <div class="spec-pill"><span class="label">PRICE</span><span class="val">$366M</span></div>
+          </div>
           <p>Airbus A350-1000ULR ocupa el puesto #7 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Eve Air Mobility eVTOL</h2>
-          <div class="spec-row"><span>Range: <strong>60 NM</strong></span> <span>Speed: <strong>110 mph</strong></span> <span>Passengers: <strong>5</strong></span> <span>Status: <strong>Certification 2027</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#8</span>
+            <h2>Eve Air Mobility eVTOL</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/eve-air-mobility-evtol/angle1.webp" alt="Eve Air Mobility eVTOL - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/eve-air-mobility-evtol/angle2.webp" alt="Eve Air Mobility eVTOL - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/eve-air-mobility-evtol/angle3.webp" alt="Eve Air Mobility eVTOL - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">60 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">110 mph</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">5</span></div>
+            <div class="spec-pill"><span class="label">STATUS</span><span class="val">Certification 2027</span></div>
+          </div>
           <p>Eve Air Mobility eVTOL ocupa el puesto #8 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>Cirrus Vision Jet G2+</h2>
-          <div class="spec-row"><span>Range: <strong>1,275 NM</strong></span> <span>Speed: <strong>311 kts</strong></span> <span>Passengers: <strong>7</strong></span> <span>Price: <strong>$3.4M</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#9</span>
+            <h2>Cirrus Vision Jet G2+</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/cirrus-vision-jet-g2-plus/angle1.webp" alt="Cirrus Vision Jet G2+ - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/cirrus-vision-jet-g2-plus/angle2.webp" alt="Cirrus Vision Jet G2+ - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/cirrus-vision-jet-g2-plus/angle3.webp" alt="Cirrus Vision Jet G2+ - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">1,275 NM</span></div>
+            <div class="spec-pill"><span class="label">SPEED</span><span class="val">311 kts</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">7</span></div>
+            <div class="spec-pill"><span class="label">PRICE</span><span class="val">$3.4M</span></div>
+          </div>
           <p>Cirrus Vision Jet G2+ ocupa el puesto #9 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-        <li>
-          <h2>ZeroAvia ZA2000 Hydrogen Aircraft</h2>
-          <div class="spec-row"><span>Range: <strong>500 NM</strong></span> <span>Engine: <strong>Hydrogen-electric fuel cell</strong></span> <span>Passengers: <strong>80</strong></span> <span>Status: <strong>Prototype testing</strong></span></div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="card-top">
+            <span class="giant-rank">#10</span>
+            <h2>ZeroAvia ZA2000 Hydrogen Aircraft</h2>
+          </div>
+          <div class="bento-gallery">
+            <div class="bento-item hero"><img src="/airplanes/zeroavia-za2000/angle1.webp" alt="ZeroAvia ZA2000 Hydrogen Aircraft - Angle 1" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-1"><img src="/airplanes/zeroavia-za2000/angle2.webp" alt="ZeroAvia ZA2000 Hydrogen Aircraft - Angle 2" width="600" height="500" loading="lazy" decoding="async"></div>
+            <div class="bento-item detail-2"><img src="/airplanes/zeroavia-za2000/angle3.webp" alt="ZeroAvia ZA2000 Hydrogen Aircraft - Angle 3" width="600" height="500" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-pill"><span class="label">RANGE</span><span class="val">500 NM</span></div>
+            <div class="spec-pill"><span class="label">ENGINE</span><span class="val">Hydrogen-electric fuel cell</span></div>
+            <div class="spec-pill"><span class="label">PASSENGERS</span><span class="val">80</span></div>
+            <div class="spec-pill"><span class="label">STATUS</span><span class="val">Prototype testing</span></div>
+          </div>
           <p>ZeroAvia ZA2000 Hydrogen Aircraft ocupa el puesto #10 porque destaca dentro de su categoria por una mezcla de cifras, diseno, reputacion y relevancia real. Al compararlo con los puestos cercanos, su valor no depende de un solo dato llamativo, sino de como combina rendimiento, caracter y consistencia. Nuestro enfoque editorial premia las opciones que aportan algo memorable al usuario, al mercado o a la cultura que las rodea.</p>
-        </li>
-      </ol>
+        </article>
+
+      </section>
 
       <h2>Reflexiones finales</h2>
       <p>Este ranking de Top 10 Aviones y Jets Privados esta pensado como una guia editorial, no como una ficha tecnica aislada. Las posiciones pueden cambiar con nuevos lanzamientos, pruebas y cambios del mercado, pero estas diez entradas representan hoy una seleccion solida por calidad, influencia y capacidad de destacar.</p>
