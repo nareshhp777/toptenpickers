@@ -141,108 +141,111 @@
     const preloaderBar = document.getElementById('preloaderBar');
 
     let mx = 0, my = 0, cx = 0, cy = 0;
-    // Center cursor on load (cache geometry to avoid layout thrash)
-    const vw = window.innerWidth, vh = window.innerHeight;
-    cx = vw / 2;
-    cy = vh / 2;
-    mx = cx; my = cy;
-    cursor.style.left = cx + 'px';
-    cursor.style.top = cy + 'px';
+    const isPointerFine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
 
-    // Light trail initialization with Canvas (Performance Optimization)
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '9998'; 
-    document.body.appendChild(canvas);
-    const ctx = canvas.getContext('2d');
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const trailCount = 8;
-    const trailCoords = Array(trailCount).fill().map(() => ({ x: cx, y: cy }));
-
-    let mouseOnScreen = true;
-    document.addEventListener('mouseleave', () => { mouseOnScreen = false; });
-    document.addEventListener('mouseenter', () => { mouseOnScreen = true; });
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; mouseOnScreen = true; });
-
-    // Cursor trail loop with idle/visibility pause to reduce CPU + battery
-    let cursorLoopId = null;
-    let lastMoveTime = Date.now();
-    let cursorPaused = false;
-    document.addEventListener('mousemove', () => { lastMoveTime = Date.now(); });
-
-    function cursorLoop() {
-      cx += (mx - cx) * 0.35;
-      cy += (my - cy) * 0.35;
+    if (isPointerFine && cursor) {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      cx = vw / 2;
+      cy = vh / 2;
+      mx = cx; my = cy;
       cursor.style.left = cx + 'px';
       cursor.style.top = cy + 'px';
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Light trail initialization with Canvas (Performance Optimization)
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = '9998'; 
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      
+      function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
 
-      if (mouseOnScreen) {
-        let tx = cx, ty = cy;
-        const trailColor = getComputedStyle(document.documentElement).getPropertyValue('--trail-color').trim() || '#fff';
-        
-        trailCoords.forEach((coords, i) => {
-          coords.x += (tx - coords.x) * 0.45;
-          coords.y += (ty - coords.y) * 0.45;
-          const ratio = 1 - (i / trailCount);
+      const trailCount = 8;
+      const trailCoords = Array(trailCount).fill().map(() => ({ x: cx, y: cy }));
+
+      let mouseOnScreen = true;
+      document.addEventListener('mouseleave', () => { mouseOnScreen = false; });
+      document.addEventListener('mouseenter', () => { mouseOnScreen = true; });
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; mouseOnScreen = true; });
+
+      // Cursor trail loop with idle/visibility pause to reduce CPU + battery
+      let cursorLoopId = null;
+      let lastMoveTime = Date.now();
+      let cursorPaused = false;
+      document.addEventListener('mousemove', () => { lastMoveTime = Date.now(); });
+
+      function cursorLoop() {
+        cx += (mx - cx) * 0.35;
+        cy += (my - cy) * 0.35;
+        cursor.style.left = cx + 'px';
+        cursor.style.top = cy + 'px';
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (mouseOnScreen) {
+          let tx = cx, ty = cy;
+          const trailColor = getComputedStyle(document.documentElement).getPropertyValue('--trail-color').trim() || '#fff';
           
-          ctx.beginPath();
-          ctx.arc(coords.x, coords.y, 4 * ratio, 0, Math.PI * 2);
-          ctx.fillStyle = trailColor;
-          ctx.globalAlpha = ratio * 0.55;
-          ctx.fill();
-          
-          tx = coords.x;
-          ty = coords.y;
-        });
-        ctx.globalAlpha = 1.0;
+          trailCoords.forEach((coords, i) => {
+            coords.x += (tx - coords.x) * 0.45;
+            coords.y += (ty - coords.y) * 0.45;
+            const ratio = 1 - (i / trailCount);
+            
+            ctx.beginPath();
+            ctx.arc(coords.x, coords.y, 4 * ratio, 0, Math.PI * 2);
+            ctx.fillStyle = trailColor;
+            ctx.globalAlpha = ratio * 0.55;
+            ctx.fill();
+            
+            tx = coords.x;
+            ty = coords.y;
+          });
+          ctx.globalAlpha = 1.0;
+        }
+
+        cursorLoopId = requestAnimationFrame(cursorLoop);
       }
 
-      cursorLoopId = requestAnimationFrame(cursorLoop);
-    }
-
-    function pauseCursorLoop() {
-      if (cursorPaused) return;
-      cursorPaused = true;
-      if (cursorLoopId !== null) {
-        cancelAnimationFrame(cursorLoopId);
-        cursorLoopId = null;
+      function pauseCursorLoop() {
+        if (cursorPaused) return;
+        cursorPaused = true;
+        if (cursorLoopId !== null) {
+          cancelAnimationFrame(cursorLoopId);
+          cursorLoopId = null;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
 
-    function resumeCursorLoop() {
-      if (!cursorPaused) return;
-      cursorPaused = false;
-      cursorLoopId = requestAnimationFrame(cursorLoop);
-    }
-
-    // Pause when tab is hidden, when mouse hasn't moved, or when user is off-window.
-    // resumeCursorLoop() is always safe to call — it guards itself with cursorPaused.
-    setInterval(() => {
-      if (!mouseOnScreen || document.hidden || (Date.now() - lastMoveTime > 2000)) {
-        pauseCursorLoop();
-      } else {
-        resumeCursorLoop();
+      function resumeCursorLoop() {
+        if (!cursorPaused) return;
+        cursorPaused = false;
+        cursorLoopId = requestAnimationFrame(cursorLoop);
       }
-    }, 500);
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) pauseCursorLoop();
-      else if (Date.now() - lastMoveTime <= 2000) resumeCursorLoop();
-    });
 
-    cursorLoop();
+      setInterval(() => {
+        if (!mouseOnScreen || document.hidden || (Date.now() - lastMoveTime > 2000)) {
+          pauseCursorLoop();
+        } else {
+          resumeCursorLoop();
+        }
+      }, 500);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) pauseCursorLoop();
+        else if (Date.now() - lastMoveTime <= 2000) resumeCursorLoop();
+      });
+
+      cursorLoop();
+    } else if (cursor) {
+      cursor.style.display = 'none';
+    }
 
     // Global Event Delegation (DOM Performance Optimization)
     container.addEventListener('click', function(e) {
@@ -281,42 +284,14 @@
       }
     });
 
-    // Build page immediately so DOM is fully constructed before preloader fades
+    // Build page immediately so DOM is fully constructed
     buildPage();
 
-    // Smart preloading: only fetch the first car's images eagerly (LCP candidate).
-    // The IntersectionObserver below lazy-loads each section's background as it scrolls into view,
-    // so the remaining 9 cars are loaded on-demand instead of all upfront (~7 MB saved on bounce).
-    let loaded = 0;
-    const firstCar = cars.find(c => c.rank === 10); // loadOrder starts with rank 10
-    const firstCarImages = firstCar ? angleNames.map(a => `/cars/${firstCar.folder}/${a}.webp`) : [];
-    const totalImgs = firstCarImages.length;
-
-    function onImgLoad() {
-      loaded++;
-      const pct = Math.round((loaded / totalImgs) * 100);
-      if (preloaderBar) preloaderBar.style.width = pct + '%';
-      if (preloaderCounter) preloaderCounter.textContent = pct;
-      if (loaded >= totalImgs) {
-        if (preloader) preloader.classList.add('done');
-      }
-    }
-
-    if (totalImgs > 0) {
-      firstCarImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-        img.onload = onImgLoad;
-        img.onerror = onImgLoad;
-      });
-      // Fallback: dismiss preloader after 800ms even if image decoding is slow
-      setTimeout(() => {
-        if (preloader && !preloader.classList.contains('done')) {
-          preloader.classList.add('done');
-        }
-      }, 800);
-    } else {
-      if (preloader) preloader.classList.add('done');
+    // Dismiss preloader promptly without blocking rendering
+    if (preloaderBar) preloaderBar.style.width = '100%';
+    if (preloaderCounter) preloaderCounter.textContent = '100';
+    if (preloader) {
+      preloader.classList.add('done');
     }
 
     let currentCarRank = 1;
@@ -341,7 +316,7 @@
         sideNav.appendChild(dot);
 
         const s = document.createElement('section');
-        s.className = 'car-section' + (c.rank <= 3 ? ' top-rank' : '');
+        s.className = 'car-section' + (i === 0 ? ' revealed' : '') + (c.rank <= 3 ? ' top-rank' : '');
         s.id = 'car-' + c.rank;
         s.dataset.index = i;
         s.style.setProperty('--car-accent', theme.accent);
@@ -362,9 +337,9 @@
         });
 
         s.innerHTML = `
-          <div class="bg" data-bg="/cars/${c.folder}/front.webp"></div>
+          <div class="bg" ${i === 0 ? `style="background-image: url('/cars/${c.folder}/front.webp');"` : `data-bg="/cars/${c.folder}/front.webp"`}></div>
           <!-- SEO Image Tag: Hidden from UI, visible to Google Images -->
-          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${escapeHtml(c.name)} - ${escapeHtml(c.maker)} Supercar, ${escapeHtml(c.engine)}, ${escapeHtml(c.hp)}" width="1200" height="675" style="display: none;">
+          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${escapeHtml(c.name)} - ${escapeHtml(c.maker)} Supercar, ${escapeHtml(c.engine)}, ${escapeHtml(c.hp)}" width="2816" height="1536" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} style="display: none;">
           <div class="noise"></div>
           <div class="vignette"></div>
           <div class="grid-lines"></div>
@@ -514,16 +489,10 @@
       }, { threshold: 0.05 });
       if (recentPosts) recentObs.observe(recentPosts);
       if (siteFooter) recentObs.observe(siteFooter);
-      // Reset scroll to first car after build
-      const firstCar = document.getElementById('car-10');
-      if (firstCar) firstCar.scrollIntoView(true);
-      // Force-load first visible car (LCP) immediately without waiting for scroll event
-      if (firstCar) {
-        const initialBg = firstCar.querySelector('.bg');
-        if (initialBg && initialBg.dataset.bg) {
-          initialBg.style.backgroundImage = `url('${initialBg.dataset.bg}')`;
-          initialBg.removeAttribute('data-bg');
-        }
+      // Initialize first car as loaded
+      const firstCarEl = document.getElementById('car-10');
+      if (firstCarEl) {
+        firstCarEl.dataset.bgLoaded = "true";
       }
     }
 
