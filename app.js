@@ -368,9 +368,15 @@
                 <span class="rank-badge">#${c.rank}</span>
                 <span class="maker-tag">${escapeHtml(c.maker)}</span>
               </div>
-              <button class="inline-specs-btn" data-rank="${c.rank}" aria-label="View Full Specs">
-                <i class="fas fa-list"></i> <span>Specs</span>
-              </button>
+              <div class="top-row-actions">
+                <button class="vote-btn" data-category="cars" data-item="${c.folder}" aria-label="Vote for ${escapeHtml(c.name)}">
+                  <i class="fa-solid fa-heart vote-heart"></i>
+                  <span class="vote-count">0</span>
+                </button>
+                <button class="inline-specs-btn" data-rank="${c.rank}" aria-label="View Full Specs">
+                  <i class="fas fa-list"></i> <span>Specs</span>
+                </button>
+              </div>
             </div>
             <div class="name-row">
               <h2>${escapeHtml(c.name)}</h2>
@@ -997,3 +1003,157 @@ setTimeout(() => {
     icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
   });
 }, 0);
+
+// --- Top 10 API Integration (Cloudflare Worker + D1 Backend) ---
+(function() {
+  const API_BASE = 'https://toptenpicker-api.nareshhp777.workers.dev';
+  const API_KEY = 'top10-client-sec-2026';
+
+  // 1. Community Voting Engine
+  function initVoting() {
+    const voteButtons = document.querySelectorAll('.vote-btn');
+    if (!voteButtons.length) return;
+
+    // Collect all unique categories on page
+    const categories = new Set();
+    voteButtons.forEach(btn => {
+      const cat = btn.dataset.category;
+      const item = btn.dataset.item;
+      if (cat) categories.add(cat);
+      // Restore user's vote state from localStorage
+      if (cat && item && localStorage.getItem('voted_' + cat + '_' + item)) {
+        btn.classList.add('voted');
+        const icon = btn.querySelector('.vote-heart');
+        if (icon) icon.className = 'fa-solid fa-heart vote-heart';
+      }
+    });
+
+    // Fetch live votes for each category from Cloudflare D1
+    categories.forEach(cat => {
+      fetch(`${API_BASE}/api/votes?category=${encodeURIComponent(cat)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.votes) {
+            voteButtons.forEach(btn => {
+              if (btn.dataset.category === cat) {
+                const count = data.votes[btn.dataset.item] || 0;
+                const countEl = btn.querySelector('.vote-count');
+                if (countEl) countEl.textContent = count;
+              }
+            });
+          }
+        })
+        .catch(() => {});
+    });
+
+    // Handle vote click (event delegation)
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('.vote-btn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const cat = btn.dataset.category;
+      const item = btn.dataset.item;
+      if (!cat || !item) return;
+
+      // Prevent duplicate voting
+      if (localStorage.getItem('voted_' + cat + '_' + item)) {
+        return;
+      }
+
+      // Optimistic UI update
+      const countEl = btn.querySelector('.vote-count');
+      const current = parseInt(countEl ? countEl.textContent : '0', 10) || 0;
+      if (countEl) countEl.textContent = current + 1;
+      btn.classList.add('voted');
+      const icon = btn.querySelector('.vote-heart');
+      if (icon) icon.className = 'fa-solid fa-heart vote-heart';
+      localStorage.setItem('voted_' + cat + '_' + item, '1');
+
+      // Send to Cloudflare Worker
+      fetch(`${API_BASE}/api/vote`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Client-Key': API_KEY
+        },
+        body: JSON.stringify({ category: cat, item_id: item })
+      })
+      .then(res => res.json())
+      .then(resData => {
+        if (resData && typeof resData.votes === 'number') {
+          if (countEl) countEl.textContent = resData.votes;
+        }
+      })
+      .catch(() => {});
+    });
+  }
+
+  // 2. Newsletter Subscription Engine
+  function initNewsletter() {
+    document.addEventListener('submit', function(e) {
+      const form = e.target.closest('.newsletter-form');
+      if (!form) return;
+      e.preventDefault();
+
+      const input = form.querySelector('.newsletter-input');
+      const btn = form.querySelector('.newsletter-submit-btn');
+      const feedback = form.querySelector('.newsletter-feedback');
+      if (!input || !btn) return;
+
+      const email = input.value.trim();
+      if (!email || !email.includes('@')) return;
+
+      const originalBtnHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+      fetch(`${API_BASE}/api/subscribe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Client-Key': API_KEY
+        },
+        body: JSON.stringify({ email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnHtml;
+        if (feedback) {
+          feedback.style.display = 'flex';
+          if (data.success) {
+            feedback.className = 'newsletter-feedback success';
+            feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + (data.message || 'Subscribed successfully!');
+            input.value = '';
+          } else {
+            feedback.className = 'newsletter-feedback error';
+            feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ' + (data.error || 'Failed to subscribe.');
+          }
+        }
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnHtml;
+        if (feedback) {
+          feedback.style.display = 'flex';
+          feedback.className = 'newsletter-feedback error';
+          feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Connection error. Please try again.';
+        }
+      });
+    });
+  }
+
+  // Initialize once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initVoting();
+      initNewsletter();
+    });
+  } else {
+    initVoting();
+    initNewsletter();
+  }
+})();
+

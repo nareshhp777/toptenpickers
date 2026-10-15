@@ -96,7 +96,56 @@ mobileMenuHtml: |-
           validateField('message', 'messageError', val => val.length > 0);
           
           if (isValid) {
-            this.submit(); // Actually submit if all is valid
+            const form = this;
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            
+            const payload = {
+              name: document.getElementById('name').value.trim(),
+              email: document.getElementById('email').value.trim(),
+              message: '[' + document.getElementById('subject').value.trim() + '] ' + document.getElementById('message').value.trim()
+            };
+
+            fetch('https://toptenpicker-api.nareshhp777.workers.dev/api/contact', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Client-Key': 'top10-client-sec-2026'
+              },
+              body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+              let statusMsg = document.getElementById('formStatusMsg');
+              if (!statusMsg) {
+                statusMsg = document.createElement('div');
+                statusMsg.id = 'formStatusMsg';
+                form.appendChild(statusMsg);
+              }
+              if (data.success) {
+                form.reset();
+                statusMsg.style.cssText = 'padding:14px 18px; margin-top:16px; border-radius:10px; background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.3); color:#4ade80; font-size:0.9rem; font-weight:600; display:flex; align-items:center; gap:10px;';
+                statusMsg.innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + (data.message || 'Your message has been sent successfully!');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent';
+                setTimeout(() => { btn.disabled = false; btn.innerHTML = originalText; }, 4000);
+              } else {
+                throw new Error(data.error || 'Failed to send message');
+              }
+            })
+            .catch(err => {
+              let statusMsg = document.getElementById('formStatusMsg');
+              if (!statusMsg) {
+                statusMsg = document.createElement('div');
+                statusMsg.id = 'formStatusMsg';
+                form.appendChild(statusMsg);
+              }
+              statusMsg.style.cssText = 'padding:14px 18px; margin-top:16px; border-radius:10px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#f87171; font-size:0.9rem; font-weight:600; display:flex; align-items:center; gap:10px;';
+              statusMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ' + (err.message || 'Error sending message. Please try again.');
+              btn.disabled = false;
+              btn.innerHTML = originalText;
+            });
           }
         });
 

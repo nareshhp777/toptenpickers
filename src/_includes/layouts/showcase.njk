@@ -23,6 +23,27 @@ layout: layouts/base.njk
     <div class="content">
 {{ content | safe }}
     </div>
+    <section class="newsletter-section" aria-label="Subscribe to newsletter">
+      <div class="newsletter-card">
+        <div class="newsletter-glow"></div>
+        <div class="newsletter-inner">
+          <div class="newsletter-badge"><i class="fa-solid fa-sparkles"></i> STAY AHEAD</div>
+          <h3 class="newsletter-title">Get the World's Best Top 10 Lists</h3>
+          <p class="newsletter-sub">Join thousands of enthusiasts. Receive our curated rankings, deep-dive specs, and exclusive editorial analysis directly in your inbox.</p>
+          <form class="newsletter-form">
+            <div class="newsletter-input-group">
+              <i class="fa-solid fa-envelope newsletter-icon"></i>
+              <input type="email" class="newsletter-input" placeholder="Enter your email address" required autocomplete="email" aria-label="Email address">
+              <button type="submit" class="newsletter-submit-btn">
+                <span>Subscribe</span> <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="newsletter-feedback" style="display:none;"></div>
+          </form>
+          <span class="newsletter-privacy-note">Zero spam. Unsubscribe at any time. Read our <a href="/privacy-policy.html">Privacy Policy</a>.</span>
+        </div>
+      </div>
+    </section>
     <div class="footer">
 {{ footerHtml | safe }}
     </div>
@@ -101,6 +122,19 @@ layout: layouts/base.njk
 
         var h2 = card.querySelector('h2');
         var fullName = h2 ? h2.textContent.trim() : ((isAirplanes ? 'Plane #' : (isYachts ? 'Yacht #' : 'Bike #')) + rankNum);
+
+        var cardTop = card.querySelector('.card-top');
+        if (cardTop && !cardTop.querySelector('.vote-btn')) {
+          var category = isAirplanes ? 'airplanes' : (isYachts ? 'luxury-yachts' : 'sports-bikes');
+          var itemSlug = fullName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          var voteBtn = document.createElement('button');
+          voteBtn.className = 'vote-btn showcase-vote-btn';
+          voteBtn.dataset.category = category;
+          voteBtn.dataset.item = itemSlug;
+          voteBtn.setAttribute('aria-label', 'Vote for ' + fullName);
+          voteBtn.innerHTML = '<i class="fa-solid fa-heart vote-heart"></i> <span class="vote-count">0</span>';
+          cardTop.appendChild(voteBtn);
+        }
 
         var stat1 = '';
         var stat2 = '';
