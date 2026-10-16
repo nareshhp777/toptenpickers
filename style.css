@@ -1480,6 +1480,31 @@ html[dir="rtl"] .nav-pages {
           right: auto !important;
           left: 36px !important;
         }
+        .category-quick-bar {
+          top: 56px !important;
+          padding: 0 8px !important;
+        }
+        .quick-bar-track {
+          max-width: 96vw !important;
+          gap: 4px !important;
+          padding: 3px 5px !important;
+        }
+        .quick-pill {
+          padding: 4px 10px !important;
+          font-size: 0.68rem !important;
+          gap: 5px !important;
+        }
+        .explore-dock-btn {
+          bottom: 20px !important;
+          right: 16px !important;
+          padding: 7px 14px !important;
+          font-size: 0.74rem !important;
+          gap: 6px !important;
+        }
+        html[dir="rtl"] .explore-dock-btn {
+          right: auto !important;
+          left: 16px !important;
+        }
         html[dir="rtl"] .overlay {
           padding: 32px 16px 24px 48px !important;
         }
@@ -3125,20 +3150,22 @@ html[dir="rtl"] .nav-pages {
         .recent-posts .card-grid { grid-template-columns: 1fr; gap: 18px; }
       }
 
-      /* --- Top Category Quick-Bar (Glassmorphic) --- */
+      /* --- Top Category Quick-Bar (Floating Seamless Glass Capsule) --- */
       .category-quick-bar {
         position: fixed;
-        top: 68px;
+        top: 66px;
         left: 0;
         right: 0;
         z-index: 85;
         display: flex;
         justify-content: center;
-        padding: 8px 16px;
-        background: rgba(6, 8, 15, 0.72);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 0 16px;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        pointer-events: none;
         transition: all 0.3s ease;
       }
       .category-quick-bar.hidden {
@@ -3147,14 +3174,21 @@ html[dir="rtl"] .nav-pages {
         pointer-events: none;
       }
       .quick-bar-track {
-        display: flex;
+        pointer-events: auto;
+        display: inline-flex;
         align-items: center;
-        gap: 8px;
-        max-width: 1200px;
+        gap: 6px;
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: rgba(10, 15, 28, 0.62);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        max-width: 90vw;
         overflow-x: auto;
         scrollbar-width: none;
         -ms-overflow-style: none;
-        padding: 2px 4px;
       }
       .quick-bar-track::-webkit-scrollbar {
         display: none;
@@ -3166,7 +3200,7 @@ html[dir="rtl"] .nav-pages {
         padding: 6px 14px;
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         color: #cdd6e5;
         font-family: 'Space Grotesk', sans-serif;
         font-size: 0.74rem;
@@ -3182,7 +3216,7 @@ html[dir="rtl"] .nav-pages {
         transition: transform 0.2s ease;
       }
       .quick-pill:hover {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.14);
         border-color: rgba(255, 255, 255, 0.25);
         color: #ffffff;
         transform: translateY(-1px);
@@ -3191,10 +3225,10 @@ html[dir="rtl"] .nav-pages {
         transform: scale(1.15);
       }
       .quick-pill.active {
-        background: linear-gradient(135deg, rgba(255, 111, 0, 0.28) 0%, rgba(21, 101, 192, 0.28) 100%);
+        background: linear-gradient(135deg, rgba(255, 111, 0, 0.32) 0%, rgba(21, 101, 192, 0.32) 100%);
         border-color: var(--accent2, #ff9a3c);
         color: #ffffff;
-        box-shadow: 0 0 12px rgba(255, 111, 0, 0.2);
+        box-shadow: 0 0 12px rgba(255, 111, 0, 0.25);
       }
       .quick-pill.jump-all {
         background: linear-gradient(135deg, rgba(255, 111, 0, 0.25) 0%, rgba(255, 154, 60, 0.15) 100%);
@@ -3210,22 +3244,22 @@ html[dir="rtl"] .nav-pages {
       /* --- Floating Quick Dock Button --- */
       .explore-dock-btn {
         position: fixed;
-        bottom: 28px;
-        right: 28px;
+        bottom: 94px;
+        right: 78px;
         z-index: 80;
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 10px 20px;
+        padding: 9px 18px;
         border-radius: 999px;
         background: rgba(13, 19, 36, 0.88);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 154, 60, 0.4);
+        border: 1px solid rgba(255, 154, 60, 0.45);
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 111, 0, 0.25);
         color: #ffffff;
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         font-weight: 700;
         text-decoration: none;
         letter-spacing: 0.5px;
@@ -3262,6 +3296,10 @@ html[dir="rtl"] .nav-pages {
         opacity: 0;
         pointer-events: none;
         transform: translateY(20px);
+      }
+      html[dir="rtl"] .explore-dock-btn {
+        right: auto;
+        left: 78px;
       }
 
       /* --- Trending Rankings Preview Tray (Screen 1) --- */
@@ -5288,13 +5326,24 @@ html.light-theme .card-action-bar,
 }
 html.light-theme .category-quick-bar,
 .light-theme .category-quick-bar {
-  background: rgba(255, 255, 255, 0.88) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+html.light-theme .quick-bar-track,
+.light-theme .quick-bar-track {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 html.light-theme .quick-pill,
 .light-theme .quick-pill {
-  background: #f8fafc !important;
-  border-color: #cbd5e1 !important;
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
   color: #334155 !important;
 }
 html.light-theme .quick-pill:hover,
@@ -5318,8 +5367,8 @@ html.light-theme .quick-pill.jump-all,
 }
 html.light-theme .explore-dock-btn,
 .light-theme .explore-dock-btn {
-  background: #ffffff !important;
-  border-color: rgba(234, 88, 12, 0.4) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(234, 88, 12, 0.45) !important;
   color: #0f172a !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
 }
