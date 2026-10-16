@@ -3305,18 +3305,25 @@ html[dir="rtl"] .nav-pages {
       /* --- Trending Rankings Preview Tray (Screen 1) --- */
       .trending-preview-tray {
         position: absolute;
-        top: 130px;
-        right: 36px;
+        top: 120px;
+        right: 80px;
         z-index: 10;
-        width: 270px;
-        background: rgba(8, 12, 24, 0.78);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: 260px;
+        background: rgba(8, 12, 24, 0.82);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 18px;
-        padding: 16px;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+        padding: 14px 14px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
         transition: all 0.3s ease;
+      }
+      body.recent-visible .trending-preview-tray {
+        display: none !important;
+      }
+      html[dir="rtl"] .trending-preview-tray {
+        right: auto;
+        left: 80px;
       }
       .trending-preview-tray .tray-header {
         display: flex;
@@ -3339,6 +3346,35 @@ html[dir="rtl"] .nav-pages {
       }
       .trending-preview-tray .tray-title i {
         color: #f59e0b;
+      }
+      .trending-preview-tray .tray-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .trending-preview-tray .tray-close-btn {
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        font-size: 0.8rem;
+        padding: 2px 4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+      .trending-preview-tray .tray-close-btn:hover {
+        color: #ffffff;
+        transform: scale(1.15);
+      }
+      html.light-theme .trending-preview-tray .tray-close-btn,
+      .light-theme .trending-preview-tray .tray-close-btn {
+        color: rgba(15, 23, 42, 0.45) !important;
+      }
+      html.light-theme .trending-preview-tray .tray-close-btn:hover,
+      .light-theme .trending-preview-tray .tray-close-btn:hover {
+        color: rgba(15, 23, 42, 0.9) !important;
       }
       .trending-preview-tray .tray-view-all {
         font-size: 0.68rem;

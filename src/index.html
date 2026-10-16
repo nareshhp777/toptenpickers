@@ -180,7 +180,12 @@ headTailHtml: |-
   <div class="trending-preview-tray" id="trendingPreviewTray">
     <div class="tray-header">
       <span class="tray-title"><i class="fa-solid fa-fire-flame-curved"></i> Also in Top10</span>
-      <a href="#recentPosts" class="tray-view-all">View All 20 ▾</a>
+      <div class="tray-header-actions">
+        <a href="#recentPosts" class="tray-view-all">View All 20 ▾</a>
+        <button class="tray-close-btn" id="trayCloseBtn" aria-label="Close recommendations">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
     </div>
     <div class="tray-cards">
       <a href="/articles/top-10-sports-bikes-2026.html" class="tray-card">

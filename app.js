@@ -1090,6 +1090,18 @@
         if (sc !== window) sc.scrollTo({ top: 0, behavior: 'smooth' });
         else window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+
+      // If user dismisses trending recommendations tray
+      const trayClose = e.target.closest('#trayCloseBtn');
+      if (trayClose) {
+        e.preventDefault();
+        const tray = document.getElementById('trendingPreviewTray');
+        if (tray) {
+          tray.style.opacity = '0';
+          tray.style.transform = 'translateX(20px)';
+          setTimeout(() => { tray.style.display = 'none'; }, 250);
+        }
+      }
     });
 
     // Scroll Observer: Hide explore-dock-btn when user enters #recentPosts
