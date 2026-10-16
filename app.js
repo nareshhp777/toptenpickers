@@ -422,16 +422,39 @@
 
       let compactTimer;
 
+      function updateTrayReduction() {
+        const tray = document.getElementById('trendingPreviewTray');
+        if (!tray) return;
+        const d10 = dots[0];
+        const d9 = dots[1];
+        const is10Open = d10 && ((d10.classList.contains('active') && !d10.classList.contains('compact')) || d10.matches(':hover'));
+        const is9Open = d9 && ((d9.classList.contains('active') && !d9.classList.contains('compact')) || d9.matches(':hover'));
+        tray.classList.toggle('reduced', Boolean(is10Open || is9Open));
+      }
+
       sideNav.addEventListener('mouseenter', () => {
         clearTimeout(compactTimer);
         document.querySelectorAll('.dot.active').forEach(d => d.classList.remove('compact'));
+        updateTrayReduction();
       });
 
       sideNav.addEventListener('mouseleave', () => {
         const ad = document.querySelector('.dot.active');
         if (ad) {
           clearTimeout(compactTimer);
-          compactTimer = setTimeout(() => ad.classList.add('compact'), 3000);
+          compactTimer = setTimeout(() => {
+            ad.classList.add('compact');
+            updateTrayReduction();
+          }, 3000);
+        }
+        setTimeout(updateTrayReduction, 80);
+      });
+
+      // Hook hover listeners on dots for smooth tray reduction
+      dots.forEach((d, di) => {
+        if (di <= 1) {
+          d.addEventListener('mouseenter', updateTrayReduction);
+          d.addEventListener('mouseleave', () => setTimeout(updateTrayReduction, 80));
         }
       });
 
@@ -479,9 +502,11 @@
 
             // Auto-hide side nav label after 3s
             clearTimeout(compactTimer);
+            updateTrayReduction();
             compactTimer = setTimeout(() => {
               const ad = document.querySelector('.dot.active');
               if (ad) ad.classList.add('compact');
+              updateTrayReduction();
             }, 3000);
 
             // Start auto-rotation for visible section
@@ -520,8 +545,9 @@
         }
       }
       ensureTopCar();
-      window.addEventListener('pageshow', ensureTopCar);
-      window.addEventListener('load', ensureTopCar);
+      updateTrayReduction();
+      window.addEventListener('pageshow', () => { ensureTopCar(); updateTrayReduction(); });
+      window.addEventListener('load', () => { ensureTopCar(); updateTrayReduction(); });
     }
 
     // Site search â€” instant client-side filter

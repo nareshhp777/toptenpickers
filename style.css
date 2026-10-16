@@ -3316,7 +3316,14 @@ html[dir="rtl"] .nav-pages {
         border-radius: 18px;
         padding: 14px 14px;
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-        transition: all 0.3s ease;
+        transition: padding 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                    border-radius 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                    background 0.35s ease,
+                    box-shadow 0.35s ease,
+                    border-color 0.35s ease,
+                    opacity 0.3s ease,
+                    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        overflow: hidden;
       }
       body.recent-visible .trending-preview-tray {
         display: none !important;
@@ -3332,6 +3339,7 @@ html[dir="rtl"] .nav-pages {
         margin-bottom: 12px;
         padding-bottom: 8px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: margin 0.35s ease, padding 0.35s ease, border-color 0.35s ease;
       }
       .trending-preview-tray .tray-title {
         font-family: 'Space Grotesk', sans-serif;
@@ -3343,6 +3351,7 @@ html[dir="rtl"] .nav-pages {
         display: flex;
         align-items: center;
         gap: 6px;
+        white-space: nowrap;
       }
       .trending-preview-tray .tray-title i {
         color: #f59e0b;
@@ -3383,6 +3392,7 @@ html[dir="rtl"] .nav-pages {
         text-decoration: none;
         transition: color 0.2s ease;
         cursor: pointer;
+        white-space: nowrap;
       }
       .trending-preview-tray .tray-view-all:hover {
         color: #ffb86c;
@@ -3392,6 +3402,84 @@ html[dir="rtl"] .nav-pages {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        max-height: 400px;
+        opacity: 1;
+        transform: translateY(0);
+        transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity 0.35s ease,
+                    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                    margin 0.35s ease;
+      }
+
+      /* --- Reduced / Compact state when Car 10 or Car 9 name opens --- */
+      .trending-preview-tray.reduced {
+        padding: 9px 14px;
+        border-radius: 999px;
+        background: rgba(8, 12, 24, 0.72);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        border-color: rgba(255, 154, 60, 0.3);
+      }
+      .trending-preview-tray.reduced .tray-header {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom-color: transparent;
+      }
+      .trending-preview-tray.reduced .tray-cards {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-8px);
+        margin: 0;
+        pointer-events: none;
+      }
+
+      /* Hover to preview expand */
+      .trending-preview-tray.reduced:hover {
+        padding: 14px 14px;
+        border-radius: 18px;
+        background: rgba(8, 12, 24, 0.92);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .trending-preview-tray.reduced:hover .tray-header {
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .trending-preview-tray.reduced:hover .tray-cards {
+        max-height: 400px;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      /* Native CSS :has() instant reactive reduction when Dot 10 or Dot 9 label is open */
+      .side-nav:has(.dot[data-index="0"].active:not(.compact)) ~ .trending-preview-tray:not(:hover),
+      .side-nav:has(.dot[data-index="1"].active:not(.compact)) ~ .trending-preview-tray:not(:hover),
+      .side-nav:has(.dot[data-index="0"]:hover) ~ .trending-preview-tray:not(:hover),
+      .side-nav:has(.dot[data-index="1"]:hover) ~ .trending-preview-tray:not(:hover) {
+        padding: 9px 14px;
+        border-radius: 999px;
+        background: rgba(8, 12, 24, 0.72);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        border-color: rgba(255, 154, 60, 0.3);
+      }
+      .side-nav:has(.dot[data-index="0"].active:not(.compact)) ~ .trending-preview-tray:not(:hover) .tray-header,
+      .side-nav:has(.dot[data-index="1"].active:not(.compact)) ~ .trending-preview-tray:not(:hover) .tray-header,
+      .side-nav:has(.dot[data-index="0"]:hover) ~ .trending-preview-tray:not(:hover) .tray-header,
+      .side-nav:has(.dot[data-index="1"]:hover) ~ .trending-preview-tray:not(:hover) .tray-header {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom-color: transparent;
+      }
+      .side-nav:has(.dot[data-index="0"].active:not(.compact)) ~ .trending-preview-tray:not(:hover) .tray-cards,
+      .side-nav:has(.dot[data-index="1"].active:not(.compact)) ~ .trending-preview-tray:not(:hover) .tray-cards,
+      .side-nav:has(.dot[data-index="0"]:hover) ~ .trending-preview-tray:not(:hover) .tray-cards,
+      .side-nav:has(.dot[data-index="1"]:hover) ~ .trending-preview-tray:not(:hover) .tray-cards {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-8px);
+        margin: 0;
+        pointer-events: none;
       }
       .tray-card {
         display: flex;
@@ -5417,6 +5505,21 @@ html.light-theme .trending-preview-tray,
 html.light-theme .trending-preview-tray .tray-title,
 .light-theme .trending-preview-tray .tray-title {
   color: #0f172a !important;
+}
+html.light-theme .trending-preview-tray.reduced,
+.light-theme .trending-preview-tray.reduced,
+html.light-theme .side-nav:has(.dot[data-index="0"].active:not(.compact)) ~ .trending-preview-tray:not(:hover),
+html.light-theme .side-nav:has(.dot[data-index="1"].active:not(.compact)) ~ .trending-preview-tray:not(:hover),
+html.light-theme .side-nav:has(.dot[data-index="0"]:hover) ~ .trending-preview-tray:not(:hover),
+html.light-theme .side-nav:has(.dot[data-index="1"]:hover) ~ .trending-preview-tray:not(:hover) {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08) !important;
+}
+html.light-theme .trending-preview-tray.reduced:hover,
+.light-theme .trending-preview-tray.reduced:hover {
+  background: rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12) !important;
 }
 html.light-theme .tray-card,
 .light-theme .tray-card {
