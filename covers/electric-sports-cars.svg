@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="50%" stop-color="#0c1326"/>
+      <stop offset="100%" stop-color="#04060c"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="meshGlow" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.36"/>
+      <stop offset="45%" stop-color="#3b82f6" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerBurst" cx="50%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="450" fill="url(#bgGrad)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+
+  <!-- Ambient Glowing Auras -->
+  <circle cx="400" cy="225" r="230" fill="url(#meshGlow)"/>
+  <circle cx="400" cy="225" r="140" fill="url(#centerBurst)"/>
+
+  <!-- Geometric Orbital Rings -->
+  <circle cx="400" cy="225" r="195" fill="none" stroke="#06b6d4" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="12,8"/>
+  <circle cx="400" cy="225" r="150" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="400" cy="225" r="240" fill="none" stroke="#3b82f6" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="4,6"/>
+
+  <!-- Corner Tech Accent Brackets -->
+  <path d="M 28 50 L 28 28 L 50 28" fill="none" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 50 L 772 28 L 750 28" fill="none" stroke="#3b82f6" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 28 400 L 28 422 L 50 422" fill="none" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 400 L 772 422 L 750 422" fill="none" stroke="#3b82f6" stroke-opacity="0.3" stroke-width="2"/>
+
+  <!-- Hero Centered & Scaled Artwork -->
+  <g transform="translate(400, 225) scale(1.35)">
+    <!-- Aerodynamic Electric Hypercar Front Stance -->
+      <path d="M-120 40 C-115 15, -95 -5, -60 -15 C-30 -22, 30 -22, 60 -15 C95 -5, 115 15, 120 40 L-120 40 Z" fill="#0f172a" stroke="url(#accentGrad)" stroke-width="3" filter="url(#glow)"/>
+      <!-- Windshield and Cockpit Canopy -->
+      <path d="M-55 -15 C-40 -50, 40 -50, 55 -15 Z" fill="url(#screenGrad)" opacity="0.9" stroke="#38bdf8" stroke-width="1.5"/>
+      <!-- Aerodynamic Hood Channels -->
+      <path d="M-30 -15 L-15 15 M30 -15 L15 15" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+      <!-- Laser Lightbar / LED Headlamps -->
+      <path d="M-105 20 L-65 16 M65 16 L105 20" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" filter="url(#glow)"/>
+      <path d="M-100 20 L100 20" stroke="#06b6d4" stroke-width="2" opacity="0.8"/>
+      <!-- Front Aero Diffuser / Splitter -->
+      <polygon points="-130,42 130,42 110,54 -110,54" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+      <rect x="-25" y="44" width="50" height="7" rx="3" fill="#06b6d4" opacity="0.8"/>
+      <!-- High-Voltage Energy Bolt Badge -->
+      <polygon points="0,-8 5,3 -1,3 3,12 -5,5 0,5" fill="#38bdf8" filter="url(#glow)"/>
+      <!-- Velocity / Electric Arcs around wheels -->
+      <circle cx="-95" cy="40" r="14" fill="#090d16" stroke="#06b6d4" stroke-width="3"/>
+      <circle cx="95" cy="40" r="14" fill="#090d16" stroke="#3b82f6" stroke-width="3"/>
+      <path d="M-135 15 Q-110 5 -90 10" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.7"/>
+      <path d="M135 15 Q110 5 90 10" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.7"/>
+  </g>
+</svg>

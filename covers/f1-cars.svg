@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="50%" stop-color="#0c1326"/>
+      <stop offset="100%" stop-color="#04060c"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="meshGlow" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.36"/>
+      <stop offset="45%" stop-color="#f59e0b" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerBurst" cx="50%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="450" fill="url(#bgGrad)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+
+  <!-- Ambient Glowing Auras -->
+  <circle cx="400" cy="225" r="230" fill="url(#meshGlow)"/>
+  <circle cx="400" cy="225" r="140" fill="url(#centerBurst)"/>
+
+  <!-- Geometric Orbital Rings -->
+  <circle cx="400" cy="225" r="195" fill="none" stroke="#ef4444" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="12,8"/>
+  <circle cx="400" cy="225" r="150" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="400" cy="225" r="240" fill="none" stroke="#f59e0b" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="4,6"/>
+
+  <!-- Corner Tech Accent Brackets -->
+  <path d="M 28 50 L 28 28 L 50 28" fill="none" stroke="#ef4444" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 50 L 772 28 L 750 28" fill="none" stroke="#f59e0b" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 28 400 L 28 422 L 50 422" fill="none" stroke="#ef4444" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 400 L 772 422 L 750 422" fill="none" stroke="#f59e0b" stroke-opacity="0.3" stroke-width="2"/>
+
+  <!-- Hero Centered & Scaled Artwork -->
+  <g transform="translate(400, 225) scale(1.35)">
+    <!-- Wide Rear Slick Tires -->
+      <rect x="-135" y="-15" width="30" height="52" rx="8" fill="#18181b" stroke="#ef4444" stroke-width="2.5" filter="url(#glow)"/>
+      <rect x="-130" y="-8" width="8" height="38" rx="2" fill="#ef4444" opacity="0.8"/>
+      <!-- Front Steering Slick Tires -->
+      <rect x="85" y="-5" width="24" height="42" rx="6" fill="#18181b" stroke="#f59e0b" stroke-width="2"/>
+      <rect x="88" y="0" width="6" height="32" rx="2" fill="#f59e0b" opacity="0.8"/>
+      <!-- Main Monocoque Chassis -->
+      <path d="M-115 15 L-30 15 L20 10 L105 18 L125 22 L20 25 L-115 25 Z" fill="#0f172a" stroke="url(#accentGrad)" stroke-width="3"/>
+      <!-- Sculpted Sidepod and Air Intake -->
+      <path d="M-60 5 C-40 -12, 10 -12, 25 10 L-60 15 Z" fill="#1e1b4b" stroke="#ef4444" stroke-width="2"/>
+      <!-- Cockpit Halo Safety Arc and Helmet -->
+      <path d="M-15 -5 C-15 -25, 25 -25, 25 -5" fill="none" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="5" cy="-8" r="9" fill="#fbbf24" stroke="#ef4444" stroke-width="1.5"/>
+      <!-- Engine Airbox Snorkel -->
+      <polygon points="-25,0 -15,-28 5,-28 -5,0" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+      <!-- Multi-tier Front Wing and Endplate -->
+      <line x1="85" y1="22" x2="135" y2="22" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+      <line x1="95" y1="16" x2="130" y2="16" stroke="#fbbf24" stroke-width="2.5"/>
+      <rect x="132" y="10" width="4" height="18" rx="1" fill="#ef4444"/>
+      <!-- High Downforce Rear Wing and Endplate -->
+      <rect x="-140" y="-35" width="6" height="35" rx="2" fill="#ef4444"/>
+      <line x1="-140" y1="-32" x2="-95" y2="-32" stroke="#f59e0b" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="-138" y1="-22" x2="-100" y2="-22" stroke="#ef4444" stroke-width="3"/>
+  </g>
+</svg>

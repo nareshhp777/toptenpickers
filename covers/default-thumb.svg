@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="defBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="50%" stop-color="#0d1428"/>
+      <stop offset="100%" stop-color="#04060c"/>
+    </linearGradient>
+    <linearGradient id="defBrandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF9100"/>
+      <stop offset="100%" stop-color="#FF3D00"/>
+    </linearGradient>
+    <linearGradient id="defBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF9100" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FF3D00" stop-opacity="0.85"/>
+    </linearGradient>
+    <radialGradient id="defMeshGlow" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#FF6F00" stop-opacity="0.36"/>
+      <stop offset="45%" stop-color="#FF3D00" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="defGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="defGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="1"/>
+    </pattern>
+    <style>
+      @keyframes neonPulse {
+        0%, 100% { transform: scale(1); opacity: 0.85; }
+        50% { transform: scale(1.02); opacity: 1; }
+      }
+      .pulse-ring {
+        transform-origin: 400px 225px;
+        animation: neonPulse 4s ease-in-out infinite;
+      }
+    </style>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="450" fill="url(#defBgGrad)"/>
+  <rect width="800" height="450" fill="url(#defGrid)"/>
+
+  <!-- Ambient Glowing Aura -->
+  <circle cx="400" cy="225" r="235" fill="url(#defMeshGlow)"/>
+
+  <!-- Futuristic Radar and Orbit Rings -->
+  <circle class="pulse-ring" cx="400" cy="225" r="195" fill="none" stroke="rgba(255,145,0,0.22)" stroke-width="1.5" stroke-dasharray="10,8"/>
+  <circle cx="400" cy="225" r="150" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="400" cy="225" r="240" fill="none" stroke="rgba(255,145,0,0.1)" stroke-width="1"/>
+
+  <!-- Corner Tech Accent Brackets -->
+  <path d="M 28 50 L 28 28 L 50 28" fill="none" stroke="#FF9100" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M 772 50 L 772 28 L 750 28" fill="none" stroke="#FF3D00" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M 28 400 L 28 422 L 50 422" fill="none" stroke="#FF9100" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M 772 400 L 772 422 L 750 422" fill="none" stroke="#FF3D00" stroke-opacity="0.35" stroke-width="2"/>
+
+  <!-- Central Glassmorphic Logo Shield (Hero Scaled) -->
+  <g transform="translate(400, 225) scale(1.35)">
+    <!-- Backdrop Card -->
+    <rect x="-105" y="-72" width="210" height="144" rx="28" fill="#0d1424" fill-opacity="0.9" stroke="url(#defBorderGrad)" stroke-width="2.5" filter="url(#defGlow)"/>
+    <!-- Inner Accent Rim -->
+    <rect x="-97" y="-64" width="194" height="128" rx="22" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+    <!-- Website Brand Mark: TOP 10 PICKERS -->
+    <text x="0" y="-10" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="900" font-size="44" fill="#ffffff" letter-spacing="3" text-anchor="middle">TOP</text>
+    <text x="0" y="36" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="900" font-size="48" fill="url(#defBrandGrad)" letter-spacing="2" text-anchor="middle" filter="url(#defGlow)">10</text>
+    <text x="0" y="58" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="800" font-size="11" fill="#cbd5e1" letter-spacing="4" text-anchor="middle">PICKERS</text>
+  </g>
+</svg>

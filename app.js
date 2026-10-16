@@ -425,11 +425,11 @@
       function updateTrayReduction() {
         const tray = document.getElementById('trendingPreviewTray');
         if (!tray) return;
-        const d10 = dots[0];
-        const d9 = dots[1];
-        const is10Open = d10 && ((d10.classList.contains('active') && !d10.classList.contains('compact')) || d10.matches(':hover'));
-        const is9Open = d9 && ((d9.classList.contains('active') && !d9.classList.contains('compact')) || d9.matches(':hover'));
-        tray.classList.toggle('reduced', Boolean(is10Open || is9Open));
+        const isNavHovered = sideNav && (sideNav.matches(':hover') || sideNav.matches(':active'));
+        const activeExpandedDot = document.querySelector('.side-nav .dot.active:not(.compact)');
+        const hoveredDot = document.querySelector('.side-nav .dot:hover');
+        const shouldReduce = Boolean(isNavHovered || activeExpandedDot || hoveredDot);
+        tray.classList.toggle('reduced', shouldReduce);
       }
 
       sideNav.addEventListener('mouseenter', () => {
@@ -450,13 +450,43 @@
         setTimeout(updateTrayReduction, 80);
       });
 
-      // Hook hover listeners on dots for smooth tray reduction
-      dots.forEach((d, di) => {
-        if (di <= 1) {
-          d.addEventListener('mouseenter', updateTrayReduction);
-          d.addEventListener('mouseleave', () => setTimeout(updateTrayReduction, 80));
+      // Mobile touch interactions on rank menu
+      sideNav.addEventListener('touchstart', () => {
+        clearTimeout(compactTimer);
+        document.querySelectorAll('.dot.active').forEach(d => d.classList.remove('compact'));
+        updateTrayReduction();
+      }, { passive: true });
+
+      sideNav.addEventListener('touchend', () => {
+        const ad = document.querySelector('.dot.active');
+        if (ad) {
+          clearTimeout(compactTimer);
+          compactTimer = setTimeout(() => {
+            ad.classList.add('compact');
+            updateTrayReduction();
+          }, 3000);
         }
+        setTimeout(updateTrayReduction, 80);
+      }, { passive: true });
+
+      // Hook hover listeners on all dots
+      dots.forEach((d) => {
+        d.addEventListener('mouseenter', updateTrayReduction);
+        d.addEventListener('mouseleave', () => setTimeout(updateTrayReduction, 80));
       });
+
+      // Allow tapping the reduced pill on mobile/desktop to expand it
+      const trayContainer = document.getElementById('trendingPreviewTray');
+      if (trayContainer) {
+        trayContainer.addEventListener('click', (e) => {
+          if (e.target.closest('#trayCloseBtn') || e.target.closest('.tray-view-all') || e.target.closest('.tray-card')) {
+            return;
+          }
+          if (trayContainer.classList.contains('reduced')) {
+            trayContainer.classList.remove('reduced');
+          }
+        });
+      }
 
     const obs = new IntersectionObserver(entries => {
         entries.forEach(e => {
@@ -991,17 +1021,17 @@
     };
 
     const articleMetadata = {
-      'top-10-sports-bikes-2026': { img: '/bikes/ducati-panigale-v4-r/angle1.webp', categoryKey: 'vehicles', badge: 'Sports Bikes', icon: 'fa-motorcycle' },
-      'top-10-luxury-yachts': { img: '/yachts/rev-ocean/angle1.webp', categoryKey: 'vehicles', badge: 'Luxury Yachts', icon: 'fa-ship' },
-      'top-10-airplanes': { img: '/airplanes/bombardier-global-8000/angle1.webp', categoryKey: 'vehicles', badge: 'Aviation', icon: 'fa-plane' },
-      'top-10-f1-cars-all-time': { img: '/cars/FerrariSF90Stradale/front-three-quarter.webp', categoryKey: 'vehicles', badge: 'Formula 1', icon: 'fa-flag-checkered' },
+      'top-10-sports-bikes-2026': { img: '/covers/sports-bikes.svg', categoryKey: 'vehicles', badge: 'Sports Bikes', icon: 'fa-motorcycle' },
+      'top-10-luxury-yachts': { img: '/covers/luxury-yachts.svg', categoryKey: 'vehicles', badge: 'Luxury Yachts', icon: 'fa-ship' },
+      'top-10-airplanes': { img: '/covers/airplanes.svg', categoryKey: 'vehicles', badge: 'Aviation', icon: 'fa-plane' },
+      'top-10-f1-cars-all-time': { img: '/covers/f1-cars.svg', categoryKey: 'vehicles', badge: 'Formula 1', icon: 'fa-flag-checkered' },
       'top-10-must-have-tech-gadgets': { img: '/covers/tech-gadgets.svg', categoryKey: 'tech', badge: 'Tech Gadgets', icon: 'fa-microchip' },
-      'top-10-electric-sports-bikes': { img: '/bikes/energica-ego-rs/angle1.webp', categoryKey: 'vehicles', badge: 'Electric Bikes', icon: 'fa-bolt' },
+      'top-10-electric-sports-bikes': { img: '/covers/electric-sports-bikes.svg', categoryKey: 'vehicles', badge: 'Electric Bikes', icon: 'fa-bolt' },
       'top-10-high-speed-trains': { img: '/covers/high-speed-trains.svg', categoryKey: 'vehicles', badge: 'High-Speed Rail', icon: 'fa-train' },
       'top-10-professional-cameras': { img: '/covers/professional-cameras.svg', categoryKey: 'tech', badge: 'Photography', icon: 'fa-camera' },
-      'top-10-powerboats': { img: '/yachts/riva-130-bellissima/angle1.webp', categoryKey: 'vehicles', badge: 'Speedboats', icon: 'fa-water' },
+      'top-10-powerboats': { img: '/covers/powerboats.svg', categoryKey: 'vehicles', badge: 'Speedboats', icon: 'fa-water' },
       'top-10-gaming-consoles': { img: '/covers/gaming-consoles.svg', categoryKey: 'tech', badge: 'Gaming Hardware', icon: 'fa-gamepad' },
-      'top-10-electric-sports-cars': { img: '/cars/Rolls-RoyceSpectre/front.webp', categoryKey: 'vehicles', badge: 'EV Performance', icon: 'fa-bolt-lightning' },
+      'top-10-electric-sports-cars': { img: '/covers/electric-sports-cars.svg', categoryKey: 'vehicles', badge: 'EV Performance', icon: 'fa-bolt-lightning' },
       'top-10-smartphones': { img: '/covers/smartphones.svg', categoryKey: 'tech', badge: 'Smartphones', icon: 'fa-mobile-screen' },
       'top-10-gaming-laptops': { img: '/covers/gaming-laptops.svg', categoryKey: 'tech', badge: 'Gaming Laptops', icon: 'fa-laptop' },
       'top-10-pc-games': { img: '/covers/pc-games.svg', categoryKey: 'tech', badge: 'PC Gaming', icon: 'fa-desktop' },
@@ -1036,10 +1066,11 @@
         const title = titleEl ? titleEl.textContent : '';
         const desc = descEl ? descEl.textContent : '';
         const badgeText = metaText || meta.badge;
+        const thumbSrc = (meta && meta.img) ? meta.img : '/covers/default-thumb.svg';
 
         card.innerHTML = `
           <div class="card-thumb-wrap">
-            <img src="${meta.img}" alt="${escapeHtml(title)}" class="card-thumb" loading="lazy" decoding="async">
+            <img src="${thumbSrc}" alt="${escapeHtml(title)}" class="card-thumb" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/covers/default-thumb.svg';">
             <div class="card-thumb-overlay"></div>
             <span class="card-badge"><i class="fa-solid ${meta.icon}"></i> ${escapeHtml(badgeText)}</span>
             <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
@@ -1058,6 +1089,17 @@
         `;
       }
     });
+
+    // Global defensive image fallback: if any card thumbnail or preview image fails to load, swap to default logo cover
+    document.addEventListener('error', (e) => {
+      const target = e.target;
+      if (target && target.tagName === 'IMG' && (target.classList.contains('card-thumb') || target.closest('.tray-card') || target.closest('.card-thumb-wrap'))) {
+        if (!target.dataset.hasFallback) {
+          target.dataset.hasFallback = 'true';
+          target.src = '/covers/default-thumb.svg';
+        }
+      }
+    }, true);
 
     // Category Filter Buttons
     filterBtns.forEach(btn => {

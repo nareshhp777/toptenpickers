@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#060913"/>
-      <stop offset="50%" stop-color="#0b1124"/>
-      <stop offset="100%" stop-color="#05070f"/>
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="50%" stop-color="#0c1326"/>
+      <stop offset="100%" stop-color="#04060c"/>
     </linearGradient>
     <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#6366f1"/>
@@ -13,13 +13,17 @@
       <stop offset="0%" stop-color="#0f172a"/>
       <stop offset="100%" stop-color="#1e1b4b"/>
     </linearGradient>
-    <radialGradient id="meshGlow" cx="50%" cy="45%" r="60%">
-      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.28"/>
-      <stop offset="50%" stop-color="#a855f7" stop-opacity="0.12"/>
+    <radialGradient id="meshGlow" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.36"/>
+      <stop offset="45%" stop-color="#a855f7" stop-opacity="0.16"/>
       <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
     </radialGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
+    <radialGradient id="centerBurst" cx="50%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -34,16 +38,24 @@
   <rect width="800" height="450" fill="url(#bgGrad)"/>
   <rect width="800" height="450" fill="url(#grid)"/>
 
-  <!-- Ambient Ambient Glow -->
-  <circle cx="400" cy="205" r="220" fill="url(#meshGlow)"/>
+  <!-- Ambient Glowing Auras -->
+  <circle cx="400" cy="225" r="230" fill="url(#meshGlow)"/>
+  <circle cx="400" cy="225" r="140" fill="url(#centerBurst)"/>
 
-  <!-- Geometric Rings -->
-  <circle cx="400" cy="205" r="180" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="8,8"/>
-  <circle cx="400" cy="205" r="230" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <!-- Geometric Orbital Rings -->
+  <circle cx="400" cy="225" r="195" fill="none" stroke="#6366f1" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="12,8"/>
+  <circle cx="400" cy="225" r="150" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="400" cy="225" r="240" fill="none" stroke="#a855f7" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="4,6"/>
 
-  <!-- Central Illustrated Icon -->
-  <g transform="translate(400, 205)">
-      <!-- Vinyl LP Record -->
+  <!-- Corner Tech Accent Brackets -->
+  <path d="M 28 50 L 28 28 L 50 28" fill="none" stroke="#6366f1" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 50 L 772 28 L 750 28" fill="none" stroke="#a855f7" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 28 400 L 28 422 L 50 422" fill="none" stroke="#6366f1" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 400 L 772 422 L 750 422" fill="none" stroke="#a855f7" stroke-opacity="0.3" stroke-width="2"/>
+
+  <!-- Hero Centered & Scaled Artwork -->
+  <g transform="translate(400, 225) scale(1.35)">
+    <!-- Vinyl LP Record -->
       <circle cx="-25" cy="0" r="70" fill="#09090b" stroke="url(#accentGrad)" stroke-width="3" filter="url(#glow)"/>
       <!-- Vinyl Grooves -->
       <circle cx="-25" cy="0" r="58" fill="none" stroke="#27272a" stroke-width="1.5"/>
@@ -59,30 +71,5 @@
       <!-- Sound Wave Pulses -->
       <path d="M60 20 Q80 30 60 40" fill="none" stroke="#c084fc" stroke-width="2" opacity="0.6"/>
       <path d="M75 12 Q100 28 75 48" fill="none" stroke="#818cf8" stroke-width="2" opacity="0.4"/>
-    </g>
-
-  <!-- Gradient Overlay Scrim for Text Readability -->
-  <rect y="290" width="800" height="160" fill="linear-gradient(to bottom, transparent 0%, rgba(5,7,15,0.85) 40%, rgba(5,7,15,0.98) 100%)"/>
-
-  <!-- Top-Right Brand Watermark -->
-  <g transform="translate(690, 40)">
-    <rect x="-10" y="-14" width="85" height="26" rx="13" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-    <text x="32" y="4" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="900" font-size="11" fill="#ffffff" letter-spacing="1.5" text-anchor="middle">TOP10</text>
-  </g>
-
-  <!-- Top-Left Category Badge -->
-  <g transform="translate(45, 42)">
-    <rect x="0" y="-15" width="145" height="28" rx="14" fill="#6366f1" fill-opacity="0.18" stroke="#6366f1" stroke-width="1.2"/>
-    <circle cx="14" cy="-1" r="4" fill="#6366f1"/>
-    <text x="26" y="3" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="800" font-size="11" fill="#ffffff" letter-spacing="1.5">MUSIC HISTORY</text>
-  </g>
-
-  <!-- Bottom Title & Subtitle -->
-  <text x="45" y="380" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="900" font-size="28" fill="#ffffff" letter-spacing="-0.5">Top 10 Groundbreaking Music Albums</text>
-  <text x="45" y="412" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="14" fill="#94a3b8" letter-spacing="0.2">Vinyl Acoustics, Studio Production & Legacy</text>
-
-  <!-- Bottom Right "10 Ranked" Badge -->
-  <g transform="translate(755, 395)">
-    <text x="0" y="0" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="800" font-size="13" fill="#6366f1" text-anchor="end" letter-spacing="1">10 RANKED ITEMS →</text>
   </g>
 </svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="50%" stop-color="#0c1326"/>
+      <stop offset="100%" stop-color="#04060c"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="meshGlow" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.36"/>
+      <stop offset="45%" stop-color="#6366f1" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerBurst" cx="50%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="450" fill="url(#bgGrad)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+
+  <!-- Ambient Glowing Auras -->
+  <circle cx="400" cy="225" r="230" fill="url(#meshGlow)"/>
+  <circle cx="400" cy="225" r="140" fill="url(#centerBurst)"/>
+
+  <!-- Geometric Orbital Rings -->
+  <circle cx="400" cy="225" r="195" fill="none" stroke="#0ea5e9" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="12,8"/>
+  <circle cx="400" cy="225" r="150" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="400" cy="225" r="240" fill="none" stroke="#6366f1" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="4,6"/>
+
+  <!-- Corner Tech Accent Brackets -->
+  <path d="M 28 50 L 28 28 L 50 28" fill="none" stroke="#0ea5e9" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 50 L 772 28 L 750 28" fill="none" stroke="#6366f1" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 28 400 L 28 422 L 50 422" fill="none" stroke="#0ea5e9" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 400 L 772 422 L 750 422" fill="none" stroke="#6366f1" stroke-opacity="0.3" stroke-width="2"/>
+
+  <!-- Hero Centered & Scaled Artwork -->
+  <g transform="translate(400, 225) scale(1.35)">
+    <!-- Sleek Multi-deck Gigayacht Hull -->
+      <path d="M-130 18 L60 18 C95 18, 125 8, 140 -5 C115 15, 60 30, -95 30 L-130 30 Z" fill="#0f172a" stroke="url(#accentGrad)" stroke-width="3" filter="url(#glow)"/>
+      <!-- Lower Tier Guest Suites Glass Line -->
+      <rect x="-85" y="8" width="115" height="6" rx="2" fill="#38bdf8" opacity="0.8"/>
+      <!-- Main Salon Superstructure Deck -->
+      <path d="M-80 8 L-75 -8 L35 -8 L55 8 Z" fill="#1e293b" stroke="#0ea5e9" stroke-width="2"/>
+      <rect x="-65" y="-5" width="85" height="5" rx="1.5" fill="#e0f2fe" opacity="0.9"/>
+      <!-- Bridge Deck and Owner Penthouse -->
+      <path d="M-50 -8 L-45 -22 L15 -22 L25 -8 Z" fill="#0f172a" stroke="#6366f1" stroke-width="2"/>
+      <!-- Top Satellite Radome and Mast -->
+      <line x1="-15" y1="-22" x2="-15" y2="-42" stroke="#94a3b8" stroke-width="2.5"/>
+      <circle cx="-15" cy="-35" r="7" fill="#f8fafc" stroke="#0ea5e9" stroke-width="1.5"/>
+      <!-- Stern Beach Club Infinity Pool -->
+      <rect x="-125" y="20" width="22" height="7" rx="3" fill="#06b6d4" opacity="0.85" filter="url(#glow)"/>
+      <!-- Calm Ocean Waves Below -->
+      <path d="M-150 34 C-100 32, -40 36, 20 34 C80 32, 130 36, 160 34" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/>
+      <path d="M-130 42 C-70 40, 10 44, 90 42" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="12,8"/>
+  </g>
+</svg>

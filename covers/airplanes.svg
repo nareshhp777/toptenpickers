@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="50%" stop-color="#0c1326"/>
+      <stop offset="100%" stop-color="#04060c"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="meshGlow" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.36"/>
+      <stop offset="45%" stop-color="#a855f7" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerBurst" cx="50%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="450" fill="url(#bgGrad)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+
+  <!-- Ambient Glowing Auras -->
+  <circle cx="400" cy="225" r="230" fill="url(#meshGlow)"/>
+  <circle cx="400" cy="225" r="140" fill="url(#centerBurst)"/>
+
+  <!-- Geometric Orbital Rings -->
+  <circle cx="400" cy="225" r="195" fill="none" stroke="#6366f1" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="12,8"/>
+  <circle cx="400" cy="225" r="150" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="400" cy="225" r="240" fill="none" stroke="#a855f7" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="4,6"/>
+
+  <!-- Corner Tech Accent Brackets -->
+  <path d="M 28 50 L 28 28 L 50 28" fill="none" stroke="#6366f1" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 50 L 772 28 L 750 28" fill="none" stroke="#a855f7" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 28 400 L 28 422 L 50 422" fill="none" stroke="#6366f1" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M 772 400 L 772 422 L 750 422" fill="none" stroke="#a855f7" stroke-opacity="0.3" stroke-width="2"/>
+
+  <!-- Hero Centered & Scaled Artwork -->
+  <g transform="translate(400, 225) scale(1.35)">
+    <!-- Supersonic Streamlined Fuselage -->
+      <path d="M-120 0 C-60 -10, 60 -10, 135 0 C60 10, -60 10, -120 0 Z" fill="#0f172a" stroke="url(#accentGrad)" stroke-width="3" filter="url(#glow)"/>
+      <!-- Cockpit Flight Deck Visor -->
+      <path d="M95 -3 C105 -2, 115 0, 120 0 C115 0, 105 2, 95 3 Z" fill="#38bdf8" opacity="0.95"/>
+      <!-- Swept Delta Wing Main Planform -->
+      <polygon points="-25,0 -75,-65 -45,-65 35,0" fill="#1e1b4b" stroke="#818cf8" stroke-width="2.5"/>
+      <polygon points="-25,0 -75,65 -45,65 35,0" fill="#1e1b4b" stroke="#818cf8" stroke-width="2.5"/>
+      <!-- Aerodynamic Winglet Tips -->
+      <line x1="-75" y1="-65" x2="-68" y2="-78" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+      <line x1="-75" y1="65" x2="-68" y2="78" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+      <!-- Twin Rear Turbofan Engine Nacelles -->
+      <rect x="-85" y="-18" width="36" height="11" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+      <rect x="-85" y="7" width="36" height="11" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+      <!-- Supersonic Vapor Trails / Speed Vectors -->
+      <line x1="-140" y1="-2" x2="-90" y2="-2" stroke="#6366f1" stroke-width="2.5" opacity="0.6"/>
+      <line x1="-155" y1="2" x2="-100" y2="2" stroke="#c084fc" stroke-width="2.5" opacity="0.6"/>
+  </g>
+</svg>
