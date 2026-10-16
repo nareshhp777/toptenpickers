@@ -132,7 +132,7 @@ layout: layouts/base.njk
           voteBtn.dataset.category = category;
           voteBtn.dataset.item = itemSlug;
           voteBtn.setAttribute('aria-label', 'Vote for ' + fullName);
-          voteBtn.innerHTML = '<i class="fa-solid fa-heart vote-heart"></i> <span class="vote-count">0</span>';
+          voteBtn.innerHTML = '<i class="fa-solid fa-heart vote-heart"></i> <span class="vote-text">Like</span> <span class="vote-count">0</span>';
           cardTop.appendChild(voteBtn);
         }
 

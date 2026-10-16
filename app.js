@@ -129,6 +129,16 @@
     }
 
     if (typeof cars !== 'undefined') {
+    // Disable automatic browser scroll restoration so refresh always starts at top (Car #10)
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    const scrollContainer = document.getElementById('scrollContainer');
+    if (scrollContainer && !window.location.hash) {
+      scrollContainer.scrollTop = 0;
+    }
+    window.scrollTo(0, 0);
+
     const loadOrder = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     const container = document.getElementById('container');
     const sideNav = document.getElementById('sideNav');
@@ -294,7 +304,7 @@
       preloader.classList.add('done');
     }
 
-    let currentCarRank = 1;
+    let currentCarRank = 10;
 
     function buildPage() {
       loadOrder.forEach((rank, i) => {
@@ -368,15 +378,9 @@
                 <span class="rank-badge">#${c.rank}</span>
                 <span class="maker-tag">${escapeHtml(c.maker)}</span>
               </div>
-              <div class="top-row-actions">
-                <button class="vote-btn" data-category="cars" data-item="${c.folder}" aria-label="Vote for ${escapeHtml(c.name)}">
-                  <i class="fa-solid fa-heart vote-heart"></i>
-                  <span class="vote-count">0</span>
-                </button>
-                <button class="inline-specs-btn" data-rank="${c.rank}" aria-label="View Full Specs">
-                  <i class="fas fa-list"></i> <span>Specs</span>
-                </button>
-              </div>
+              <button class="inline-specs-btn" data-rank="${c.rank}" aria-label="View Full Specs">
+                <i class="fas fa-list"></i> <span>Specs</span>
+              </button>
             </div>
             <div class="name-row">
               <h2>${escapeHtml(c.name)}</h2>
@@ -394,10 +398,17 @@
                 <div class="price-label">Est. Price</div>
               </div>
             </div>
-            <button class="expand-btn" aria-label="Toggle details">
-              <span class="expand-text">Read More</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
+            <div class="card-action-row">
+              <button class="expand-btn" aria-label="Toggle details">
+                <span class="expand-text">Read More</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <button class="vote-btn" data-category="cars" data-item="${c.folder}" aria-label="Vote for ${escapeHtml(c.name)}">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-text">Like</span>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
             <div class="angle-selector">${angleBtnsHtml}</div>
           </div>`;
 
@@ -500,6 +511,17 @@
       if (firstCarEl) {
         firstCarEl.dataset.bgLoaded = "true";
       }
+
+      // Ensure scroll container is strictly at top (Car #10) on load & refresh
+      function ensureTopCar() {
+        if (!window.location.hash) {
+          if (scrollContainer) scrollContainer.scrollTop = 0;
+          window.scrollTo(0, 0);
+        }
+      }
+      ensureTopCar();
+      window.addEventListener('pageshow', ensureTopCar);
+      window.addEventListener('load', ensureTopCar);
     }
 
     // Site search â€” instant client-side filter
@@ -1025,6 +1047,8 @@ setTimeout(() => {
         btn.classList.add('voted');
         const icon = btn.querySelector('.vote-heart');
         if (icon) icon.className = 'fa-solid fa-heart vote-heart';
+        const txt = btn.querySelector('.vote-text');
+        if (txt) txt.textContent = 'Liked';
       }
     });
 
@@ -1067,6 +1091,8 @@ setTimeout(() => {
       const current = parseInt(countEl ? countEl.textContent : '0', 10) || 0;
       if (countEl) countEl.textContent = current + 1;
       btn.classList.add('voted');
+      const txt = btn.querySelector('.vote-text');
+      if (txt) txt.textContent = 'Liked';
       const icon = btn.querySelector('.vote-heart');
       if (icon) icon.className = 'fa-solid fa-heart vote-heart';
       localStorage.setItem('voted_' + cat + '_' + item, '1');
