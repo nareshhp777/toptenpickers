@@ -141,6 +141,26 @@ headTailHtml: |-
     </div>
   </nav>
 
+  <div class="category-quick-bar" id="categoryQuickBar" aria-label="Quick category selector">
+    <div class="quick-bar-track">
+      <a href="#car-10" class="quick-pill active" data-pill-category="cars">
+        <i class="fa-solid fa-car"></i> <span>Hypercars (10)</span>
+      </a>
+      <a href="/articles/top-10-sports-bikes-2026.html" class="quick-pill" data-pill-category="bikes">
+        <i class="fa-solid fa-motorcycle"></i> <span>Sports Bikes</span>
+      </a>
+      <a href="/articles/top-10-luxury-yachts.html" class="quick-pill" data-pill-category="yachts">
+        <i class="fa-solid fa-ship"></i> <span>Luxury Yachts</span>
+      </a>
+      <a href="/articles/top-10-airplanes.html" class="quick-pill" data-pill-category="airplanes">
+        <i class="fa-solid fa-plane"></i> <span>Aviation</span>
+      </a>
+      <a href="#recentPosts" class="quick-pill jump-all" id="jumpToArticlesPill">
+        <i class="fa-solid fa-compass"></i> <span>All 20+ Rankings ▾</span>
+      </a>
+    </div>
+  </div>
+
   <button class="specs-fab" id="specsFabBtn" aria-label="Open specifications">
     <i class="fas fa-list"></i> &nbsp;Specs
   </button>
@@ -156,6 +176,43 @@ headTailHtml: |-
   </div>
 
   <nav class="side-nav" id="sideNav" aria-label="Car navigation"></nav>
+
+  <div class="trending-preview-tray" id="trendingPreviewTray">
+    <div class="tray-header">
+      <span class="tray-title"><i class="fa-solid fa-fire-flame-curved"></i> Also in Top10</span>
+      <a href="#recentPosts" class="tray-view-all">View All 20 ▾</a>
+    </div>
+    <div class="tray-cards">
+      <a href="/articles/top-10-sports-bikes-2026.html" class="tray-card">
+        <img src="/bikes/ducati-panigale-v4-r/angle1.webp" alt="Top 10 Sports Bikes" loading="lazy">
+        <div class="tray-card-info">
+          <span class="tray-badge">Sports Bikes</span>
+          <h4>Ducati Panigale V4 R</h4>
+        </div>
+      </a>
+      <a href="/articles/top-10-luxury-yachts.html" class="tray-card">
+        <img src="/yachts/rev-ocean/angle1.webp" alt="Top 10 Luxury Yachts" loading="lazy">
+        <div class="tray-card-info">
+          <span class="tray-badge">Luxury Yachts</span>
+          <h4>REV Ocean 183m</h4>
+        </div>
+      </a>
+      <a href="/articles/top-10-airplanes.html" class="tray-card">
+        <img src="/airplanes/bombardier-global-8000/angle1.webp" alt="Top 10 Private Jets" loading="lazy">
+        <div class="tray-card-info">
+          <span class="tray-badge">Private Jets</span>
+          <h4>Bombardier Global 8000</h4>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <a href="#recentPosts" class="explore-dock-btn" id="exploreDockBtn" aria-label="Explore all 20+ rankings">
+    <span class="dock-pulse"></span>
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="dock-text">Explore 20+ Rankings</span>
+    <i class="fa-solid fa-arrow-down-long"></i>
+  </a>
 
   <div class="scroll-hint" id="scrollHint">
     <div class="text">Scroll</div>
@@ -181,105 +238,404 @@ headTailHtml: |-
         <button class="filter-btn" data-filter="entertainment">Entertainment</button>
       </div>
       <div class="card-grid">
-        <a href="/articles/top-10-sports-bikes-2026.html" class="card">
-          <div class="meta">Sports Bikes</div>
-          <h3>Top 10 Sports Bikes of 2026</h3>
-          <p>Ranked by speed, aerodynamics, and track performance. From the Ducati Panigale V4 R to the Kawasaki Ninja H2R.</p>
+        <a href="/articles/top-10-sports-bikes-2026.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/bikes/ducati-panigale-v4-r/angle1.webp" alt="Top 10 Sports Bikes of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-motorcycle"></i> Sports Bikes</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Sports Bikes of 2026</h3>
+            <p>Ranked by speed, aerodynamics, and track performance. From the Ducati Panigale V4 R to the Kawasaki Ninja H2R.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-sports-bikes-2026" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-luxury-yachts.html" class="card">
-          <div class="meta">Luxury Yachts</div>
-          <h3>Top 10 Luxury Yachts of 2026</h3>
-          <p>Design, amenities, and global cruising capability. From the REV Ocean to the Sunreef 80 Eco.</p>
+
+        <a href="/articles/top-10-luxury-yachts.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/yachts/rev-ocean/angle1.webp" alt="Top 10 Luxury Yachts of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-ship"></i> Luxury Yachts</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Luxury Yachts of 2026</h3>
+            <p>Design, amenities, and global cruising capability. From the REV Ocean to the Sunreef 80 Eco.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-luxury-yachts" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-airplanes.html" class="card">
-          <div class="meta">Aviation</div>
-          <h3>Top 10 Airplanes & Private Jets</h3>
-          <p>Private jets and aerospace engineering marvels. From the Global 8000 to the Boom Overture.</p>
+
+        <a href="/articles/top-10-airplanes.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/airplanes/bombardier-global-8000/angle1.webp" alt="Top 10 Airplanes & Private Jets" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-plane"></i> Aviation</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Airplanes &amp; Private Jets</h3>
+            <p>Private jets and aerospace engineering marvels. From the Global 8000 to the Boom Overture.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-airplanes" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-f1-cars-all-time.html" class="card">
-          <div class="meta">Formula 1</div>
-          <h3>Top 10 F1 Cars of All Time</h3>
-          <p>Championship-winning machines and legendary engine specs. From the MP4/4 to the RB19.</p>
+
+        <a href="/articles/top-10-f1-cars-all-time.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/cars/FerrariSF90Stradale/front-three-quarter.webp" alt="Top 10 F1 Cars of All Time" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-flag-checkered"></i> Formula 1</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 F1 Cars of All Time</h3>
+            <p>Championship-winning machines and legendary engine specs. From the MP4/4 to the RB19.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-f1-cars-all-time" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-must-have-tech-gadgets.html" class="card">
-          <div class="meta">Tech Gadgets</div>
-          <h3>Top 10 Must-Have Tech Gadgets of 2026</h3>
-          <p>Cutting-edge innovation and daily utility. From the Vision Pro 2 to the Rabbit R2.</p>
+
+        <a href="/articles/top-10-must-have-tech-gadgets.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/tech-gadgets.svg" alt="Top 10 Must-Have Tech Gadgets of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-microchip"></i> Tech Gadgets</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Must-Have Tech Gadgets of 2026</h3>
+            <p>Cutting-edge innovation and daily utility. From the Vision Pro 2 to the Rabbit R2.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-must-have-tech-gadgets" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-electric-sports-bikes.html" class="card">
-          <div class="meta">Electric Motorcycles</div>
-          <h3>Top 10 Electric Sports Bikes of 2026</h3>
-          <p>0-60 times, battery range, and the EV engineering shift. From the Lightning LS-218 to the Damon HyperSport.</p>
+
+        <a href="/articles/top-10-electric-sports-bikes.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/bikes/energica-ego-rs/angle1.webp" alt="Top 10 Electric Sports Bikes of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-bolt"></i> Electric Bikes</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Electric Sports Bikes of 2026</h3>
+            <p>0-60 times, battery range, and the EV engineering shift. From the Lightning LS-218 to the Damon HyperSport.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-electric-sports-bikes" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-high-speed-trains.html" class="card">
-          <div class="meta">High-Speed Rail</div>
-          <h3>Top 10 Fastest Trains in the World</h3>
-          <p>Maglev technology and aerodynamic rail engineering. From Japan's L0 Series to China's CR450.</p>
+
+        <a href="/articles/top-10-high-speed-trains.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/covers/high-speed-trains.svg" alt="Top 10 Fastest Trains in the World" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-train"></i> High-Speed Rail</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Fastest Trains in the World</h3>
+            <p>Maglev technology and aerodynamic rail engineering. From Japan's L0 Series to China's CR450.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-high-speed-trains" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-professional-cameras.html" class="card">
-          <div class="meta">Photography & Cinema</div>
-          <h3>Top 10 Professional Cameras of 2026</h3>
-          <p>High-end creator gear ranked by sensor size and frame rates. From the Sony A1 II to the ARRI Alexa 35.</p>
+
+        <a href="/articles/top-10-professional-cameras.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/professional-cameras.svg" alt="Top 10 Professional Cameras of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-camera"></i> Photography</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Professional Cameras of 2026</h3>
+            <p>High-end creator gear ranked by sensor size and frame rates. From the Sony A1 II to the ARRI Alexa 35.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-professional-cameras" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-powerboats.html" class="card">
-          <div class="meta">Offshore Powerboats</div>
-          <h3>Top 10 High-Speed Powerboats & Speedboats</h3>
-          <p>Offshore racing, horsepower, and hull design. From Cigarette Racing to the Candela C-8.</p>
+
+        <a href="/articles/top-10-powerboats.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/yachts/riva-130-bellissima/angle1.webp" alt="Top 10 High-Speed Powerboats & Speedboats" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-water"></i> Speedboats</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 High-Speed Powerboats &amp; Speedboats</h3>
+            <p>Offshore racing, horsepower, and hull design. From Cigarette Racing to the Candela C-8.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-powerboats" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-gaming-consoles.html" class="card">
-          <div class="meta">Gaming Hardware</div>
-          <h3>Top 10 Ultimate Gaming Consoles & Handhelds</h3>
-          <p>Teraflops, ray-tracing, and next-gen hardware. From the PS5 Pro to the Steam Deck OLED.</p>
+
+        <a href="/articles/top-10-gaming-consoles.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/gaming-consoles.svg" alt="Top 10 Ultimate Gaming Consoles & Handhelds" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-gamepad"></i> Gaming Hardware</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Ultimate Gaming Consoles &amp; Handhelds</h3>
+            <p>Teraflops, ray-tracing, and next-gen hardware. From the PS5 Pro to the Steam Deck OLED.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-gaming-consoles" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-electric-sports-cars.html" class="card">
-          <div class="meta">EV Performance</div>
-          <h3>Top 10 Electric Sports Cars of 2026</h3>
-          <p>0-60 times, battery architecture, and extreme torque. From the Rimac Nevera to the Lucid Air Sapphire.</p>
+
+        <a href="/articles/top-10-electric-sports-cars.html" class="card" data-category="vehicles">
+          <div class="card-thumb-wrap">
+            <img src="/cars/Rolls-RoyceSpectre/front.webp" alt="Top 10 Electric Sports Cars of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-bolt-lightning"></i> EV Performance</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Electric Sports Cars of 2026</h3>
+            <p>0-60 times, battery architecture, and extreme torque. From the Rimac Nevera to the Lucid Air Sapphire.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-electric-sports-cars" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-smartphones.html" class="card">
-          <div class="meta">Mobile Tech</div>
-          <h3>Top 10 Flagship Smartphones of 2026</h3>
-          <p>AI integration, 1-inch camera sensors, titanium builds, and processing power. From Apple to Samsung and Google.</p>
+
+        <a href="/articles/top-10-smartphones.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/smartphones.svg" alt="Top 10 Flagship Smartphones of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-mobile-screen"></i> Smartphones</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Flagship Smartphones of 2026</h3>
+            <p>AI integration, 1-inch camera sensors, titanium builds, and processing power. From Apple to Samsung and Google.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-smartphones" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-gaming-laptops.html" class="card">
-          <div class="meta">PC Gaming</div>
-          <h3>Top 10 Gaming Laptops of 2026</h3>
-          <p>RTX 50-series GPUs, OLED refresh rates, and vapor chamber cooling. From Razer Blade 16 to ROG Zephyrus G16.</p>
+
+        <a href="/articles/top-10-gaming-laptops.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/gaming-laptops.svg" alt="Top 10 Gaming Laptops of 2026" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-laptop"></i> Gaming Laptops</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Gaming Laptops of 2026</h3>
+            <p>RTX 50-series GPUs, OLED refresh rates, and vapor chamber cooling. From Razer Blade 16 to ROG Zephyrus G16.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-gaming-laptops" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-pc-games.html" class="card">
-          <div class="meta">PC Gaming</div>
-          <h3>Top 10 Most Graphically Demanding PC Games</h3>
-          <p>Path-tracing, Unreal Engine 5 showcases, and open-world fidelity that push extreme hardware to its limits.</p>
+
+        <a href="/articles/top-10-pc-games.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/pc-games.svg" alt="Top 10 Most Graphically Demanding PC Games" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-desktop"></i> PC Gaming</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Most Graphically Demanding PC Games</h3>
+            <p>Path-tracing, Unreal Engine 5 showcases, and open-world fidelity that push extreme hardware to its limits.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-pc-games" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-mobile-games.html" class="card">
-          <div class="meta">Mobile Gaming</div>
-          <h3>Top 10 High-Fidelity Mobile Games</h3>
-          <p>Cross-platform engines, esports responsiveness, and massive open worlds. Console quality on the go.</p>
+
+        <a href="/articles/top-10-mobile-games.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/mobile-games.svg" alt="Top 10 High-Fidelity Mobile Games" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-mobile"></i> Mobile Games</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 High-Fidelity Mobile Games</h3>
+            <p>Cross-platform engines, esports responsiveness, and massive open worlds. Console quality on the go.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-mobile-games" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-most-interesting-websites.html" class="card">
-          <div class="meta">Internet Culture</div>
-          <h3>Top 10 Most Fascinating Websites on the Internet</h3>
-          <p>Unique, useful, and mind-bending sites ranked by user experience. From Neal.fun to the Internet Archive.</p>
+
+        <a href="/articles/top-10-most-interesting-websites.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/interesting-websites.svg" alt="Top 10 Most Fascinating Websites on the Internet" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-globe"></i> Web Culture</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Most Fascinating Websites on the Internet</h3>
+            <p>Unique, useful, and mind-bending sites ranked by user experience. From Neal.fun to the Internet Archive.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-most-interesting-websites" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-gaming-companies.html" class="card">
-          <div class="meta">Gaming Industry</div>
-          <h3>Top 10 Most Influential Video Game Companies</h3>
-          <p>Titans of the industry ranked by innovation, revenue, and cultural impact. From Nintendo to Valve to Rockstar.</p>
+
+        <a href="/articles/top-10-gaming-companies.html" class="card" data-category="tech">
+          <div class="card-thumb-wrap">
+            <img src="/covers/gaming-companies.svg" alt="Top 10 Most Influential Video Game Companies" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-building"></i> Gaming Industry</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Most Influential Video Game Companies</h3>
+            <p>Titans of the industry ranked by innovation, revenue, and cultural impact. From Nintendo to Valve to Rockstar.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-gaming-companies" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-greatest-movies.html" class="card">
-          <div class="meta">Cinema</div>
-          <h3>Top 10 Greatest Cinematic Masterpieces</h3>
-          <p>Groundbreaking cinematography, storytelling, and cultural impact. From Citizen Kane to Parasite.</p>
+
+        <a href="/articles/top-10-greatest-movies.html" class="card" data-category="entertainment">
+          <div class="card-thumb-wrap">
+            <img src="/covers/greatest-movies.svg" alt="Top 10 Greatest Cinematic Masterpieces" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-film"></i> Cinema</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Greatest Cinematic Masterpieces</h3>
+            <p>Groundbreaking cinematography, storytelling, and cultural impact. From Citizen Kane to Parasite.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-greatest-movies" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-bingeworthy-series.html" class="card">
-          <div class="meta">Television</div>
-          <h3>Top 10 Most Gripping Television Series</h3>
-          <p>Premium television and streaming phenomena ranked by writing and cultural impact. From Breaking Bad to Succession.</p>
+
+        <a href="/articles/top-10-bingeworthy-series.html" class="card" data-category="entertainment">
+          <div class="card-thumb-wrap">
+            <img src="/covers/bingeworthy-series.svg" alt="Top 10 Most Gripping Television Series" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-tv"></i> Television</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Most Gripping Television Series</h3>
+            <p>Premium television and streaming phenomena ranked by writing and cultural impact. From Breaking Bad to Succession.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-bingeworthy-series" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
-        <a href="/articles/top-10-greatest-albums.html" class="card">
-          <div class="meta">Music History</div>
-          <h3>Top 10 Most Groundbreaking Music Albums</h3>
-          <p>Albums that redefined genres and production standards. From Dark Side of the Moon to To Pimp a Butterfly.</p>
+
+        <a href="/articles/top-10-greatest-albums.html" class="card" data-category="entertainment">
+          <div class="card-thumb-wrap">
+            <img src="/covers/greatest-albums.svg" alt="Top 10 Most Groundbreaking Music Albums" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid fa-record-vinyl"></i> Music History</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>Top 10 Most Groundbreaking Music Albums</h3>
+            <p>Albums that redefined genres and production standards. From Dark Side of the Moon to To Pimp a Butterfly.</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="top-10-greatest-albums" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
         </a>
       </div>
     </section>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060913"/>
+      <stop offset="50%" stop-color="#0b1124"/>
+      <stop offset="100%" stop-color="#05070f"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="meshGlow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.28"/>
+      <stop offset="50%" stop-color="#ef4444" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="450" fill="url(#bgGrad)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+
+  <!-- Ambient Ambient Glow -->
+  <circle cx="400" cy="205" r="220" fill="url(#meshGlow)"/>
+
+  <!-- Geometric Rings -->
+  <circle cx="400" cy="205" r="180" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="8,8"/>
+  <circle cx="400" cy="205" r="230" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+
+  <!-- Central Illustrated Icon -->
+  <g transform="translate(400, 205)">
+      <!-- Aerodynamic Bullet Train Profile -->
+      <path d="M-130 35 L-40 35 C30 35, 100 25, 125 -5 C115 -25, 60 -40, -10 -40 L-130 -40 Z" 
+            fill="#0f172a" stroke="url(#accentGrad)" stroke-width="3" filter="url(#glow)"/>
+      <!-- Cockpit Visor / Glass -->
+      <path d="M30 -22 C60 -22, 90 -12, 105 -2 C80 5, 50 0, 25 -10 Z" fill="#38bdf8" opacity="0.9"/>
+      <!-- Speed Decal Strip -->
+      <path d="M-130 5 L70 5" stroke="#f59e0b" stroke-width="3.5"/>
+      <path d="M-130 18 L50 18" stroke="#ef4444" stroke-width="2"/>
+      <!-- Guideway / Track Rails -->
+      <line x1="-150" y1="52" x2="150" y2="52" stroke="#64748b" stroke-width="3"/>
+      <line x1="-140" y1="62" x2="140" y2="62" stroke="#475569" stroke-width="2" stroke-dasharray="12,8"/>
+      <!-- Velocity Trail Lines -->
+      <line x1="80" y1="-28" x2="140" y2="-28" stroke="#f59e0b" stroke-width="2" opacity="0.7"/>
+      <line x1="100" y1="-18" x2="155" y2="-18" stroke="#fbbf24" stroke-width="2" opacity="0.8"/>
+    </g>
+
+  <!-- Gradient Overlay Scrim for Text Readability -->
+  <rect y="290" width="800" height="160" fill="linear-gradient(to bottom, transparent 0%, rgba(5,7,15,0.85) 40%, rgba(5,7,15,0.98) 100%)"/>
+
+  <!-- Top-Right Brand Watermark -->
+  <g transform="translate(690, 40)">
+    <rect x="-10" y="-14" width="85" height="26" rx="13" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="32" y="4" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="900" font-size="11" fill="#ffffff" letter-spacing="1.5" text-anchor="middle">TOP10</text>
+  </g>
+
+  <!-- Top-Left Category Badge -->
+  <g transform="translate(45, 42)">
+    <rect x="0" y="-15" width="163" height="28" rx="14" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.2"/>
+    <circle cx="14" cy="-1" r="4" fill="#f59e0b"/>
+    <text x="26" y="3" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="800" font-size="11" fill="#ffffff" letter-spacing="1.5">HIGH-SPEED RAIL</text>
+  </g>
+
+  <!-- Bottom Title & Subtitle -->
+  <text x="45" y="380" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="900" font-size="28" fill="#ffffff" letter-spacing="-0.5">Top 10 Fastest Trains in the World</text>
+  <text x="45" y="412" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="14" fill="#94a3b8" letter-spacing="0.2">Maglev Levitation & 600 km/h Aerodynamics</text>
+
+  <!-- Bottom Right "10 Ranked" Badge -->
+  <g transform="translate(755, 395)">
+    <text x="0" y="0" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="800" font-size="13" fill="#f59e0b" text-anchor="end" letter-spacing="1">10 RANKED ITEMS →</text>
+  </g>
+</svg>

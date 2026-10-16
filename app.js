@@ -964,12 +964,76 @@
       'Fotografia & Cinema':'tech','Cinema':'entertainment','Televisione':'entertainment','Storia della Musica':'entertainment'
     };
 
+    const articleMetadata = {
+      'top-10-sports-bikes-2026': { img: '/bikes/ducati-panigale-v4-r/angle1.webp', categoryKey: 'vehicles', badge: 'Sports Bikes', icon: 'fa-motorcycle' },
+      'top-10-luxury-yachts': { img: '/yachts/rev-ocean/angle1.webp', categoryKey: 'vehicles', badge: 'Luxury Yachts', icon: 'fa-ship' },
+      'top-10-airplanes': { img: '/airplanes/bombardier-global-8000/angle1.webp', categoryKey: 'vehicles', badge: 'Aviation', icon: 'fa-plane' },
+      'top-10-f1-cars-all-time': { img: '/cars/FerrariSF90Stradale/front-three-quarter.webp', categoryKey: 'vehicles', badge: 'Formula 1', icon: 'fa-flag-checkered' },
+      'top-10-must-have-tech-gadgets': { img: '/covers/tech-gadgets.svg', categoryKey: 'tech', badge: 'Tech Gadgets', icon: 'fa-microchip' },
+      'top-10-electric-sports-bikes': { img: '/bikes/energica-ego-rs/angle1.webp', categoryKey: 'vehicles', badge: 'Electric Bikes', icon: 'fa-bolt' },
+      'top-10-high-speed-trains': { img: '/covers/high-speed-trains.svg', categoryKey: 'vehicles', badge: 'High-Speed Rail', icon: 'fa-train' },
+      'top-10-professional-cameras': { img: '/covers/professional-cameras.svg', categoryKey: 'tech', badge: 'Photography', icon: 'fa-camera' },
+      'top-10-powerboats': { img: '/yachts/riva-130-bellissima/angle1.webp', categoryKey: 'vehicles', badge: 'Speedboats', icon: 'fa-water' },
+      'top-10-gaming-consoles': { img: '/covers/gaming-consoles.svg', categoryKey: 'tech', badge: 'Gaming Hardware', icon: 'fa-gamepad' },
+      'top-10-electric-sports-cars': { img: '/cars/Rolls-RoyceSpectre/front.webp', categoryKey: 'vehicles', badge: 'EV Performance', icon: 'fa-bolt-lightning' },
+      'top-10-smartphones': { img: '/covers/smartphones.svg', categoryKey: 'tech', badge: 'Smartphones', icon: 'fa-mobile-screen' },
+      'top-10-gaming-laptops': { img: '/covers/gaming-laptops.svg', categoryKey: 'tech', badge: 'Gaming Laptops', icon: 'fa-laptop' },
+      'top-10-pc-games': { img: '/covers/pc-games.svg', categoryKey: 'tech', badge: 'PC Gaming', icon: 'fa-desktop' },
+      'top-10-mobile-games': { img: '/covers/mobile-games.svg', categoryKey: 'tech', badge: 'Mobile Games', icon: 'fa-mobile' },
+      'top-10-most-interesting-websites': { img: '/covers/interesting-websites.svg', categoryKey: 'tech', badge: 'Web Culture', icon: 'fa-globe' },
+      'top-10-gaming-companies': { img: '/covers/gaming-companies.svg', categoryKey: 'tech', badge: 'Gaming Industry', icon: 'fa-building' },
+      'top-10-greatest-movies': { img: '/covers/greatest-movies.svg', categoryKey: 'entertainment', badge: 'Cinema', icon: 'fa-film' },
+      'top-10-bingeworthy-series': { img: '/covers/bingeworthy-series.svg', categoryKey: 'entertainment', badge: 'Television', icon: 'fa-tv' },
+      'top-10-greatest-albums': { img: '/covers/greatest-albums.svg', categoryKey: 'entertainment', badge: 'Music History', icon: 'fa-record-vinyl' }
+    };
+
+    function getArticleSlug(href) {
+      if (!href) return '';
+      const match = href.match(/\/([^\/]+)\.html(?:[?#]|$)/);
+      return match ? match[1] : '';
+    }
+
+    // Enhance all article cards (including across all localized versions)
     articleCards.forEach(card => {
+      const href = card.getAttribute('href') || '';
+      const slug = getArticleSlug(href);
+      const meta = articleMetadata[slug];
       const metaEl = card.querySelector('.meta');
       const metaText = metaEl ? metaEl.textContent.trim() : '';
-      card.dataset.category = categoryMapping[metaText] || 'other';
+
+      card.dataset.category = (meta && meta.categoryKey) || categoryMapping[metaText] || 'other';
+
+      // If card does not have thumbnail wrapper yet, inject it
+      if (!card.querySelector('.card-thumb-wrap') && meta) {
+        const titleEl = card.querySelector('h3');
+        const descEl = card.querySelector('p');
+        const title = titleEl ? titleEl.textContent : '';
+        const desc = descEl ? descEl.textContent : '';
+        const badgeText = metaText || meta.badge;
+
+        card.innerHTML = `
+          <div class="card-thumb-wrap">
+            <img src="${meta.img}" alt="${escapeHtml(title)}" class="card-thumb" loading="lazy" decoding="async">
+            <div class="card-thumb-overlay"></div>
+            <span class="card-badge"><i class="fa-solid ${meta.icon}"></i> ${escapeHtml(badgeText)}</span>
+            <span class="card-count-badge"><i class="fa-solid fa-list-ol"></i> 10 Ranked</span>
+          </div>
+          <div class="card-body">
+            <h3>${escapeHtml(title)}</h3>
+            <p>${escapeHtml(desc)}</p>
+            <div class="card-action-bar">
+              <span class="card-read-more">Read List <i class="fa-solid fa-arrow-right"></i></span>
+              <button class="vote-btn card-vote-btn" data-category="articles" data-item="${slug}" aria-label="Like article">
+                <i class="fa-solid fa-heart vote-heart"></i>
+                <span class="vote-count">0</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
     });
 
+    // Category Filter Buttons
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
@@ -979,7 +1043,7 @@
 
         articleCards.forEach(card => {
           if (filterValue === 'all' || card.dataset.category === filterValue) {
-            card.style.display = 'block';
+            card.style.display = 'flex';
             setTimeout(() => {
               card.classList.remove('filtering-out');
               card.style.position = 'relative';
@@ -987,7 +1051,7 @@
           } else {
             card.classList.add('filtering-out');
             setTimeout(() => {
-              if(card.classList.contains('filtering-out')) {
+              if (card.classList.contains('filtering-out')) {
                 card.style.display = 'none';
               }
             }, 400);
@@ -995,6 +1059,53 @@
         });
       });
     });
+
+    // Smooth scroll to articles grid
+    function smoothScrollToArticles() {
+      const recentPosts = document.getElementById('recentPosts');
+      const sc = document.getElementById('scrollContainer') || window;
+      if (recentPosts && sc !== window) {
+        sc.scrollTo({
+          top: recentPosts.offsetTop,
+          behavior: 'smooth'
+        });
+      } else if (recentPosts) {
+        recentPosts.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Explore Dock Button & Jump Pill Click Delegation
+    document.addEventListener('click', function(e) {
+      const jumpTrigger = e.target.closest('#jumpToArticlesPill, #exploreDockBtn, .tray-view-all, [data-jump="articles"]');
+      if (jumpTrigger) {
+        e.preventDefault();
+        smoothScrollToArticles();
+      }
+
+      // If user clicks "Hypercars" pill in quick bar, scroll to top
+      const carPill = e.target.closest('.quick-pill[data-pill-category="cars"]');
+      if (carPill) {
+        e.preventDefault();
+        const sc = document.getElementById('scrollContainer') || window;
+        if (sc !== window) sc.scrollTo({ top: 0, behavior: 'smooth' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    // Scroll Observer: Hide explore-dock-btn when user enters #recentPosts
+    const mainScrollContainer = document.getElementById('scrollContainer');
+    const dockBtn = document.getElementById('exploreDockBtn');
+    const recentPostsTarget = document.getElementById('recentPosts');
+    if (mainScrollContainer && dockBtn && recentPostsTarget) {
+      mainScrollContainer.addEventListener('scroll', function() {
+        const threshold = recentPostsTarget.offsetTop - 350;
+        if (mainScrollContainer.scrollTop >= threshold) {
+          dockBtn.classList.add('hidden');
+        } else {
+          dockBtn.classList.remove('hidden');
+        }
+      }, { passive: true });
+    }
 
 // Theme Toggle Logic
 document.addEventListener('click', e => {
