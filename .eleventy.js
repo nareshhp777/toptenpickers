@@ -1,6 +1,7 @@
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "app.js": "app.js" });
   eleventyConfig.addPassthroughCopy({ "style.css": "style.css" });
+  eleventyConfig.addPassthroughCopy({ "sw.js": "sw.js" });
   eleventyConfig.addPassthroughCopy({ "favicon.svg": "favicon.svg" });
   eleventyConfig.addPassthroughCopy({ "CNAME": "CNAME" });
   eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });

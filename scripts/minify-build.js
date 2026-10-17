@@ -42,6 +42,7 @@ async function main() {
   const filesToMinify = [
     path.join(SITE_DIR, 'app.js'),
     path.join(SITE_DIR, 'style.css'),
+    path.join(SITE_DIR, 'sw.js'),
   ];
 
   let minified = 0;

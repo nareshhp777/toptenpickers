@@ -5,6 +5,8 @@
  * ============================================================================ */
 
     const IMAGEKIT_CDN = 'https://ik.imagekit.io/toptenpicker';
+    const HERO_TRANSFORM = typeof window !== 'undefined' && window.innerWidth <= 768 ? '?tr=w-900,q-80' : '?tr=w-1920,q-85';
+    const THUMB_TRANSFORM = '?tr=w-240,q-80';
 
     // Region detection & unit conversion â€” multi-signal approach
     const tzMap = {
@@ -343,15 +345,15 @@
         angleNames.forEach((an, ai) => {
           const activeClass = ai === 0 ? ' active' : '';
           angleBtnsHtml += `<button class="angle-btn${activeClass}" data-angle="${ai}">
-            <img src="${IMAGEKIT_CDN}/cars/${c.folder}/${an}.webp" alt="${escapeHtml(c.name)} - ${angleLabels[ai]} view" width="120" height="80" loading="lazy" decoding="async">
+            <img src="${IMAGEKIT_CDN}/cars/${c.folder}/${an}.webp${THUMB_TRANSFORM}" alt="${escapeHtml(c.name)} - ${angleLabels[ai]} view" width="120" height="80" loading="lazy" decoding="async">
             <span class="angle-label">${angleLabels[ai]}</span>
           </button>`;
         });
 
         s.innerHTML = `
-          <div class="bg" ${i === 0 ? `style="background-image: url('${IMAGEKIT_CDN}/cars/${c.folder}/front.webp');"` : `data-bg="${IMAGEKIT_CDN}/cars/${c.folder}/front.webp"`}></div>
+          <div class="bg" ${i === 0 ? `style="background-image: url('${IMAGEKIT_CDN}/cars/${c.folder}/front.webp${HERO_TRANSFORM}');"` : `data-bg="${IMAGEKIT_CDN}/cars/${c.folder}/front.webp${HERO_TRANSFORM}"`}></div>
           <!-- SEO Image Tag: Hidden from UI, visible to Google Images -->
-          <img src="${IMAGEKIT_CDN}/cars/${c.folder}/front.webp" alt="Top 10 ${escapeHtml(c.name)} - ${escapeHtml(c.maker)} Supercar, ${escapeHtml(c.engine)}, ${escapeHtml(c.hp)}" width="2816" height="1536" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} style="display: none;">
+          <img src="${IMAGEKIT_CDN}/cars/${c.folder}/front.webp${HERO_TRANSFORM}" alt="Top 10 ${escapeHtml(c.name)} - ${escapeHtml(c.maker)} Supercar, ${escapeHtml(c.engine)}, ${escapeHtml(c.hp)}" width="2816" height="1536" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} style="display: none;">
           <div class="noise"></div>
           <div class="vignette"></div>
           <div class="grid-lines"></div>
@@ -761,7 +763,7 @@
 
       bg.classList.add('fading');
       setTimeout(() => {
-        bg.style.backgroundImage = `url('${IMAGEKIT_CDN}/cars/${c.folder}/${angleNames[idx]}.webp')`;
+        bg.style.backgroundImage = `url('${IMAGEKIT_CDN}/cars/${c.folder}/${angleNames[idx]}.webp${HERO_TRANSFORM}')`;
         bg.classList.remove('fading');
       }, 200);
 
@@ -1223,11 +1225,43 @@ setTimeout(() => {
 (function() {
   const API_BASE = 'https://toptenpicker-api.nareshhp777.workers.dev';
   const API_KEY = 'top10-client-sec-2026';
+  const VOTE_CACHE_TTL = 60 * 1000; // 60 seconds
+
+  function getCachedVotes(category) {
+    try {
+      const raw = sessionStorage.getItem('votes_cache_' + category);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (Date.now() - parsed.ts < VOTE_CACHE_TTL) {
+        return parsed.votes;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function setCachedVotes(category, votes) {
+    try {
+      sessionStorage.setItem('votes_cache_' + category, JSON.stringify({
+        votes,
+        ts: Date.now()
+      }));
+    } catch (e) {}
+  }
 
   // 1. Community Voting Engine
   function initVoting() {
     const voteButtons = document.querySelectorAll('.vote-btn');
     if (!voteButtons.length) return;
+
+    function applyVotesToButtons(cat, votes) {
+      voteButtons.forEach(btn => {
+        if (btn.dataset.category === cat) {
+          const count = votes[btn.dataset.item] || 0;
+          const countEl = btn.querySelector('.vote-count');
+          if (countEl) countEl.textContent = count;
+        }
+      });
+    }
 
     // Collect all unique categories on page
     const categories = new Set();
@@ -1245,22 +1279,22 @@ setTimeout(() => {
       }
     });
 
-    // Fetch live votes for each category from Cloudflare D1
+    // Fetch live votes for each category with cache-first strategy
     categories.forEach(cat => {
-      fetch(`${API_BASE}/api/votes?category=${encodeURIComponent(cat)}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.votes) {
-            voteButtons.forEach(btn => {
-              if (btn.dataset.category === cat) {
-                const count = data.votes[btn.dataset.item] || 0;
-                const countEl = btn.querySelector('.vote-count');
-                if (countEl) countEl.textContent = count;
-              }
-            });
-          }
-        })
-        .catch(() => {});
+      const cached = getCachedVotes(cat);
+      if (cached) {
+        applyVotesToButtons(cat, cached);
+      } else {
+        fetch(`${API_BASE}/api/votes?category=${encodeURIComponent(cat)}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.votes) {
+              setCachedVotes(cat, data.votes);
+              applyVotesToButtons(cat, data.votes);
+            }
+          })
+          .catch(() => {});
+      }
     });
 
     // Handle vote click (event delegation)
@@ -1282,13 +1316,19 @@ setTimeout(() => {
       // Optimistic UI update
       const countEl = btn.querySelector('.vote-count');
       const current = parseInt(countEl ? countEl.textContent : '0', 10) || 0;
-      if (countEl) countEl.textContent = current + 1;
+      const newCount = current + 1;
+      if (countEl) countEl.textContent = newCount;
       btn.classList.add('voted');
       const txt = btn.querySelector('.vote-text');
       if (txt) txt.textContent = 'Liked';
       const icon = btn.querySelector('.vote-heart');
       if (icon) icon.className = 'fa-solid fa-heart vote-heart';
       localStorage.setItem('voted_' + cat + '_' + item, '1');
+
+      // Update local cache immediately
+      const cachedVotes = getCachedVotes(cat) || {};
+      cachedVotes[item] = newCount;
+      setCachedVotes(cat, cachedVotes);
 
       // Send to Cloudflare Worker
       fetch(`${API_BASE}/api/vote`, {
@@ -1303,6 +1343,8 @@ setTimeout(() => {
       .then(resData => {
         if (resData && typeof resData.votes === 'number') {
           if (countEl) countEl.textContent = resData.votes;
+          cachedVotes[item] = resData.votes;
+          setCachedVotes(cat, cachedVotes);
         }
       })
       .catch(() => {});
@@ -1364,15 +1406,96 @@ setTimeout(() => {
     });
   }
 
+  // 3. Instant Page Prefetcher (Speculative & Hover Prefetching)
+  function initInstantPrefetch() {
+    // Respect user's data-saver preference or ultra-slow connections
+    if (navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType))) {
+      return;
+    }
+
+    const prefetchedUrls = new Set();
+
+    function prefetchUrl(url) {
+      if (!url) return;
+      try {
+        const parsed = new URL(url, window.location.href);
+        // Only prefetch internal links on the same origin
+        if (parsed.origin !== window.location.origin) return;
+        // Don't prefetch current page or anchor jumps
+        if (parsed.pathname === window.location.pathname) return;
+        // Ignore static assets or file downloads
+        if (parsed.pathname.match(/\.(png|jpg|jpeg|webp|svg|css|js|xml|txt|json|pdf)$/i)) return;
+        if (prefetchedUrls.has(parsed.href)) return;
+
+        prefetchedUrls.add(parsed.href);
+
+        // Native Speculation Rules API (Chrome / Edge / Chromium)
+        if (HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')) {
+          const specScript = document.createElement('script');
+          specScript.type = 'speculationrules';
+          specScript.textContent = JSON.stringify({
+            prefetch: [{ source: 'list', urls: [parsed.href] }]
+          });
+          document.head.appendChild(specScript);
+          return;
+        }
+
+        // Standard prefetch fallback
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = parsed.href;
+        link.as = 'document';
+        document.head.appendChild(link);
+      } catch (e) {}
+    }
+
+    // Prefetch on hover with a 65ms intent debounce to avoid accidental quick swipes
+    let hoverTimer = null;
+    document.addEventListener('pointerover', function(e) {
+      const anchor = e.target.closest('a[href]');
+      if (!anchor || !anchor.href) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(() => {
+        prefetchUrl(anchor.href);
+      }, 65);
+    }, { passive: true });
+
+    document.addEventListener('pointerout', function() {
+      clearTimeout(hoverTimer);
+    }, { passive: true });
+
+    // Touchstart prefetch on mobile (immediate intent)
+    document.addEventListener('touchstart', function(e) {
+      const anchor = e.target.closest('a[href]');
+      if (anchor && anchor.href) {
+        prefetchUrl(anchor.href);
+      }
+    }, { passive: true });
+  }
+
+  // 4. Service Worker Registration
+  function initServiceWorker() {
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+          .catch(() => {});
+      });
+    }
+  }
+
   // Initialize once DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initVoting();
       initNewsletter();
+      initInstantPrefetch();
+      initServiceWorker();
     });
   } else {
     initVoting();
     initNewsletter();
+    initInstantPrefetch();
+    initServiceWorker();
   }
 })();
 
