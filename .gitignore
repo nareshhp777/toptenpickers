@@ -18,3 +18,8 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Offloaded media assets (hosted on ImageKit CDN)
+cars/
+bikes/
+yachts/
+airplanes/
