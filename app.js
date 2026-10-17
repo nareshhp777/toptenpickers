@@ -4,6 +4,8 @@
  * declared inline in each index.html file.
  * ============================================================================ */
 
+    const IMAGEKIT_CDN = 'https://ik.imagekit.io/toptenpicker';
+
     // Region detection & unit conversion â€” multi-signal approach
     const tzMap = {
       'Asia/Kolkata':'IN','Asia/Calcutta':'IN','Asia/Karachi':'PK','Asia/Dhaka':'BD','Asia/Kathmandu':'NP',
@@ -341,15 +343,15 @@
         angleNames.forEach((an, ai) => {
           const activeClass = ai === 0 ? ' active' : '';
           angleBtnsHtml += `<button class="angle-btn${activeClass}" data-angle="${ai}">
-            <img src="/cars/${c.folder}/${an}.webp" alt="${escapeHtml(c.name)} - ${angleLabels[ai]} view" width="120" height="80" loading="lazy" decoding="async">
+            <img src="${IMAGEKIT_CDN}/cars/${c.folder}/${an}.webp" alt="${escapeHtml(c.name)} - ${angleLabels[ai]} view" width="120" height="80" loading="lazy" decoding="async">
             <span class="angle-label">${angleLabels[ai]}</span>
           </button>`;
         });
 
         s.innerHTML = `
-          <div class="bg" ${i === 0 ? `style="background-image: url('/cars/${c.folder}/front.webp');"` : `data-bg="/cars/${c.folder}/front.webp"`}></div>
+          <div class="bg" ${i === 0 ? `style="background-image: url('${IMAGEKIT_CDN}/cars/${c.folder}/front.webp');"` : `data-bg="${IMAGEKIT_CDN}/cars/${c.folder}/front.webp"`}></div>
           <!-- SEO Image Tag: Hidden from UI, visible to Google Images -->
-          <img src="/cars/${c.folder}/front.webp" alt="Top 10 ${escapeHtml(c.name)} - ${escapeHtml(c.maker)} Supercar, ${escapeHtml(c.engine)}, ${escapeHtml(c.hp)}" width="2816" height="1536" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} style="display: none;">
+          <img src="${IMAGEKIT_CDN}/cars/${c.folder}/front.webp" alt="Top 10 ${escapeHtml(c.name)} - ${escapeHtml(c.maker)} Supercar, ${escapeHtml(c.engine)}, ${escapeHtml(c.hp)}" width="2816" height="1536" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} style="display: none;">
           <div class="noise"></div>
           <div class="vignette"></div>
           <div class="grid-lines"></div>
@@ -759,7 +761,7 @@
 
       bg.classList.add('fading');
       setTimeout(() => {
-        bg.style.backgroundImage = `url('/cars/${c.folder}/${angleNames[idx]}.webp')`;
+        bg.style.backgroundImage = `url('${IMAGEKIT_CDN}/cars/${c.folder}/${angleNames[idx]}.webp')`;
         bg.classList.remove('fading');
       }, 200);
 
