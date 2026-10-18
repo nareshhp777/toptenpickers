@@ -126,7 +126,9 @@ layout: layouts/base.njk
         var cardTop = card.querySelector('.card-top');
         if (cardTop && !cardTop.querySelector('.vote-btn')) {
           var category = isAirplanes ? 'airplanes' : (isYachts ? 'luxury-yachts' : 'sports-bikes');
-          var itemSlug = fullName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          var imgEl = card.querySelector('img');
+          var imgMatch = imgEl ? (imgEl.getAttribute('src') || imgEl.src || '').match(/\/(?:bikes|yachts|airplanes)\/([^\/]+)\//) : null;
+          var itemSlug = (imgMatch ? imgMatch[1] : '') || fullName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || ('item-' + rankNum);
           var voteBtn = document.createElement('button');
           voteBtn.className = 'vote-btn showcase-vote-btn';
           voteBtn.dataset.category = category;
@@ -256,6 +258,10 @@ layout: layouts/base.njk
       }
 
       updateActiveRank(1);
+
+      if (typeof window.initVoting === 'function') {
+        window.initVoting();
+      }
     }
 
     if (document.readyState === 'loading') {

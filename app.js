@@ -1249,19 +1249,20 @@ setTimeout(() => {
   }
 
   // 1. Community Voting Engine
+  function applyVotesToButtons(cat, votes) {
+    const voteButtons = document.querySelectorAll('.vote-btn');
+    voteButtons.forEach(btn => {
+      if (btn.dataset.category === cat) {
+        const count = votes[btn.dataset.item] || 0;
+        const countEl = btn.querySelector('.vote-count');
+        if (countEl) countEl.textContent = count;
+      }
+    });
+  }
+
   function initVoting() {
     const voteButtons = document.querySelectorAll('.vote-btn');
     if (!voteButtons.length) return;
-
-    function applyVotesToButtons(cat, votes) {
-      voteButtons.forEach(btn => {
-        if (btn.dataset.category === cat) {
-          const count = votes[btn.dataset.item] || 0;
-          const countEl = btn.querySelector('.vote-count');
-          if (countEl) countEl.textContent = count;
-        }
-      });
-    }
 
     // Collect all unique categories on page
     const categories = new Set();
@@ -1296,60 +1297,70 @@ setTimeout(() => {
           .catch(() => {});
       }
     });
-
-    // Handle vote click (event delegation)
-    document.addEventListener('click', function(e) {
-      const btn = e.target.closest('.vote-btn');
-      if (!btn) return;
-      e.preventDefault();
-      e.stopPropagation();
-
-      const cat = btn.dataset.category;
-      const item = btn.dataset.item;
-      if (!cat || !item) return;
-
-      // Prevent duplicate voting
-      if (localStorage.getItem('voted_' + cat + '_' + item)) {
-        return;
-      }
-
-      // Optimistic UI update
-      const countEl = btn.querySelector('.vote-count');
-      const current = parseInt(countEl ? countEl.textContent : '0', 10) || 0;
-      const newCount = current + 1;
-      if (countEl) countEl.textContent = newCount;
-      btn.classList.add('voted');
-      const txt = btn.querySelector('.vote-text');
-      if (txt) txt.textContent = 'Liked';
-      const icon = btn.querySelector('.vote-heart');
-      if (icon) icon.className = 'fa-solid fa-heart vote-heart';
-      localStorage.setItem('voted_' + cat + '_' + item, '1');
-
-      // Update local cache immediately
-      const cachedVotes = getCachedVotes(cat) || {};
-      cachedVotes[item] = newCount;
-      setCachedVotes(cat, cachedVotes);
-
-      // Send to Cloudflare Worker
-      fetch(`${API_BASE}/api/vote`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Client-Key': API_KEY
-        },
-        body: JSON.stringify({ category: cat, item_id: item })
-      })
-      .then(res => res.json())
-      .then(resData => {
-        if (resData && typeof resData.votes === 'number') {
-          if (countEl) countEl.textContent = resData.votes;
-          cachedVotes[item] = resData.votes;
-          setCachedVotes(cat, cachedVotes);
-        }
-      })
-      .catch(() => {});
-    });
   }
+
+  // Expose globally so dynamic layouts (like showcase.njk) can trigger vote sync
+  window.initVoting = initVoting;
+
+  // Handle vote click (event delegation ALWAYS active globally on document)
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.vote-btn');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const cat = btn.dataset.category;
+    const item = btn.dataset.item;
+    if (!cat || !item) return;
+
+    // Provide visual feedback if user already voted
+    if (localStorage.getItem('voted_' + cat + '_' + item)) {
+      btn.classList.add('voted');
+      const icon = btn.querySelector('.vote-heart');
+      if (icon) {
+        icon.style.animation = 'none';
+        void icon.offsetWidth; // trigger reflow
+        icon.style.animation = 'heartPop 0.4s ease-out';
+      }
+      return;
+    }
+
+    // Optimistic UI update
+    const countEl = btn.querySelector('.vote-count');
+    const current = parseInt(countEl ? countEl.textContent : '0', 10) || 0;
+    const newCount = current + 1;
+    if (countEl) countEl.textContent = newCount;
+    btn.classList.add('voted');
+    const txt = btn.querySelector('.vote-text');
+    if (txt) txt.textContent = 'Liked';
+    const icon = btn.querySelector('.vote-heart');
+    if (icon) icon.className = 'fa-solid fa-heart vote-heart';
+    localStorage.setItem('voted_' + cat + '_' + item, '1');
+
+    // Update local cache immediately
+    const cachedVotes = getCachedVotes(cat) || {};
+    cachedVotes[item] = newCount;
+    setCachedVotes(cat, cachedVotes);
+
+    // Send to Cloudflare Worker
+    fetch(`${API_BASE}/api/vote`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Client-Key': API_KEY
+      },
+      body: JSON.stringify({ category: cat, item_id: item })
+    })
+    .then(res => res.json())
+    .then(resData => {
+      if (resData && typeof resData.votes === 'number') {
+        if (countEl) countEl.textContent = resData.votes;
+        cachedVotes[item] = resData.votes;
+        setCachedVotes(cat, cachedVotes);
+      }
+    })
+    .catch(() => {});
+  });
 
   // 2. Newsletter Subscription Engine
   function initNewsletter() {
