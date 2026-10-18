@@ -1455,7 +1455,6 @@ setTimeout(() => {
         const link = document.createElement('link');
         link.rel = 'prefetch';
         link.href = parsed.href;
-        link.as = 'document';
         document.head.appendChild(link);
       } catch (e) {}
     }
