@@ -3823,7 +3823,6 @@ html[dir="rtl"] .nav-pages {
       .floating-promo-banner .promo-icon::before {
         display: block !important;
         line-height: 1 !important;
-        vertical-align: middle !important;
         margin: 0 !important;
       }
       @keyframes promoIconPulse {
@@ -3883,7 +3882,6 @@ html[dir="rtl"] .nav-pages {
       .floating-promo-banner .promo-arrow::before {
         display: block !important;
         line-height: 1 !important;
-        vertical-align: middle !important;
         margin: 0 !important;
       }
       .floating-promo-banner:hover .promo-arrow {
@@ -3999,7 +3997,7 @@ html[dir="rtl"] .nav-pages {
 .light-theme .mobile-menu { background: rgba(248, 250, 252, 0.95); }
 .light-theme .mobile-menu-link { color: #0f172a; }
 .light-theme .mobile-menu-close { color: #0f172a; border-color: rgba(0,0,0,0.15); }
-.light-theme h1 { background: linear-gradient(135deg, #0f172a 30%, var(--accent2) 80%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.light-theme h1 { background: linear-gradient(135deg, #0f172a 30%, var(--accent2) 80%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .light-theme h2 { color: #0f172a; }
 .light-theme h3 { color: #1e293b; }
 .light-theme p, .light-theme ul, .light-theme ol { color: #475569; }
@@ -5393,6 +5391,7 @@ html.light-theme .bike-rank-dock,
 html.light-theme .article-hero h1 {
   background: linear-gradient(135deg, #0f172a 10%, var(--accent2) 90%) !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: #0f172a !important;
 }
@@ -5437,6 +5436,7 @@ html.light-theme .article-hero .byline {
 html.light-theme .recent-posts h2 {
   background: linear-gradient(135deg, #0f172a 10%, var(--accent2) 90%) !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: #0f172a !important;
 }
@@ -5517,6 +5517,7 @@ html.light-theme .overlay h2,
 html.light-theme .overlay .name-row h2 {
   background: linear-gradient(135deg, #0f172a 20%, var(--car-accent, var(--accent)) 80%) !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: #0f172a !important;
 }
