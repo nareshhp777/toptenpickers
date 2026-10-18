@@ -143,7 +143,7 @@
     }
     window.scrollTo(0, 0);
 
-    const loadOrder = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+    const loadOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const container = document.getElementById('container');
     const sideNav = document.getElementById('sideNav');
     const navCounter = document.getElementById('navCounter');
@@ -308,7 +308,7 @@
       preloader.classList.add('done');
     }
 
-    let currentCarRank = 10;
+    let currentCarRank = 1;
 
     function buildPage() {
       loadOrder.forEach((rank, i) => {
@@ -566,12 +566,12 @@
       if (recentPosts) recentObs.observe(recentPosts);
       if (siteFooter) recentObs.observe(siteFooter);
       // Initialize first car as loaded
-      const firstCarEl = document.getElementById('car-10');
+      const firstCarEl = document.getElementById('car-1');
       if (firstCarEl) {
         firstCarEl.dataset.bgLoaded = "true";
       }
 
-      // Ensure scroll container is strictly at top (Car #10) on load & refresh
+      // Ensure scroll container is strictly at top (Car #1) on load & refresh
       function ensureTopCar() {
         if (!window.location.hash) {
           if (scrollContainer) scrollContainer.scrollTop = 0;
